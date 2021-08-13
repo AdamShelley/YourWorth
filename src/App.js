@@ -1,23 +1,80 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import DashboardPage from "./pages/DashboardPage";
+import PortfolioPage from "./pages/PortfolioPage";
+import AccountPage from "./pages/AccountPage";
+import Header from "./components/Header";
+
+//  FAKE DATA HERE - TO REPLACE WITH REAL DATABASE STUFF
+const fakeData = {
+  id: "Adam",
+  netWorth: 58000,
+  targetWorth: 500000,
+  targetWorthDateHit: "28th March 2050",
+  lastUpdated: "2021-08-09",
+  firstCreated: "2021-06-01",
+  accounts: [
+    { name: "Vanguard", type: "Investments", amount: 45000 },
+    {
+      name: "Moneybox",
+      type: "bank",
+      amount: 10000,
+    },
+    { name: "Nationwide", type: "Savings Account", amount: 3000 },
+  ],
+  prevAccountDataSnapshots: [
+    {
+      "2021-07-01": [
+        { name: "Vanguard", type: "Investments", amount: 42000 },
+        {
+          name: "Moneybox",
+          type: "bank",
+          amount: 9000,
+        },
+        { name: "Nationwide", type: "Savings Account", amount: 3000 },
+      ],
+    },
+    {
+      "2021-06-01": [
+        { name: "Vanguard", type: "Investments", amount: 41000 },
+        {
+          name: "Moneybox",
+          type: "bank",
+          amount: 8000,
+        },
+        { name: "Nationwide", type: "Savings Account", amount: 3000 },
+      ],
+    },
+    {
+      "2021-05-01": [
+        { name: "Vanguard", type: "Investments", amount: 40000 },
+        {
+          name: "Moneybox",
+          type: "bank",
+          amount: 7000,
+        },
+        { name: "Nationwide", type: "Savings Account", amount: 2900 },
+      ],
+    },
+  ],
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/portfolio">
+            <PortfolioPage data={fakeData} />
+          </Route>
+          <Route path="/account">
+            <AccountPage />
+          </Route>
+          <Route path="/">
+            <DashboardPage data={fakeData} />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
