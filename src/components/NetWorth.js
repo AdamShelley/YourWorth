@@ -14,11 +14,12 @@ const StyledContainer = styled.div`
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   border: 1px solid var(--light-gray);
-  background-color: var(--charleston-green);
+  /* background-color: var(--charleston-green); */
+  box-shadow: 0px 3px 1px rgba(255, 255, 255, 0.5);
 
   p {
     font-size: 1rem;
-    font-weight: 100;
+    font-weight: 800;
 
     span {
       font-weight: 300;
@@ -33,8 +34,8 @@ const StyledContainer = styled.div`
     margin: 1rem;
     margin-top: 2rem;
     font-size: 3rem;
-    font-weight: 300;
-    letter-spacing: 1px;
+    font-weight: 100;
+    letter-spacing: 3px;
   }
 `;
 
