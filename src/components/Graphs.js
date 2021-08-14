@@ -102,7 +102,11 @@ const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated }) => {
         <CartesianGrid strokeDasharray="3 3" stroke="var(--cultured-2)" />
         <XAxis dataKey="date" stroke="var(--cultured)" />
         <YAxis stroke="var(--cultured)" />
-        <Tooltip />
+        <Tooltip
+          wrapperStyle={{ backgroundColor: "var(--cultured)" }}
+          labelStyle={{ color: "var(--charleston-green)" }}
+          itemStyle={{ color: "var(--slate-gray)" }}
+        />
         <Legend />
         <Line
           type="monotone"

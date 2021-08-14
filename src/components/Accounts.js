@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "./Modal";
 import { commaValue } from "../helpers/commaValue";
 
 const StyledTable = styled.table`
@@ -28,12 +29,47 @@ const StyledTable = styled.table`
     padding-left: 1rem;
   }
 
+  .box-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   td {
     padding-left: 1rem;
+
+    .box {
+      background-color: var(--cultured-2);
+      border-radius: 2px;
+      width: 25px;
+      height: 25px;
+      color: var(--gunmetal);
+      text-align: center;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0.2rem;
+
+      i {
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      &:hover {
+        background-color: var(--slate-gray);
+        color: var(--cultured);
+        transition: all 0.1s ease;
+      }
+    }
   }
 `;
 
-const Accounts = ({ accounts }) => {
+const Accounts = ({ accounts, portfolioPage }) => {
+  const [modal, setModal] = useState(false);
+  const Toggle = () => setModal(!modal);
+
   return (
     <StyledTable>
       <thead>
@@ -41,6 +77,7 @@ const Accounts = ({ accounts }) => {
           <th>Account</th>
           <th>Type</th>
           <th>Amount</th>
+          {portfolioPage && <th></th>}
         </tr>
       </thead>
       <tbody>
@@ -52,10 +89,23 @@ const Accounts = ({ accounts }) => {
               <td>{account.name}</td>
               <td>{account.type}</td>
               <td>£{number}</td>
+              {portfolioPage && (
+                <>
+                  <td className="box-buttons">
+                    <div className="box edit-box" onClick={() => Toggle()}>
+                      <i className="fas fa-search"></i>
+                    </div>
+                    <div className="box delete-box">
+                      <i className="fas fa-trash"></i>
+                    </div>
+                  </td>
+                </>
+              )}
             </tr>
           );
         })}
       </tbody>
+      <Modal show={modal} close={Toggle} />
     </StyledTable>
   );
 };
