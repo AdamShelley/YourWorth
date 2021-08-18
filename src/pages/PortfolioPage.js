@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AccountManager from "../components/AccountManager";
 import Calculations from "../components/Calculations";
 import PieChartDisplay from "../components/PieChartDisplay";
+import Graphs from "../components/Graphs";
 import { commaValue } from "../helpers/commaValue";
 
 const PortfolioContainer = styled.div`
@@ -36,6 +37,14 @@ const PieChartContainer = styled.div`
   width: 50rem;
 `;
 
+const GraphContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+`;
+
 const PortfolioPage = ({ data }) => {
   return (
     <PortfolioContainer>
@@ -47,6 +56,23 @@ const PortfolioPage = ({ data }) => {
         <PieChartDisplay accounts={data.accounts} />
       </PieChartContainer>
       <AccountManager accounts={data.accounts} />
+
+      <GraphContainer>
+        <Graphs
+          lastUpdated={data.lastUpdated}
+          data={data.accounts}
+          prevAccountDataSnapshots={data.prevAccountDataSnapshots}
+          title={"NetWorth over (3) Months"}
+        />
+
+        <Graphs
+          lastUpdated={data.lastUpdated}
+          data={data.accounts}
+          prevAccountDataSnapshots={data.prevAccountDataSnapshots}
+          title={"Project NetWorth"}
+        />
+      </GraphContainer>
+
       <Calculations data={data} />
     </PortfolioContainer>
   );

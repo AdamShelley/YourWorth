@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledTable = styled.table`
-  width: 50vw;
+  width: ${(props) => (props.fullscreen ? "90vw" : "50vw")};
   border-collapse: collapse;
   margin-top: 6rem;
   padding: 2rem;

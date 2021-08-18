@@ -4,6 +4,7 @@ import Modal from "./Modal";
 
 import { StyledTable } from "../styles/tables";
 import { commaValue } from "../helpers/commaValue";
+import { types } from "../helpers/accountTypes.js";
 
 const Accounts = ({ accounts, portfolioPage }) => {
   const [modal, setModal] = useState(false);
@@ -25,27 +26,46 @@ const Accounts = ({ accounts, portfolioPage }) => {
           const number = commaValue(account.amount);
 
           return (
-            <tr key={account.name}>
-              <td>{account.name}</td>
-              <td>{account.type}</td>
-              <td>£{number}</td>
-              {portfolioPage && (
-                <>
-                  <td className="box-buttons">
-                    <div className="box edit-box" onClick={() => Toggle()}>
-                      <i className="fas fa-search"></i>
-                    </div>
-                    <div className="box delete-box">
-                      <i className="fas fa-trash"></i>
-                    </div>
-                  </td>
-                </>
-              )}
-            </tr>
+            <>
+              <tr key={account.name}>
+                <td>{account.name}</td>
+                <td>{account.type}</td>
+                <td>£{number}</td>
+                {portfolioPage && (
+                  <>
+                    <td className="box-buttons">
+                      <div className="box edit-box" onClick={() => Toggle()}>
+                        <i className="fas fa-search"></i>
+                      </div>
+                      <div className="box delete-box">
+                        <i className="fas fa-trash"></i>
+                      </div>
+                    </td>
+                  </>
+                )}
+              </tr>
+              <Modal show={modal} close={Toggle} title={account.name}>
+                <h3>
+                  Type:
+                  <select cols="40" rows="1" default={account.type}>
+                    {types.map((item) => (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
+                </h3>
+                <h3>
+                  Amount: £
+                  <textarea cols="10" rows="1">
+                    {account.amount}
+                  </textarea>
+                </h3>
+              </Modal>
+            </>
           );
         })}
       </tbody>
-      <Modal show={modal} close={Toggle} />
     </StyledTable>
   );
 };

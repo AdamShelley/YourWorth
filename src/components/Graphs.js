@@ -7,18 +7,21 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  Area,
 } from "recharts";
 import styled from "styled-components";
 
 const StyledGraphContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 10rem;
   width: 100%;
 `;
 
-const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated }) => {
+const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated, title }) => {
   // Should export this into its own file
   const newDataArray = [];
 
@@ -87,37 +90,81 @@ const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated }) => {
   // Convert date from object into readable dates
 
   return (
-    <StyledGraphContainer>
-      <LineChart
-        width={800}
-        height={400}
-        data={finalData}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" stroke="var(--cultured-2)" />
-        <XAxis dataKey="date" stroke="var(--cultured)" />
-        <YAxis stroke="var(--cultured)" />
-        <Tooltip
-          wrapperStyle={{ backgroundColor: "var(--cultured)" }}
-          labelStyle={{ color: "var(--charleston-green)" }}
-          itemStyle={{ color: "var(--slate-gray)" }}
-        />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="Vanguard"
-          stroke="var(--cultured-2)"
-          activeDot={{ r: 8 }}
-        />
-        <Line type="monotone" dataKey="Moneybox" stroke="var(--cultured)" />
-        <Line type="monotone" dataKey="Nationwide" stroke="var(--cultured)" />
-      </LineChart>
-    </StyledGraphContainer>
+    <>
+      <StyledGraphContainer>
+        <h3>{title}</h3>
+        {/* <LineChart
+          width={600}
+          height={300}
+          data={finalData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <XAxis dataKey="date" stroke="var(--cultured)" />
+          <YAxis stroke="var(--cultured)" />
+          <Tooltip
+            wrapperStyle={{ backgroundColor: "var(--cultured)" }}
+            labelStyle={{ color: "var(--charleston-green)" }}
+            itemStyle={{ color: "var(--slate-gray)" }}
+          />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="Vanguard"
+            stroke="var(--cultured-2)"
+            activeDot={{ r: 5 }}
+          />
+          <Line type="monotone" dataKey="Moneybox" stroke="var(--cultured)" />
+          <Line type="monotone" dataKey="Nationwide" stroke="var(--cultured)" />
+        </LineChart> */}
+        <AreaChart
+          width={600}
+          height={300}
+          data={finalData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <XAxis dataKey="date" stroke="var(--cultured)" />
+          {/* <YAxis stroke="var(--cultured)" /> */}
+          <Tooltip
+            wrapperStyle={{ backgroundColor: "var(--cultured)" }}
+            labelStyle={{ color: "var(--charleston-green)" }}
+            itemStyle={{ color: "var(--slate-gray)" }}
+          />
+          {/* <Legend /> */}
+          <Area
+            type="monotone"
+            dataKey="Vanguard"
+            stroke="var(--cultured-2)"
+            activeDot={{ r: 5 }}
+            fill="#8884d8"
+            fillOpacity={0.4}
+          />
+          <Area
+            type="monotone"
+            dataKey="Moneybox"
+            stroke="var(--cultured)"
+            fill="#8884d8"
+            fillOpacity={0.3}
+          />
+          <Area
+            type="monotone"
+            dataKey="Nationwide"
+            stroke="var(--cultured)"
+            fill="#8884d8"
+            fillOpacity={0.2}
+          />
+        </AreaChart>
+      </StyledGraphContainer>
+    </>
   );
 };
 

@@ -16,10 +16,10 @@ const fakeData = {
     { name: "Vanguard", type: "Investments", amount: 45000 },
     {
       name: "Moneybox",
-      type: "bank",
+      type: "Checking",
       amount: 10000,
     },
-    { name: "Nationwide", type: "Savings Account", amount: 3000 },
+    { name: "Nationwide", type: "Savings", amount: 3000 },
   ],
   prevAccountDataSnapshots: [
     {
@@ -27,10 +27,10 @@ const fakeData = {
         { name: "Vanguard", type: "Investments", amount: 42000 },
         {
           name: "Moneybox",
-          type: "bank",
+          type: "Checking",
           amount: 9000,
         },
-        { name: "Nationwide", type: "Savings Account", amount: 3000 },
+        { name: "Nationwide", type: "Savings", amount: 3000 },
       ],
     },
     {
@@ -38,10 +38,10 @@ const fakeData = {
         { name: "Vanguard", type: "Investments", amount: 41000 },
         {
           name: "Moneybox",
-          type: "bank",
+          type: "Checking",
           amount: 8000,
         },
-        { name: "Nationwide", type: "Savings Account", amount: 3000 },
+        { name: "Nationwide", type: "Savings", amount: 3000 },
       ],
     },
     {
@@ -49,10 +49,10 @@ const fakeData = {
         { name: "Vanguard", type: "Investments", amount: 40000 },
         {
           name: "Moneybox",
-          type: "bank",
+          type: "Checking",
           amount: 7000,
         },
-        { name: "Nationwide", type: "Savings Account", amount: 2900 },
+        { name: "Nationwide", type: "Savings", amount: 2900 },
       ],
     },
   ],
@@ -67,7 +67,7 @@ function App() {
           <Route path="/portfolio">
             <PortfolioPage data={fakeData} />
           </Route>
-          <Route path="/account">
+          <Route path="/accountPage">
             <AccountPage />
           </Route>
           <Route path="/">

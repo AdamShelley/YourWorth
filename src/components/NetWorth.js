@@ -15,7 +15,7 @@ const StyledContainer = styled.div`
   font-family: "Open Sans", sans-serif;
   border: 1px solid var(--light-gray);
   /* background-color: var(--charleston-green); */
-  box-shadow: 0px 3px 1px rgba(255, 255, 255, 0.5);
+  /* box-shadow: 0px 3px 1px rgba(255, 255, 255, 0.5); */
 
   p {
     font-size: 1rem;

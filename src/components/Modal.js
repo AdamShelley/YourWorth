@@ -10,7 +10,8 @@ const ModalStylesContainer = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba($color: #000000, $alpha: 0.35);
+    /* background-color: rgba($color: #000000, $alpha: 0.35); */
+    background-color: rgba(0, 0, 0, 0.2);
     z-index: 999;
     display: flex;
     justify-content: center;
@@ -91,19 +92,21 @@ const ModalStylesContainer = styled.div`
   }
 `;
 
-const Modal = ({ show, close }) => {
+const Modal = (props) => {
+  const { show, close, title } = props;
+
   const content = (
     <ModalStylesContainer>
       {show && (
         <div className="modalContainer" onClick={() => close()}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <header className="modal_header">
-              <h2 className="modal_header-title">Modal Title</h2>
+              <h2 className="modal_header-title">{title}</h2>
               <button className="close" onClick={() => close()}>
                 X
               </button>
             </header>
-            <main className="modal_content">This is modal content</main>
+            <main className="modal_content">{props.children}</main>
             <footer className="modal_footer">
               <button className="modal-close" onClick={() => close()}>
                 Cancel

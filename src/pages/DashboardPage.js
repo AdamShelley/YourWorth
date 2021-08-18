@@ -4,6 +4,7 @@ import styled from "styled-components";
 import NetWorth from "../components/NetWorth";
 import Accounts from "../components/Accounts";
 import Graphs from "../components/Graphs";
+import PieChartDisplay from "../components/PieChartDisplay";
 
 const StyledMainContainer = styled.main`
   min-height: 80vh;
@@ -11,6 +12,11 @@ const StyledMainContainer = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const PieChartContainer = styled.div`
+  height: 25rem;
+  width: 50rem;
 `;
 
 const DashboardPage = ({ data }) => {
@@ -22,12 +28,16 @@ const DashboardPage = ({ data }) => {
         dateUpdated={data.lastUpdated}
         targetWorthHit={data.targetWorthDateHit}
       />
-      <Accounts accounts={data.accounts} />
-      <Graphs
+
+      {/* <Graphs
         lastUpdated={data.lastUpdated}
         data={data.accounts}
         prevAccountDataSnapshots={data.prevAccountDataSnapshots}
-      />
+      /> */}
+      <PieChartContainer>
+        <PieChartDisplay accounts={data.accounts} />
+      </PieChartContainer>
+      <Accounts accounts={data.accounts} />
     </StyledMainContainer>
   );
 };
