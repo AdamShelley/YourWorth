@@ -35,7 +35,7 @@ const fakeData = {
     },
     {
       "2021-06-01": [
-        { name: "Vanguard", type: "Investments", amount: 41000 },
+        { name: "Vanguard", type: "Investments", amount: 20000 },
         {
           name: "Moneybox",
           type: "Checking",
@@ -46,7 +46,7 @@ const fakeData = {
     },
     {
       "2021-05-01": [
-        { name: "Vanguard", type: "Investments", amount: 40000 },
+        { name: "Vanguard", type: "Investments", amount: 10000 },
         {
           name: "Moneybox",
           type: "Checking",

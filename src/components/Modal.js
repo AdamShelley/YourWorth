@@ -67,7 +67,7 @@ const ModalStylesContainer = styled.div`
         button {
           float: right;
           padding: 0.5rem;
-
+          cursor: pointer;
           border-radius: 8px;
         }
         .modal-close {

@@ -28,12 +28,6 @@ const DashboardPage = ({ data }) => {
         dateUpdated={data.lastUpdated}
         targetWorthHit={data.targetWorthDateHit}
       />
-
-      {/* <Graphs
-        lastUpdated={data.lastUpdated}
-        data={data.accounts}
-        prevAccountDataSnapshots={data.prevAccountDataSnapshots}
-      /> */}
       <PieChartContainer>
         <PieChartDisplay accounts={data.accounts} />
       </PieChartContainer>
