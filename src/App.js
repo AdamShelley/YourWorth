@@ -12,6 +12,7 @@ const fakeData = {
   targetWorthDateHit: "28th March 2050",
   lastUpdated: "2021-08-09",
   firstCreated: "2021-06-01",
+  accountList: ["Vanguard", "Nationwide", "Moneybox"],
   accounts: [
     { name: "Vanguard", type: "Investments", amount: 45000 },
     {

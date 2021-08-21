@@ -14,6 +14,7 @@ const standardizeData = (data, snapShotDate) => {
       newDataArray.push(temp);
     }
 
+    // Add the rest of the accounts to the latest date
     newDataArray[0] = {
       ...newDataArray[0],
       [acc.name]: acc.amount,

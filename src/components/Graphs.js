@@ -12,7 +12,14 @@ const StyledGraphContainer = styled.div`
   width: 100%;
 `;
 
-const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated, title }) => {
+const Graphs = ({
+  data,
+  prevAccountDataSnapshots,
+  lastUpdated,
+  title,
+  accountList,
+  projected,
+}) => {
   // Functions to format data from Data array for Recharts
   const newData = standardizeData(data, lastUpdated);
   const prevData = getPrevData(prevAccountDataSnapshots);
@@ -22,9 +29,16 @@ const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated, title }) => {
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
   // Convert date from object into readable dates
+  finalData.forEach((snapshot) => {
+    const d = new Date(Date.parse(snapshot.date));
+    const m = d.toLocaleDateString("en-US", { month: "short" });
+    const year = d.toLocaleDateString("en-us", { year: "2-digit" });
 
-  // Dynamically create account list
-  const accountList = ["Vanguard", "Moneybox", "Nationwide"];
+    const newDate = `${m}-${year}`;
+    console.log(newDate);
+
+    snapshot["date"] = newDate;
+  });
 
   return (
     <>
@@ -38,20 +52,27 @@ const Graphs = ({ data, prevAccountDataSnapshots, lastUpdated, title }) => {
           margin={{
             top: 5,
             right: 30,
-            left: 20,
-            bottom: 5,
+            left: 50,
+            bottom: 30,
           }}
         >
           <XAxis
             dataKey="date"
             stroke="var(--cultured)"
             allowDuplicatedCategory={false}
+            interval={0}
+            dy={10}
+            padding={{ left: 5, right: 5 }}
+            tick={{ fontSize: "0.8rem" }}
           />
 
           <Tooltip
             wrapperStyle={{ backgroundColor: "var(--cultured)" }}
-            labelStyle={{ color: "var(--charleston-green)" }}
-            itemStyle={{ color: "var(--slate-gray)" }}
+            labelStyle={{
+              color: "var(--charleston-green)",
+              fontSize: "0.9rem",
+            }}
+            itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
           />
 
           {accountList.map((acc, index) => {

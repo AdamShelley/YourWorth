@@ -61,15 +61,18 @@ const PortfolioPage = ({ data }) => {
         <Graphs
           lastUpdated={data.lastUpdated}
           data={data.accounts}
+          accountList={data.accountList}
           prevAccountDataSnapshots={data.prevAccountDataSnapshots}
           title={"NetWorth over (3) Months"}
         />
 
         <Graphs
+          projected
           lastUpdated={data.lastUpdated}
           data={data.accounts}
+          accountList={data.accountList}
           prevAccountDataSnapshots={data.prevAccountDataSnapshots}
-          title={"Project NetWorth"}
+          title={"Projected NetWorth"}
         />
       </GraphContainer>
 
