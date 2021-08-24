@@ -1,9 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 
 import { StyledTable } from "../styles/tables";
 
-const Calculations = ({ data }) => {
+// FAKE VALUES
+
+const targetAge = 50;
+
+const Calculations = ({ data, targetWorth }) => {
   return (
     <>
       <StyledTable fullscreen>
@@ -22,36 +25,93 @@ const Calculations = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Year 1</td>
-            <td>30</td>
-            <td>£58,000</td>
-            <td>£60,000</td>
-            <td>£62,000</td>
-            <td>£64,000</td>
-            <td>£74,000</td>
-            <td>£1000</td>
-          </tr>
-          <tr>
-            <td>Year 2</td>
-            <td>31</td>
-            <td>£58,000</td>
-            <td>£60,000</td>
-            <td>£62,000</td>
-            <td>£64,000</td>
-            <td>£74,000</td>
-            <td>£1000</td>
-          </tr>
-          <tr>
-            <td>Year 3</td>
-            <td>32</td>
-            <td>£58,000</td>
-            <td>£60,000</td>
-            <td>£62,000</td>
-            <td>£64,000</td>
-            <td>£74,000</td>
-            <td>£1000</td>
-          </tr>
+          {data.map((year, index) => {
+            const targetYearHit = year.age === targetAge;
+
+            return (
+              <tr
+                key={`table-number: ${index}`}
+                className={targetYearHit ? "target-year-hit" : ""}
+              >
+                <td>{year.year}</td>
+                <td>{year.age}</td>
+                <td>
+                  £
+                  {year.total.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td
+                  className={
+                    year.three >= targetWorth && !targetYearHit
+                      ? "target-worth-hit"
+                      : targetYearHit
+                      ? "target-year-hit-box"
+                      : ""
+                  }
+                >
+                  £
+                  {year.three.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td
+                  className={
+                    year.five >= targetWorth && !targetYearHit
+                      ? "target-worth-hit"
+                      : targetYearHit
+                      ? "target-year-hit-box"
+                      : ""
+                  }
+                >
+                  £
+                  {year.five.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td
+                  className={
+                    year.seven >= targetWorth && !targetYearHit
+                      ? "target-worth-hit"
+                      : targetYearHit
+                      ? "target-year-hit-box"
+                      : ""
+                  }
+                >
+                  £
+                  {year.seven.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td
+                  className={
+                    year.ten >= targetWorth && !targetYearHit
+                      ? "target-worth-hit"
+                      : targetYearHit
+                      ? "target-year-hit-box"
+                      : ""
+                  }
+                >
+                  £
+                  {year.ten.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>
+                  £
+                  {year.monthlyAdd.toLocaleString("en-us", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </StyledTable>
       <div style={{ marginBottom: "20vh" }}></div>

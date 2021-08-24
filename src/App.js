@@ -7,9 +7,12 @@ import Header from "./components/Header";
 //  FAKE DATA HERE - TO REPLACE WITH REAL DATABASE STUFF
 const fakeData = {
   id: "Adam",
+  age: 29,
   netWorth: 58000,
   targetWorth: 500000,
-  targetWorthDateHit: "28th March 2050",
+  targetWorthDateHit: "2042-01-01",
+  ageToRetire: 50,
+  drawDownAmount: 1700,
   lastUpdated: "2021-08-09",
   firstCreated: "2021-06-01",
   accountList: ["Vanguard", "Nationwide", "Moneybox"],

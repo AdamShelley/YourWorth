@@ -5,6 +5,7 @@ import Calculations from "../components/Calculations";
 import PieChartDisplay from "../components/PieChartDisplay";
 import Graphs from "../components/Graphs";
 import { commaValue } from "../helpers/commaValue";
+import { calculateProjections } from "../helpers/calculateProjections";
 
 const PortfolioContainer = styled.div`
   display: flex;
@@ -45,7 +46,13 @@ const GraphContainer = styled.div`
   max-width: 100%;
 `;
 
+// Make this dynamic later
+const fakeMonthlyIncrease = 1000;
+
 const PortfolioPage = ({ data }) => {
+  const calculatedProjections = calculateProjections(data, fakeMonthlyIncrease);
+
+  console.log(calculatedProjections);
   return (
     <PortfolioContainer>
       <h2>Portfolio</h2>
@@ -69,14 +76,18 @@ const PortfolioPage = ({ data }) => {
         <Graphs
           projected
           lastUpdated={data.lastUpdated}
-          data={data.accounts}
+          data={calculatedProjections}
           accountList={data.accountList}
           prevAccountDataSnapshots={data.prevAccountDataSnapshots}
           title={"Projected NetWorth"}
+          targetWorth={data.targetWorth}
         />
       </GraphContainer>
 
-      <Calculations data={data} />
+      <Calculations
+        targetWorth={data.targetWorth}
+        data={calculatedProjections}
+      />
     </PortfolioContainer>
   );
 };

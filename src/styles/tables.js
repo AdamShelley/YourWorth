@@ -61,6 +61,24 @@ const StyledTable = styled.table`
       }
     }
   }
+
+  .target-worth-hit {
+    border: 1px solid black;
+    background-color: green !important;
+    border-radius: 2px;
+    z-index: 1;
+  }
+  .target-year-hit {
+    border: 2px solid var(--cultured) !important;
+    z-index: 999;
+
+    background-color: var(--slate-gray);
+  }
+
+  .target-year-hit-box {
+    border-top: 2px solid var(--cultured) !important;
+    border-bottom: 2px solid var(--cultured) !important;
+  }
 `;
 
 export { StyledTable };
