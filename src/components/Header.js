@@ -78,11 +78,11 @@ const Header = () => {
               Dashboard
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink activeClassName="selected" to="/portfolio">
               Portfolio
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink activeClassName="selected" to="/account">
               Account

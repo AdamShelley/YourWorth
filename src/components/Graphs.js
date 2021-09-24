@@ -5,7 +5,6 @@ import {
   AreaChart,
   Area,
   LineChart,
-  CartesianGrid,
   YAxis,
   Legend,
   Line,
@@ -116,8 +115,9 @@ const Graphs = ({
           >
             <XAxis dataKey="age" interval={10} />
             <YAxis
-              domain={[(dataMin) => -100000, (dataMax) => 1000000]}
+              domain={[(dataMin) => -100000, (dataMax) => 2000000]}
               type="number"
+              allowDataOverflow={true}
             />
             <Tooltip />
             <Legend />

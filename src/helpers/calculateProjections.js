@@ -34,7 +34,6 @@ const calculateProjections = (currentAccounts, monthlyIncrease) => {
     }
 
     if (age < ageToRetire) {
-      console.log("younger than " + age);
       // Still need to round these numbers to 2 decimal places
       three *= 1.03;
       five *= 1.05;
@@ -51,8 +50,6 @@ const calculateProjections = (currentAccounts, monthlyIncrease) => {
 
       total += yearlyInput;
     } else {
-      console.log("older than " + age);
-
       three *= 1.03;
       five *= 1.05;
       seven *= 1.07;

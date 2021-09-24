@@ -1,14 +1,86 @@
-import React from "react";
-
+import React, { useState } from "react";
+import styled from "styled-components";
 import { StyledTable } from "../styles/tables";
+
+import Input from "../components/Input.js";
+import { calculateProjections } from "../helpers/calculateProjections";
+
+const StyledInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin-top: 5rem;
+  padding: 1rem 2rem;
+  color: black;
+  background-color: var(--davys-grey);
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+
+  h4 {
+    color: var(--cultured);
+    align-self: flex-start;
+  }
+
+  div {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
 // FAKE VALUES
 
-const targetAge = 50;
+const Calculations = ({ data, updateCalcs, accountInformation }) => {
+  const { ageToRetire, drawDownAmount, targetWorth } = accountInformation;
 
-const Calculations = ({ data, targetWorth }) => {
+  const [monthlyAdd, setMonthlyAdd] = useState(1500);
+  const [retirementGoal, setRetirementGoal] = useState(targetWorth);
+  const [retirementAge, setRetirementAge] = useState(ageToRetire);
+  const [drawdown, setDrawdown] = useState(drawDownAmount);
+
+  const updateCalculations = () => {
+    const vals = {
+      monthlyAdd,
+      retirementAge,
+      retirementGoal,
+      drawdown,
+    };
+
+    updateCalcs(vals);
+  };
+
   return (
     <>
+      <StyledInputContainer>
+        <h4>Modify your projections</h4>
+        <div>
+          <Input
+            label="Monthly Added"
+            currentValue={monthlyAdd}
+            updateVal={setMonthlyAdd}
+          />
+          <Input
+            label="retirement goal amount"
+            currentValue={retirementGoal}
+            updateVal={setRetirementGoal}
+          />
+          <Input
+            label="Target Retirement Age"
+            currentValue={retirementAge}
+            updateVal={setRetirementAge}
+          />
+          <Input
+            label="Drawdown per month"
+            currentValue={drawdown}
+            updateVal={setDrawdown}
+          />
+        </div>
+        <button type="submit" onClick={updateCalculations}>
+          Update
+        </button>
+      </StyledInputContainer>
       <StyledTable fullscreen>
         <caption>Projection</caption>
 
@@ -26,7 +98,7 @@ const Calculations = ({ data, targetWorth }) => {
         </thead>
         <tbody>
           {data.map((year, index) => {
-            const targetYearHit = year.age === targetAge;
+            const targetYearHit = year.age === retirementAge;
 
             return (
               <tr

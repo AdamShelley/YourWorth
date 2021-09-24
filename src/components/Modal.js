@@ -18,7 +18,7 @@ const ModalStylesContainer = styled.div`
     align-items: center;
 
     .modal {
-      width: 30vw;
+      min-width: 25vw;
       height: auto;
       background-color: #fff;
       padding: 2rem;
@@ -32,26 +32,11 @@ const ModalStylesContainer = styled.div`
       &_header {
         position: relative;
         border-bottom: 1px solid #dddddd;
+
         &-title {
           text-align: center;
-        }
-
-        .close {
-          position: absolute;
-          top: 0;
-          right: 0;
-          background: transparent;
-
-          img {
-            width: 1rem;
-            height: auto;
-            transition: all 0.3s;
-          }
-          &:hover {
-            img {
-              transform: scale(1.1);
-            }
-          }
+          margin-bottom: 1rem;
+          font-weight: 100;
         }
       }
 
@@ -63,25 +48,33 @@ const ModalStylesContainer = styled.div`
       &_footer {
         padding: 2rem 0;
         padding-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         button {
-          float: right;
-          padding: 0.5rem;
+          padding: 0.5rem 1rem;
           cursor: pointer;
-          border-radius: 8px;
+          border-radius: 2px;
         }
         .modal-close {
-          background-color: transparent;
-          font-weight: 600;
+          font-weight: 300;
+          border: 1px solid var(--slate-gray);
+          background-color: var(--cultured);
+          color: var(--slate-gray);
+          border-radius: 2px;
+          transition: all 0.1s ease-in;
 
           &:hover {
-            color: rgba(54, 67, 72, 0.8);
+            color: var(--charleston-green);
+            border: 1px solid var(--charleston-green);
           }
         }
         .submit {
           margin-right: 1rem;
-          background-color: #364348;
-          color: #fff;
+          border: 1px solid var(--charleston-green);
+          background-color: var(--charleston-green);
+          color: var(--cultured);
 
           &:hover {
             background-color: rgba(54, 67, 72, 0.8);
@@ -93,7 +86,7 @@ const ModalStylesContainer = styled.div`
 `;
 
 const Modal = (props) => {
-  const { show, close, title } = props;
+  const { show, close, title, submitHandler } = props;
 
   const content = (
     <ModalStylesContainer>
@@ -102,17 +95,15 @@ const Modal = (props) => {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <header className="modal_header">
               <h2 className="modal_header-title">{title}</h2>
-              <button className="close" onClick={() => close()}>
-                X
-              </button>
             </header>
             <main className="modal_content">{props.children}</main>
             <footer className="modal_footer">
+              <button className="submit" onClick={submitHandler}>
+                Submit
+              </button>
               <button className="modal-close" onClick={() => close()}>
                 Cancel
               </button>
-
-              <button className="submit">Submit</button>
             </footer>
           </div>
         </div>

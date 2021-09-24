@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
-import PortfolioPage from "./pages/PortfolioPage";
 import AccountPage from "./pages/AccountPage";
 import Header from "./components/Header";
 
@@ -68,12 +67,10 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/portfolio">
-            <PortfolioPage data={fakeData} />
-          </Route>
-          <Route path="/accountPage">
+          <Route path="/account">
             <AccountPage />
           </Route>
+
           <Route path="/">
             <DashboardPage data={fakeData} />
           </Route>

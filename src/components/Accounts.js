@@ -6,11 +6,47 @@ import { StyledTable } from "../styles/tables";
 import { commaValue } from "../helpers/commaValue";
 import { types } from "../helpers/accountTypes.js";
 
+const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 100%;
+    margin-top: 1rem;
+
+    span {
+      padding: 0.5rem 0.4rem;
+      font-weight: 100;
+    }
+
+    select,
+    textarea {
+      width: 50%;
+      padding: 0.5rem 0.4rem;
+      resize: none;
+      border: 1px solid var(--slate-gray);
+      border-radius: 2px;
+      color: var(--charleston-green);
+      font-weight: 400;
+    }
+  }
+`;
+
 const Accounts = ({ accounts, portfolioPage }) => {
   const [modal, setModal] = useState(false);
   const [accountSelected, setAccountSelected] = useState();
+  const [confirmSubmission, setConfirmSubmission] = useState(false);
 
   const Toggle = () => setModal(!modal);
+  const confirmSub = () => {
+    setModal(false);
+    setConfirmSubmission(true);
+  };
 
   // Toggle the modal and store selected account
   const editAccount = (acc) => {
@@ -60,31 +96,47 @@ const Accounts = ({ accounts, portfolioPage }) => {
           );
         })}
       </tbody>
-
       {/* Modal for Edit */}
       {accountSelected && (
-        <Modal show={modal} close={Toggle} title={accountSelected.name}>
-          <h3>
-            Type:
-            <select cols="40" rows="1" defaultValue={accountSelected.type}>
-              {types.map((item, index) => (
-                <option key={`option-${index}`} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </h3>
-          <h3>
-            Amount: £
-            <textarea
-              cols="10"
-              rows="1"
-              defaultValue={accountSelected.amount}
-            ></textarea>
-          </h3>
+        <Modal
+          show={modal}
+          close={Toggle}
+          title={accountSelected.name}
+          submitHandler={confirmSub}
+        >
+          <ModalContent>
+            <h3>
+              <span>Type:</span>
+              <select cols="40" rows="1" defaultValue={accountSelected.type}>
+                {types.map((item, index) => (
+                  <option key={`option-${index}`} value={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </h3>
+            <h3>
+              <span>Amount: </span>
+              <textarea
+                cols="10"
+                rows="1"
+                defaultValue={accountSelected.amount}
+              ></textarea>
+            </h3>
+          </ModalContent>
         </Modal>
+      )}
+      {/* Modal for Delete  */}
+      {/* Are you sure modal */}
 
-        // Modal for Delete
+      {confirmSubmission && (
+        <Modal
+          show={confirmSubmission}
+          close={() => setConfirmSubmission(false)}
+          title={"Are you sure you want to submit?"}
+        >
+          You are about to make the following changes:{" "}
+        </Modal>
       )}
     </StyledTable>
   );
