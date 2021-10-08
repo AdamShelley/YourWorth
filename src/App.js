@@ -68,7 +68,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/account">
-            <AccountPage />
+            <AccountPage data={fakeData} />
           </Route>
 
           <Route path="/">

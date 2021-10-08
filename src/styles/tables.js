@@ -3,11 +3,19 @@ import styled from "styled-components";
 const StyledTable = styled.table`
   width: ${(props) => (props.fullscreen ? "90vw" : "50vw")};
   border-collapse: collapse;
-  margin-top: 6rem;
+  margin-top: 1rem;
   padding: 2rem;
   text-align: left;
   letter-spacing: 1px;
   color: var(--cultured);
+  /* background-color: var(--davys-grey); */
+  background-color: var(--cards);
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Open Sans", serif;
+
+  caption {
+    margin-bottom: 1rem;
+  }
 
   thead > tr:first-child {
     font-weight: 500;
@@ -22,7 +30,11 @@ const StyledTable = styled.table`
   }
 
   th {
-    background-color: #d4d4d4;
+    /* background-color: #d4d4d4; */
+    background-color: var(--card-header);
+    border: 1px solid var(--card-header);
+    color: var(--cultured);
+    font-weight: 100;
     padding-left: 1rem;
   }
 
@@ -34,6 +46,8 @@ const StyledTable = styled.table`
 
   td {
     padding-left: 1rem;
+
+    font-size: 0.8rem;
 
     .box {
       background-color: var(--cultured-2);

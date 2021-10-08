@@ -11,11 +11,13 @@ const StyledInputContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 80%;
-  margin-top: 5rem;
+  margin-top: 1rem;
   padding: 1rem 2rem;
   color: black;
-  background-color: var(--davys-grey);
+  /* background-color: var(--davys-grey); */
+  background-color: var(--cards);
   box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 10rem;
 
   h4 {
     color: var(--cultured);
@@ -27,6 +29,7 @@ const StyledInputContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
   }
 `;
 
@@ -60,21 +63,25 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             label="Monthly Added"
             currentValue={monthlyAdd}
             updateVal={setMonthlyAdd}
+            dataType="number"
           />
           <Input
             label="retirement goal amount"
             currentValue={retirementGoal}
             updateVal={setRetirementGoal}
+            dataType="number"
           />
           <Input
             label="Target Retirement Age"
             currentValue={retirementAge}
             updateVal={setRetirementAge}
+            dataType="number"
           />
           <Input
             label="Drawdown per month"
             currentValue={drawdown}
             updateVal={setDrawdown}
+            dataType="number"
           />
         </div>
         <button type="submit" onClick={updateCalculations}>
@@ -82,7 +89,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
         </button>
       </StyledInputContainer>
       <StyledTable fullscreen>
-        <caption>Projection</caption>
+        {/* <caption>Projection</caption> */}
 
         <thead>
           <tr>

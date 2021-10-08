@@ -8,6 +8,10 @@
   --davys-grey: #495057ff;
   --gunmetal: #343a40ff;
   --charleston-green: #212529ff;
+
+  --background: #2d2d39;
+  --cards: #3f4156;
+  --card-header: #696d97;
 }
 
 *,
@@ -20,7 +24,8 @@
 
 body {
   font-family: "Mate SC", serif;
-  background-color: var(--gunmetal);
+  /* background-color: var(--gunmetal); */
+  background-color: var(--background);
   color: var(--cultured);
 }
 
@@ -29,7 +34,4 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-main {
 }
