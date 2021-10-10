@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
 import Header from "./components/Header";
+
+import { getPrevData } from "./helpers/graphCalcs";
 
 //  FAKE DATA HERE - TO REPLACE WITH REAL DATABASE STUFF
 const fakeData = {
