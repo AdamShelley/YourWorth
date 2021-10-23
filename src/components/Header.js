@@ -87,6 +87,11 @@ const Header = () => {
             <NavLink activeClassName="selected" to="/account">
               Account
             </NavLink>
+            <li>
+              <NavLink exact activeClassName="selected" to="/signup">
+                Signup
+              </NavLink>
+            </li>
           </li>
         </ul>
       </nav>

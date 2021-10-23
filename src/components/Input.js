@@ -38,7 +38,14 @@ const InputContainer = styled.div`
   }
 `;
 
-const Input = ({ label, currentValue, updateVal, dataType, flex }) => {
+const Input = ({
+  label,
+  currentValue,
+  updateVal,
+  dataType,
+  flex,
+  leftSide,
+}) => {
   return (
     <InputContainer flex>
       <label htmlFor={label}>{label}</label>

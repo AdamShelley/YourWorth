@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
+import SignupPage from "./pages/SignupPage";
 import Header from "./components/Header";
 
 import { getPrevData } from "./helpers/graphCalcs";
@@ -73,7 +73,9 @@ function App() {
           <Route path="/account">
             <AccountPage data={fakeData} />
           </Route>
-
+          <Route path="/signup">
+            <SignupPage data={fakeData} />
+          </Route>
           <Route path="/">
             <DashboardPage data={fakeData} />
           </Route>
