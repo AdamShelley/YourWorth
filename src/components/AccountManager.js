@@ -86,18 +86,24 @@ const AccountManager = ({ accounts }) => {
             currentValue={"test"}
             updateVal={() => {}}
             dataType="text"
+            errorText={"Please enter a correct email address"}
+            onInput={() => {}}
           />
           <Input
             label="Account type"
             currentValue={"Investment"}
             updateVal={() => {}}
             dataType="text"
+            errorText={"Please enter a correct email address"}
+            onInput={() => {}}
           />
           <Input
             label="Account balance"
             currentValue={5000}
             updateVal={() => {}}
             dataType="number"
+            errorText={"Please enter a correct email address"}
+            onInput={() => {}}
           />
         </div>
       </Modal>

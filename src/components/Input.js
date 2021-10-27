@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 import styled from "styled-components";
+import { validate } from "../helpers/validators";
 
 const InputContainer = styled.div`
   color: var(--cultured);
@@ -36,25 +37,82 @@ const InputContainer = styled.div`
     appearance: none;
     margin: 0;
   }
+
+  .input-invalid {
+    color: red;
+  }
 `;
 
+const inputReducer = (state, action) => {
+  switch (action.type) {
+    case "CHANGE":
+      return {
+        ...state,
+        value: action.value,
+        valid: validate(action.value, action.validators),
+      };
+    case "BLUR":
+      return {
+        ...state,
+        isBlurred: true,
+      };
+    default:
+      return state;
+  }
+};
+
 const Input = ({
+  id,
   label,
-  currentValue,
-  updateVal,
   dataType,
-  flex,
-  leftSide,
+  errorText,
+  validators,
+  onInput,
+  initialValue,
+  initialValid,
 }) => {
+  const [inputState, dispatch] = useReducer(inputReducer, {
+    value: initialValue || "",
+    valid: initialValid || false,
+  });
+
+  const { value, valid } = inputState;
+
+  useEffect(() => {
+    onInput(id, value, valid);
+  }, [id, onInput, value, valid]);
+
+  const changeHandler = (event) => {
+    dispatch({
+      type: "CHANGE",
+      value: event.target.value,
+      validators: validators,
+      isBlurred: false,
+    });
+  };
+
+  const blurHandler = () => {
+    dispatch({
+      type: "BLUR",
+    });
+  };
+
   return (
-    <InputContainer flex>
+    <InputContainer
+      flex
+      className={`${
+        !inputState.valid && inputState.isBlurred && "input-invalid"
+      }`}
+    >
       <label htmlFor={label}>{label}</label>
       <input
         name={label}
         type={dataType}
-        value={currentValue}
-        onChange={(e) => updateVal(e.target.value)}
+        value={inputState.value}
+        onChange={changeHandler}
+        onBlur={blurHandler}
       />
+      {!inputState.valid && inputState.isBlurred && <p>{errorText}</p>}
     </InputContainer>
   );
 };

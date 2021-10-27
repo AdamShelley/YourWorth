@@ -64,24 +64,28 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             currentValue={monthlyAdd}
             updateVal={setMonthlyAdd}
             dataType="number"
+            onInput={() => {}}
           />
           <Input
             label="retirement goal amount"
             currentValue={retirementGoal}
             updateVal={setRetirementGoal}
             dataType="number"
+            onInput={() => {}}
           />
           <Input
             label="Target Retirement Age"
             currentValue={retirementAge}
             updateVal={setRetirementAge}
             dataType="number"
+            onInput={() => {}}
           />
           <Input
             label="Drawdown per month"
             currentValue={drawdown}
             updateVal={setDrawdown}
             dataType="number"
+            onInput={() => {}}
           />
         </div>
         <button type="submit" onClick={updateCalculations}>

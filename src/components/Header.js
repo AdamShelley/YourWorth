@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { AuthenticationContext } from "../context/authenticate-context";
 
 const StyledHeader = styled.div`
   display: flex;
@@ -66,6 +67,8 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
+  const auth = useContext(AuthenticationContext);
+
   return (
     <StyledHeader>
       <nav>
@@ -78,20 +81,18 @@ const Header = () => {
               Dashboard
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink activeClassName="selected" to="/portfolio">
-              Portfolio
-            </NavLink>
-          </li> */}
-          <li>
-            <NavLink activeClassName="selected" to="/account">
-              Account
-            </NavLink>
+
+          {auth.isloggedin && (
             <li>
-              <NavLink exact activeClassName="selected" to="/signup">
-                Signup
+              <NavLink activeClassName="selected" to="/account">
+                Account
               </NavLink>
             </li>
+          )}
+          <li>
+            <NavLink exact activeClassName="selected" to="/signup">
+              Signup
+            </NavLink>
           </li>
         </ul>
       </nav>

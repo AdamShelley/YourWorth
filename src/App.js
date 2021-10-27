@@ -1,8 +1,10 @@
+import { useState, useCallback } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
 import SignupPage from "./pages/SignupPage";
 import Header from "./components/Header";
+import { AuthenticationContext } from "./context/authenticate-context";
 
 import { getPrevData } from "./helpers/graphCalcs";
 
@@ -65,22 +67,35 @@ const fakeData = {
 };
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
   return (
     <div className="App">
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/account">
-            <AccountPage data={fakeData} />
-          </Route>
-          <Route path="/signup">
-            <SignupPage data={fakeData} />
-          </Route>
-          <Route path="/">
-            <DashboardPage data={fakeData} />
-          </Route>
-        </Switch>
-      </Router>
+      <AuthenticationContext.Provider
+        value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      >
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/account">
+              <AccountPage data={fakeData} />
+            </Route>
+            <Route path="/signup">
+              <SignupPage data={fakeData} />
+            </Route>
+            <Route path="/">
+              <DashboardPage data={fakeData} />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthenticationContext.Provider>
     </div>
   );
 }

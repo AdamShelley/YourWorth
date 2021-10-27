@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Input from "../components/Input";
+import Loader from "react-loader-spinner";
+
+import { useForm } from "../hooks/form-hook";
+import { AuthenticationContext } from "../context/authenticate-context";
+
+import {
+  emailValidator,
+  minLengthValidator,
+  requiredValidator,
+} from "../helpers/validators";
 
 const SignupContainer = styled.div`
   display: flex;
@@ -25,65 +35,142 @@ const SignupContainer = styled.div`
   button {
     padding: 0.5rem 1rem;
   }
+
+  button:disabled {
+    background-color: red;
+    color: #ccc;
+  }
 `;
 
 const SignupPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginMode, setLoginMode] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const auth = useContext(AuthenticationContext);
+
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      email: {
+        value: "",
+        valid: false,
+      },
+      password: {
+        value: "",
+        valid: false,
+      },
+    },
+    false
+  );
+
+  // Switch between login and signup
+  const switchModeHandler = () => {
+    if (!loginMode) {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: undefined,
+        },
+        formState.inputs.email.valid && formState.inputs.password.valid
+      );
+    } else {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            value: "",
+            valid: false,
+          },
+        },
+        false
+      );
+    }
+    setLoginMode((prev) => !prev);
+  };
 
   // SIGNUP - Link to Backend
   // Should check if in signup mode or login mode
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const data = {
-      name,
-      email,
-      password,
-    };
+    if (loginMode) {
+      console.log("Logging in!");
+      auth.login();
+    } else {
+      const data = {
+        name: formState.inputs.name.value,
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+      };
 
-    try {
-      const response = await fetch("http://localhost:5000/users/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch("http://localhost:5000/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (err) {
-      console.log(err);
+        const responseData = await response.json();
+
+        if (!response.ok) throw new Error(responseData.message);
+
+        console.log(responseData);
+        // redirect to homepage or settings
+      } catch (err) {
+        console.log(err);
+        setError(err.message || "Something went wrong, please try again.");
+      }
+      setLoading(false);
     }
   };
 
   return (
     <SignupContainer>
-      <h2>Signup</h2>
+      <h2>{loginMode ? "Login" : "Signup"}</h2>
       <form onSubmit={submitHandler}>
+        {!loginMode && (
+          <Input
+            id="name"
+            label="Name"
+            dataType="text"
+            errorText={"Please enter a name."}
+            validators={[requiredValidator()]}
+            onInput={inputHandler}
+          />
+        )}
         <Input
-          label="Name"
-          currentValue={name}
-          updateVal={setName}
-          dataType="text"
-          leftSide
-        />
-        <Input
+          id="email"
           label="Email"
-          currentValue={email}
-          updateVal={setEmail}
           dataType="text"
+          errorText={"Please enter a correct email address"}
+          validators={[requiredValidator(), emailValidator()]}
+          onInput={inputHandler}
         />
         <Input
+          id="password"
           label="Password"
-          currentValue={password}
-          updateVal={setPassword}
-          dataType="text"
+          dataType="password"
+          errorText={"Enter a password more than 6 characters long"}
+          validators={[requiredValidator(), minLengthValidator(6)]}
+          onInput={inputHandler}
         />
-        <button>Submit</button>
+        <button disabled={!formState.formValid}>
+          {loginMode ? "Login" : "Signup"}
+        </button>
+        {error && <p>{error}</p>}
       </form>
+
+      <button onClick={switchModeHandler}>
+        Switch to {!loginMode ? "Login" : "Signup"}
+      </button>
+
+      {loading && (
+        <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+      )}
     </SignupContainer>
   );
 };
