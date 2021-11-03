@@ -82,18 +82,25 @@ const Header = () => {
             </NavLink>
           </li>
 
-          {auth.isloggedin && (
+          {auth.isLoggedIn && (
             <li>
               <NavLink activeClassName="selected" to="/account">
                 Account
               </NavLink>
             </li>
           )}
-          <li>
-            <NavLink exact activeClassName="selected" to="/signup">
-              Signup
-            </NavLink>
-          </li>
+          {!auth.isLoggedIn && (
+            <li>
+              <NavLink exact activeClassName="selected" to="/signup">
+                Login
+              </NavLink>
+            </li>
+          )}
+          {auth.isLoggedIn && (
+            <li>
+              <button onClick={auth.logout}>Logout</button>
+            </li>
+          )}
         </ul>
       </nav>
     </StyledHeader>

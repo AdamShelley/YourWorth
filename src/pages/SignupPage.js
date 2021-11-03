@@ -5,6 +5,7 @@ import Loader from "react-loader-spinner";
 
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
+import { useFetchHook } from "../hooks/fetch-hook";
 
 import {
   emailValidator,
@@ -44,11 +45,9 @@ const SignupContainer = styled.div`
 
 const SignupPage = () => {
   const [loginMode, setLoginMode] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
 
   const auth = useContext(AuthenticationContext);
-
+  const { sendRequest, error, loading, clearError } = useFetchHook();
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -94,8 +93,27 @@ const SignupPage = () => {
     e.preventDefault();
 
     if (loginMode) {
-      console.log("Logging in!");
-      auth.login();
+      const data = {
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+      };
+
+      try {
+        await sendRequest(
+          `${process.env.REACT_APP_BACKEND_ADDRESS}/users/login`,
+
+          "POST",
+
+          JSON.stringify(data),
+          {
+            "Content-Type": "application/json",
+          }
+        );
+
+        auth.login();
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       const data = {
         name: formState.inputs.name.value,
@@ -104,27 +122,21 @@ const SignupPage = () => {
       };
 
       try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch("http://localhost:5000/users/signup", {
-          method: "POST",
-          headers: {
+        await sendRequest(
+          `${process.env.REACT_APP_BACKEND_ADDRESS}/users/signup`,
+          "POST",
+
+          JSON.stringify(data),
+          {
             "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
+          }
+        );
 
-        const responseData = await response.json();
-
-        if (!response.ok) throw new Error(responseData.message);
-
-        console.log(responseData);
         // redirect to homepage or settings
+        auth.login();
       } catch (err) {
         console.log(err);
-        setError(err.message || "Something went wrong, please try again.");
       }
-      setLoading(false);
     }
   };
 

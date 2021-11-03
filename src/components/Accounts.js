@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
 
+import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable } from "../styles/tables";
 import { commaValue } from "../helpers/commaValue";
 import { types } from "../helpers/accountTypes.js";
@@ -41,6 +42,8 @@ const Accounts = ({ accounts, portfolioPage }) => {
   const [modal, setModal] = useState(false);
   const [accountSelected, setAccountSelected] = useState();
   const [confirmSubmission, setConfirmSubmission] = useState(false);
+
+  console.log(accounts);
 
   const Toggle = () => setModal(!modal);
   const confirmSub = () => {

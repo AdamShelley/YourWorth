@@ -55,7 +55,8 @@ const PortfolioPage = ({ data }) => {
   const [monthlyAdd, setMonthlyAdd] = useState(fakeMonthlyIncrease);
 
   useEffect(() => {
-    setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
+    if (dataSet)
+      setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
   }, [dataSet, monthlyAdd]);
 
   const updatedCalculations = (updatedValues) => {
@@ -71,42 +72,51 @@ const PortfolioPage = ({ data }) => {
     console.log(dataSet);
   };
 
+  console.log(data);
+
   return (
     <PortfolioContainer>
-      <h2>Portfolio</h2>
-      <p>
-        Your NET worth is <span>£{commaValue(data.netWorth)}</span>
-      </p>
-      <PieChartContainer>
-        <PieChartDisplay accounts={data.accounts} />
-      </PieChartContainer>
-      <AccountManager accounts={data.accounts} />
+      {data && (
+        <>
+          <h2>Portfolio</h2>
+          <p>Hello {data.name || "blank"}</p>
+          <p>
+            Your NET worth is <span>£{commaValue(data.netWorth)}</span>
+          </p>
+          <PieChartContainer>
+            <PieChartDisplay accounts={data?.accounts} />
+          </PieChartContainer>
+          <AccountManager accounts={data?.accounts} />
+          {dataSet.accounts ? (
+            <GraphContainer>
+              <Graphs
+                lastUpdated={data.lastUpdated}
+                data={data.accounts}
+                accountList={data.accountList}
+                prevAccountDataSnapshots={data.prevAccountDataSnapshots}
+                title={"NetWorth over (3) Months"}
+              />
 
-      <GraphContainer>
-        <Graphs
-          lastUpdated={data.lastUpdated}
-          data={data.accounts}
-          accountList={data.accountList}
-          prevAccountDataSnapshots={data.prevAccountDataSnapshots}
-          title={"NetWorth over (3) Months"}
-        />
-
-        <Graphs
-          projected
-          lastUpdated={dataSet.lastUpdated}
-          data={calculatedProjections}
-          accountList={dataSet.accountList}
-          prevAccountDataSnapshots={dataSet.prevAccountDataSnapshots}
-          title={"Projected NetWorth"}
-          targetWorth={dataSet.targetWorth}
-        />
-      </GraphContainer>
-
-      <Calculations
-        data={calculatedProjections}
-        accountInformation={dataSet}
-        updateCalcs={updatedCalculations}
-      />
+              <Graphs
+                projected
+                lastUpdated={dataSet?.lastUpdated}
+                data={calculatedProjections && calculatedProjections}
+                accountList={dataSet?.accountList}
+                prevAccountDataSnapshots={dataSet?.prevAccountDataSnapshots}
+                title={"Projected NetWorth"}
+                targetWorth={dataSet?.targetWorth}
+              />
+            </GraphContainer>
+          ) : (
+            <p>Not enough data to produce graphs</p>
+          )}
+          <Calculations
+            data={calculatedProjections}
+            accountInformation={dataSet}
+            updateCalcs={updatedCalculations}
+          />{" "}
+        </>
+      )}
     </PortfolioContainer>
   );
 };

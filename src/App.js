@@ -1,12 +1,21 @@
-import { useState, useCallback } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
 import SignupPage from "./pages/SignupPage";
+import FirstTimeSetUp from "./pages/FirstTimeSetUp";
+
 import Header from "./components/Header";
 import { AuthenticationContext } from "./context/authenticate-context";
+import { useFetchHook } from "./hooks/fetch-hook";
 
-import { getPrevData } from "./helpers/graphCalcs";
+// import { getPrevData } from "./helpers/graphCalcs";
 
 //  FAKE DATA HERE - TO REPLACE WITH REAL DATABASE STUFF
 const fakeData = {
@@ -66,15 +75,75 @@ const fakeData = {
   ],
 };
 
+const tempUser = "617fba7d9ec83233a4c7ada0";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loadedUser, setLoadedUser] = useState();
+  const { sendRequest, loading, error } = useFetchHook();
 
   const login = useCallback(() => {
+    console.log("logging in ");
+    const fetchUser = async () => {
+      try {
+        const responseData = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_ADDRESS}/users/${tempUser}`,
+          "GET"
+        );
+
+        setLoadedUser(responseData.user);
+      } catch (err) {}
+    };
+    fetchUser();
     setIsLoggedIn(true);
   }, []);
   const logout = useCallback(() => {
     setIsLoggedIn(false);
   }, []);
+
+  let routes;
+  console.log(loadedUser);
+  // Fetch all user data for the logged in user
+
+  console.log(isLoggedIn);
+  if (isLoggedIn) {
+    if (loadedUser?.firstTimeUser) {
+      routes = (
+        <>
+          <Route path="/setup">
+            <FirstTimeSetUp loadedUser={loadedUser} />
+          </Route>
+          <Redirect to="/setup" />
+        </>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path="/account">
+            <AccountPage data={loadedUser} />
+          </Route>
+          <Route path="/">
+            <DashboardPage data={loadedUser} />
+          </Route>
+          <Redirect to="/"></Redirect>
+        </Switch>
+      );
+    }
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/signup">
+          <SignupPage />
+        </Route>
+        {/* <Route path="/">
+          <DashboardPage noUser />
+        </Route> */}
+        <Redirect to="/signup" />
+      </Switch>
+    );
+  }
+
+  console.log(loadedUser);
 
   return (
     <div className="App">
@@ -83,17 +152,7 @@ function App() {
       >
         <Router>
           <Header />
-          <Switch>
-            <Route path="/account">
-              <AccountPage data={fakeData} />
-            </Route>
-            <Route path="/signup">
-              <SignupPage data={fakeData} />
-            </Route>
-            <Route path="/">
-              <DashboardPage data={fakeData} />
-            </Route>
-          </Switch>
+          {routes}
         </Router>
       </AuthenticationContext.Provider>
     </div>
