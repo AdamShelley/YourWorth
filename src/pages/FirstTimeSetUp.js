@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Loader from "react-loader-spinner";
+import { useHistory } from "react-router-dom";
 
 import Input from "../components/Input";
 import { useForm } from "../hooks/form-hook";
+import { useFetchHook } from "../hooks/fetch-hook";
 
 const SetupCard = styled.div`
   display: flex;
@@ -11,8 +14,8 @@ const SetupCard = styled.div`
   justify-content: center;
   padding: 2rem;
   border-radius: 2px;
-  min-width: 30%;
-  min-height: 40%;
+  min-width: 35rem;
+  min-height: 30rem;
 
   background-color: var(--cards);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
@@ -67,9 +70,11 @@ const SetupCard = styled.div`
   }
 `;
 
-const FirstTimeSetUp = () => {
+const FirstTimeSetUp = ({ loadedUser }) => {
   const pages = 3;
+  const history = useHistory();
   const [section, setSection] = useState(1);
+  const { sendRequest, loading, error } = useFetchHook();
   const [formState, inputHandler, setFormData] = useForm(
     {
       netWorth: {
@@ -90,8 +95,27 @@ const FirstTimeSetUp = () => {
     false
   );
 
-  const submitSetup = () => {
-    console.log(formState);
+  const submitSetup = async () => {
+    try {
+      await sendRequest(
+        `http://localhost:8080/users/update`,
+        "PATCH",
+        JSON.stringify({
+          userId: loadedUser._id,
+          netWorth: formState.inputs.netWorth.value,
+          targetWorth: formState.inputs.targetWorth.value,
+          currentAge: formState.inputs.currentAge.value,
+          targetAge: formState.inputs.targetAge.value,
+          drawDownAmount: formState.inputs.drawDownAmount.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

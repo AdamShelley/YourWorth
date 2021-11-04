@@ -99,18 +99,16 @@ const SignupPage = () => {
       };
 
       try {
-        await sendRequest(
+        const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_ADDRESS}/users/login`,
-
           "POST",
-
           JSON.stringify(data),
           {
             "Content-Type": "application/json",
           }
         );
 
-        auth.login();
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {
         console.log(err);
       }
@@ -122,7 +120,7 @@ const SignupPage = () => {
       };
 
       try {
-        await sendRequest(
+        const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_ADDRESS}/users/signup`,
           "POST",
 
@@ -133,7 +131,7 @@ const SignupPage = () => {
         );
 
         // redirect to homepage or settings
-        auth.login();
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {
         console.log(err);
       }
