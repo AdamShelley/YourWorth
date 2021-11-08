@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import styled from "styled-components";
 import Input from "../components/Input";
 import Loader from "react-loader-spinner";
@@ -45,6 +47,7 @@ const SignupContainer = styled.div`
 
 const SignupPage = () => {
   const [loginMode, setLoginMode] = useState(true);
+  const history = useHistory();
 
   const auth = useContext(AuthenticationContext);
   const { sendRequest, error, loading, clearError } = useFetchHook();
@@ -109,6 +112,7 @@ const SignupPage = () => {
         );
 
         auth.login(responseData.userId, responseData.token);
+        history.push("/");
       } catch (err) {
         console.log(err);
       }
@@ -132,6 +136,8 @@ const SignupPage = () => {
 
         // redirect to homepage or settings
         auth.login(responseData.userId, responseData.token);
+
+        history.push("/");
       } catch (err) {
         console.log(err);
       }

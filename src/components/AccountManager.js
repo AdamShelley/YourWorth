@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Accounts from "./Accounts";
 import styled from "styled-components";
 import Modal from "./Modal";
 import Input from "./Input";
+import Loader from "react-loader-spinner";
+import { useForm } from "../hooks/form-hook";
+import { useFetchHook } from "../hooks/fetch-hook";
+import { AuthenticationContext } from "../context/authenticate-context";
+import { requiredValidator } from "../helpers/validators";
 
 const AccountUpdateContainer = styled.div`
   display: flex;
@@ -20,7 +25,7 @@ const AccountUpdateContainer = styled.div`
     color: var(--cultured);
     border-radius: 1px;
     cursor: pointer;
-    width: 5%;
+    width: 1rem;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -29,7 +34,7 @@ const AccountUpdateContainer = styled.div`
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
 
     transition: all 0.2s ease-in-out;
-    transition-delay: 0.3s;
+    transition-delay: 0.1s;
     max-height: 2rem;
 
     span {
@@ -42,7 +47,7 @@ const AccountUpdateContainer = styled.div`
     }
 
     &:hover {
-      width: 25%;
+      width: 10%;
       overflow: hidden;
 
       background-color: var(--davys-grey);
@@ -54,22 +59,86 @@ const AccountUpdateContainer = styled.div`
         opacity: 1;
         visibility: visible;
       }
+
+      i {
+        margin-right: 0.5rem;
+      }
     }
   }
 `;
 
-const AccountManager = ({ accounts }) => {
+const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
   const [modal, setModal] = useState(false);
+  const [loadedAccounts, setLoadedAccounts] = useState(accounts);
+  const { sendRequest, error, loading } = useFetchHook();
+  const auth = useContext(AuthenticationContext);
 
-  const addAccountHandler = () => {
-    setModal(true);
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      name: {
+        value: "",
+        valid: false,
+      },
+      category: {
+        value: "",
+        valid: false,
+      },
+      balance: {
+        value: "",
+        valid: false,
+      },
+    },
+    false
+  );
+
+  const addAccountHandler = () => setModal(true);
+  const closeModal = () => setModal((prev) => !prev);
+
+  const submitAccount = async (e) => {
+    e.preventDefault();
+    const account = {
+      name: formState.inputs.name.value,
+      category: formState.inputs.category.value,
+      balance: parseFloat(formState.inputs.balance.value),
+      user: auth.userId,
+    };
+
+    try {
+      await sendRequest(
+        `http://localhost:8080/accounts`,
+        "POST",
+        JSON.stringify(account),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+
+      closeModal();
+      setLoadedAccounts([...loadedAccounts, account]);
+      updateNetWorth([...loadedAccounts, account]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const closeModal = () => setModal((prev) => !prev);
+  const onDeleteHandler = (deletedAccId) => {
+    setLoadedAccounts((accounts) =>
+      accounts.filter((acc) => acc._id !== deletedAccId)
+    );
+
+    updateLoadedUser(loadedAccounts, deletedAccId);
+  };
 
   return (
     <div>
-      <Accounts portfolioPage accounts={accounts} />
+      {loadedAccounts.length > 0 && (
+        <Accounts
+          portfolioPage
+          accounts={loadedAccounts}
+          onDelete={onDeleteHandler}
+        />
+      )}
       <AccountUpdateContainer>
         <button onClick={addAccountHandler}>
           <i className="fas fa-plus"></i> <span>Add Account</span>
@@ -79,33 +148,37 @@ const AccountManager = ({ accounts }) => {
         show={modal}
         title="Add a new account to the Portfolio"
         close={closeModal}
+        submitHandler={submitAccount}
       >
         <div>
           <Input
+            id="name"
             label="Account name"
-            currentValue={"test"}
-            updateVal={() => {}}
             dataType="text"
-            errorText={"Please enter a correct email address"}
-            onInput={() => {}}
+            errorText={"Please enter an account name"}
+            onInput={inputHandler}
+            validators={[requiredValidator()]}
           />
           <Input
+            id="category"
             label="Account type"
-            currentValue={"Investment"}
-            updateVal={() => {}}
             dataType="text"
-            errorText={"Please enter a correct email address"}
-            onInput={() => {}}
+            errorText={"Please enter a category"}
+            onInput={inputHandler}
+            validators={[requiredValidator()]}
           />
           <Input
+            id="balance"
             label="Account balance"
-            currentValue={5000}
-            updateVal={() => {}}
             dataType="number"
-            errorText={"Please enter a correct email address"}
-            onInput={() => {}}
+            errorText={"Please enter a balance"}
+            onInput={inputHandler}
+            validators={[requiredValidator()]}
           />
         </div>
+        {loading && (
+          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+        )}
       </Modal>
     </div>
   );

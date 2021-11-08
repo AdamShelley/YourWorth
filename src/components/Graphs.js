@@ -27,9 +27,9 @@ const Graphs = ({
   prevAccountDataSnapshots,
   lastUpdated,
   title,
-  accountList,
   projected,
   targetWorth,
+  accountList,
 }) => {
   // Functions to format data from Data array for Recharts
   const newData = standardizeData(data, lastUpdated);

@@ -3,7 +3,10 @@ import styled from "styled-components";
 const StyledTable = styled.table`
   width: ${(props) => (props.fullscreen ? "90vw" : "50vw")};
   border-collapse: collapse;
-  margin-top: 1rem;
+  table-layout: ${(props) => (props.tlayout ? "fixed" : "auto")};
+  width: ${(props) => (props.tlayout ? "50%" : "80%")};
+  margin: auto;
+  margin-top: ${(props) => (props.tlayout ? "3rem" : "1rem")};
   padding: 2rem;
   text-align: left;
   letter-spacing: 1px;
@@ -35,18 +38,23 @@ const StyledTable = styled.table`
     border: 1px solid var(--card-header);
     color: var(--cultured);
     font-weight: 100;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
   }
 
   .box-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* max-width: 100%; */
+  }
+
+  tr {
   }
 
   td {
-    padding-left: 1rem;
-
+    padding-left: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     font-size: 0.8rem;
 
     .box {
@@ -67,6 +75,20 @@ const StyledTable = styled.table`
         font-size: 0.9rem;
         text-align: center;
       }
+
+      &:hover {
+        background-color: var(--slate-gray);
+        color: var(--cultured);
+        transition: all 0.1s ease;
+      }
+    }
+
+    .delete-account-btn {
+      border: none;
+      height: 25px;
+      width: 70px;
+      border-radius: 2px;
+      cursor: pointer;
 
       &:hover {
         background-color: var(--slate-gray);

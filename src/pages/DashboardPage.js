@@ -4,6 +4,7 @@ import AccountManager from "../components/AccountManager";
 import Calculations from "../components/Calculations";
 import PieChartDisplay from "../components/PieChartDisplay";
 import Graphs from "../components/Graphs";
+import Loader from "react-loader-spinner";
 import { commaValue } from "../helpers/commaValue";
 import { calculateProjections } from "../helpers/calculateProjections";
 import { useFetchHook } from "../hooks/fetch-hook";
@@ -22,7 +23,7 @@ const PortfolioContainer = styled.div`
   }
 
   p {
-    margin-top: 1rem;
+    margin-top: 5rem;
     font-size: 1rem;
 
     span {
@@ -35,6 +36,7 @@ const PortfolioContainer = styled.div`
 `;
 
 const PieChartContainer = styled.div`
+  margin-top: 2rem;
   height: 25rem;
   width: 50rem;
 `;
@@ -55,12 +57,12 @@ const PortfolioPage = ({ data, userId }) => {
   const [loadedUser, setLoadedUser] = useState();
   const [calculatedProjections, setCalculatedProjections] = useState([]);
   const [monthlyAdd, setMonthlyAdd] = useState(fakeMonthlyIncrease);
-  const { sendRequest, error, loading } = useFetchHook();
+  const { sendRequest, error, loading, clearError } = useFetchHook();
 
   useEffect(() => {
-    if (dataSet)
-      setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
-  }, [dataSet, monthlyAdd]);
+    if (loadedUser?.accounts)
+      setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
+  }, [loadedUser, monthlyAdd]);
 
   // Get user by Id
 
@@ -77,7 +79,7 @@ const PortfolioPage = ({ data, userId }) => {
       } catch (err) {}
     };
     fetchUser();
-  }, []);
+  }, [setLoadedUser, sendRequest, userId]);
 
   const updatedCalculations = (updatedValues) => {
     setMonthlyAdd(parseFloat(updatedValues.monthlyAdd));
@@ -92,54 +94,100 @@ const PortfolioPage = ({ data, userId }) => {
     console.log(dataSet);
   };
 
+  const updateLoadedUser = (accounts, accId) => {
+    const findAcc = accounts.filter((acc) => acc._id === accId);
+
+    let user = {
+      ...loadedUser,
+      netWorth: (loadedUser.netWorth -= parseFloat(findAcc[0].balance)),
+      accounts: accounts,
+    };
+    setLoadedUser(user);
+  };
+
+  const updateNetWorth = (accounts) => {
+    console.log("Updating net worth");
+
+    console.log(accounts);
+    let newNetWorth;
+    if (accounts.length > 1) {
+      newNetWorth = accounts.reduce(
+        (a, b) => parseFloat(a.balance) + parseFloat(b.balance)
+      );
+    } else {
+      newNetWorth = accounts[0].balance;
+    }
+
+    setLoadedUser((prevState) => ({
+      ...prevState,
+      accounts: accounts,
+      netWorth: newNetWorth,
+    }));
+  };
+
   console.log(loadedUser);
 
   return (
     <PortfolioContainer>
-      {loadedUser ? (
+      {/* {error && <p>{error}</p>} */}
+      {loading && (
+        <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+      )}
+      {loadedUser && (
         <>
           <h2>Portfolio</h2>
-          <p>Hello {loadedUser.name || "blank"}</p>
+
           <p>
-            Your NET worth is <span>£{loadedUser.netWorth || 0}</span>
+            Your NET worth is{" "}
+            <span>£{commaValue(loadedUser?.netWorth) || 0}</span>
           </p>
-          <PieChartContainer>
-            <PieChartDisplay accounts={loadedUser?.accounts} />
-          </PieChartContainer>
-          <AccountManager accounts={loadedUser?.accounts} />
-          {/* {data.accounts ? (
+          {/* Pie Chart Section */}
+          {loadedUser.accounts.length > 0 ? (
+            <PieChartContainer>
+              <PieChartDisplay accounts={loadedUser?.accounts} />
+            </PieChartContainer>
+          ) : (
+            <p>Start by adding accounts </p>
+          )}
+          {/* Account Section */}
+          <AccountManager
+            accounts={loadedUser?.accounts}
+            updateLoadedUser={updateLoadedUser}
+            updateNetWorth={updateNetWorth}
+          />
+          {/* Graph Section */}
+          {loadedUser.accounts ? (
             <GraphContainer>
               <Graphs
-                lastUpdated={data.lastUpdated}
-                data={data.accounts}
-                accountList={data.accountList}
-                prevAccountDataSnapshots={data.prevAccountDataSnapshots}
+                lastUpdated={loadedUser.lastUpdated || loadedUser.firstCreated}
+                data={loadedUser.accounts}
+                prevAccountDataSnapshots={loadedUser?.prevAccountDataSnapshots}
                 title={"NetWorth over (3) Months"}
+                accountList={loadedUser.accountList}
               />
 
               <Graphs
                 projected
-                lastUpdated={dataSet?.lastUpdated}
+                lastUpdated={loadedUser?.lastUpdated || loadedUser.firstCreated}
                 data={calculatedProjections && calculatedProjections}
-                accountList={dataSet?.accountList}
-                prevAccountDataSnapshots={dataSet?.prevAccountDataSnapshots}
+                accountList={loadedUser?.accountList}
+                prevAccountDataSnapshots={loadedUser?.prevAccountDataSnapshots}
                 title={"Projected NetWorth"}
-                targetWorth={dataSet?.targetWorth}
+                targetWorth={loadedUser.targetWorth}
               />
             </GraphContainer>
           ) : (
             <p>Not enough data to produce graphs</p>
-          )} */}
-          {dataSet && (
+          )}
+          {/* Calculations Section */}
+          {calculatedProjections.length > 0 && (
             <Calculations
               data={calculatedProjections}
-              accountInformation={dataSet}
+              accountInformation={loadedUser}
               updateCalcs={updatedCalculations}
             />
           )}
         </>
-      ) : (
-        <p>Not reading data correctly</p>
       )}
     </PortfolioContainer>
   );

@@ -10,27 +10,17 @@ const AccountPageStyles = styled.div`
   margin-top: 4rem;
 `;
 
-const AccountPage = ({ data }) => {
-  console.log(data);
-  const { id, ageToRetire, targetWorth, age } = data;
+const AccountPage = () => {
   return (
     <>
       <h2>Account</h2>
       <AccountPageStyles>
         <div>
           <h4>Account Details</h4>
-          <Input label="Name" currentValue={id} updateVal={() => {}} />
-          <Input label="Age" currentValue={age} updateVal={() => {}} />
-          <Input
-            label="Target Retirement Age"
-            currentValue={ageToRetire}
-            updateVal={() => {}}
-          />
-          <Input
-            label="Target Retirement Goal"
-            currentValue={targetWorth}
-            updateVal={() => {}}
-          />
+          <Input label="Name" updateVal={() => {}} />
+          <Input label="Age" updateVal={() => {}} />
+          <Input label="Target Retirement Age" updateVal={() => {}} />
+          <Input label="Target Retirement Goal" updateVal={() => {}} />
         </div>
         <div>
           <h4>Control Panel</h4>

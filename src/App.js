@@ -1,4 +1,3 @@
-import { useState, useCallback, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,42 +12,16 @@ import FirstTimeSetUp from "./pages/FirstTimeSetUp";
 
 import Header from "./components/Header";
 import { AuthenticationContext } from "./context/authenticate-context";
-import { useFetchHook } from "./hooks/fetch-hook";
+import { useLogin } from "./hooks/login-hook";
 
 // import { getPrevData } from "./helpers/graphCalcs";
 
 function App() {
-  const [userId, setUserId] = useState();
-  const [token, setToken] = useState();
-
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (storedData && storedData.token) {
-      login(storedData.userId, storedData.token);
-    }
-  }, []);
-
-  const login = useCallback((uid, token) => {
-    setToken(token);
-    setUserId(uid);
-    localStorage.setItem(
-      "userData",
-      JSON.stringify({
-        userId: uid,
-        token: token,
-      })
-    );
-  }, []);
-  const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
-  }, []);
-
-  console.log(token);
+  const { token, login, logout, userId } = useLogin();
 
   let routes;
   // Fetch all user data for the logged in user
-  if (token) {
+  if (token && userId) {
     // if (loadedUser?.firstTimeUser) {
     //   routes = (
     //     <>

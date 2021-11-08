@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { commaValue } from "../helpers/commaValue";
+
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
 
 const PieChartDisplay = ({ accounts }) => {
+  console.log(accounts);
+
   let animationDuration = 300;
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -74,9 +76,9 @@ const PieChartDisplay = ({ accounts }) => {
           textAnchor={textAnchor}
           fill="#999"
         >
-          {` ${payload.name}: £${commaValue(payload.amount)} (${(
-            percent * 100
-          ).toFixed(2)}%)`}
+          {` ${payload.name}: £${payload.balance.toLocaleString(undefined, {
+            minimumFactionDigits: 2,
+          })} (${(percent * 100).toFixed(2)}%)`}
         </text>
       </g>
     );
@@ -90,7 +92,7 @@ const PieChartDisplay = ({ accounts }) => {
     <ResponsiveContainer width="100%" height="100%">
       <PieChart width={400} height={400} align="center">
         <Pie
-          dataKey="amount"
+          dataKey="balance"
           data={accounts}
           labelLine={false}
           cx="50%"

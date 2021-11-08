@@ -6,7 +6,7 @@ import styled from "styled-components";
 const ModalStylesContainer = styled.div`
   .modalContainer {
     position: fixed;
-    top: 0;
+    top: -30%;
     bottom: 0;
     left: 0;
     right: 0;
@@ -18,7 +18,7 @@ const ModalStylesContainer = styled.div`
     align-items: center;
 
     .modal {
-      min-width: 25vw;
+      min-width: 30vw;
       height: auto;
       background-color: #fff;
       padding: 2rem;
@@ -43,6 +43,15 @@ const ModalStylesContainer = styled.div`
       &_content {
         border-bottom: 1px solid #dddddd;
         padding: 2rem 0;
+        color: var(--gunmetal);
+
+        & label {
+          color: var(--gunmetal);
+        }
+
+        & input {
+          font-weight: 100;
+        }
       }
 
       &_footer {

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import Loader from "react-loader-spinner";
 import Modal from "./Modal";
-
 import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable } from "../styles/tables";
 import { commaValue } from "../helpers/commaValue";
 import { types } from "../helpers/accountTypes.js";
+import { useForm } from "../hooks/form-hook";
+import { AuthenticationContext } from "../context/authenticate-context";
+
+import Input from "./Input";
 
 const ModalContent = styled.div`
   display: flex;
@@ -38,12 +42,28 @@ const ModalContent = styled.div`
   }
 `;
 
-const Accounts = ({ accounts, portfolioPage }) => {
+const Accounts = ({ accounts, portfolioPage, onDelete }) => {
+  const auth = useContext(AuthenticationContext);
   const [modal, setModal] = useState(false);
+
   const [accountSelected, setAccountSelected] = useState();
   const [confirmSubmission, setConfirmSubmission] = useState(false);
-
-  console.log(accounts);
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState();
+  const { sendRequest, error, loading, clearError } = useFetchHook();
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      category: {
+        value: "",
+        valid: true,
+      },
+      balance: {
+        value: "",
+        valid: true,
+      },
+    },
+    true
+  );
 
   const Toggle = () => setModal(!modal);
   const confirmSub = () => {
@@ -59,9 +79,40 @@ const Accounts = ({ accounts, portfolioPage }) => {
   };
 
   // Delete the account (TODO Later)
+  const startDeletion = (index) => {
+    setDeleteIndex(index);
+    setConfirmDeletion(true);
+
+    setTimeout(() => {
+      setConfirmDeletion(false);
+      setDeleteIndex(null);
+    }, 3000);
+  };
+
+  const confirmDeleteAccount = async (account) => {
+    setDeleteIndex(null);
+    setConfirmDeletion(false);
+
+    // Send request to backend to delete the account
+    try {
+      await sendRequest(
+        `http://localhost:8080/accounts/${account._id}`,
+        "DELETE",
+        null,
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+
+      onDelete(account._id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
-    <StyledTable>
+    <StyledTable tlayout>
       <caption>Accounts</caption>
       <thead>
         <tr>
@@ -73,26 +124,53 @@ const Accounts = ({ accounts, portfolioPage }) => {
       </thead>
       <tbody>
         {accounts.map((account, index) => {
-          const number = commaValue(account.amount);
+          const number = account.balance.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+          });
 
           return (
             <tr key={`row-${index}`}>
               <td>{account.name}</td>
-              <td>{account.type}</td>
+              <td>{account.category}</td>
               <td>£{number}</td>
               {portfolioPage && (
                 <>
                   <td className="box-buttons">
-                    <div
-                      className="box edit-box"
-                      onClick={() => editAccount(account)}
-                    >
-                      <i className="fas fa-search"></i>
-                    </div>
-                    <div className="box delete-box">
-                      <i className="fas fa-trash"></i>
-                    </div>
+                    {index !== deleteIndex && (
+                      <>
+                        <div
+                          className="box edit-box"
+                          onClick={() => editAccount(account)}
+                        >
+                          <i className="fas fa-search"></i>
+                        </div>
+                        <div
+                          className="box delete-box"
+                          onClick={() => startDeletion(index)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </div>
+                      </>
+                    )}
+                    {confirmDeletion && index === deleteIndex && (
+                      <div>
+                        <button
+                          className="box delete-account-btn"
+                          onClick={() => confirmDeleteAccount(account)}
+                        >
+                          Confirm
+                        </button>
+                      </div>
+                    )}
                   </td>
+                  {loading && confirmDeletion && index === deleteIndex && (
+                    <Loader
+                      type="Rings"
+                      color="#00BFFF"
+                      height={25}
+                      width={25}
+                    />
+                  )}
                 </>
               )}
             </tr>
@@ -119,12 +197,16 @@ const Accounts = ({ accounts, portfolioPage }) => {
               </select>
             </h3>
             <h3>
-              <span>Amount: </span>
-              <textarea
-                cols="10"
-                rows="1"
-                defaultValue={accountSelected.amount}
-              ></textarea>
+              <Input
+                id="balance"
+                label="Balance"
+                dataType="number"
+                errorText={"Enter a value more than 6 characters long"}
+                validators={[]}
+                onInput={inputHandler}
+                initialValid={formState.inputs.balance.valid}
+                initialvalue={accountSelected.balance}
+              />
             </h3>
           </ModalContent>
         </Modal>
