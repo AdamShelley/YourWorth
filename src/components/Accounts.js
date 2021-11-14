@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
+
 import Modal from "./Modal";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable } from "../styles/tables";
@@ -42,6 +43,8 @@ const ModalContent = styled.div`
   }
 `;
 
+let confirmTimer;
+
 const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   const auth = useContext(AuthenticationContext);
   const [modal, setModal] = useState(false);
@@ -53,6 +56,10 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   const { sendRequest, error, loading, clearError } = useFetchHook();
   const [formState, inputHandler, setFormData] = useForm(
     {
+      name: {
+        value: "",
+        valid: true,
+      },
       category: {
         value: "",
         valid: true,
@@ -66,24 +73,47 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   );
 
   const Toggle = () => setModal(!modal);
+
   const confirmSub = () => {
     setModal(false);
     setConfirmSubmission(true);
   };
 
+  const submitUpdate = async () => {
+    try {
+      await sendRequest(
+        `http://localhost:8080/accounts/${accountSelected._id}`,
+        "PATCH",
+        JSON.stringify({
+          name: formState.inputs.name.value,
+          category: formState.inputs.category.value,
+          balance: formState.inputs.balance.value,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    setConfirmSubmission(false);
+  };
+
   // Toggle the modal and store selected account
   const editAccount = (acc) => {
-    console.log(acc);
     Toggle();
     setAccountSelected(acc);
   };
 
   // Delete the account (TODO Later)
   const startDeletion = (index) => {
+    clearTimeout(confirmTimer);
     setDeleteIndex(index);
     setConfirmDeletion(true);
 
-    setTimeout(() => {
+    confirmTimer = setTimeout(() => {
       setConfirmDeletion(false);
       setDeleteIndex(null);
     }, 3000);
@@ -178,36 +208,45 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
         })}
       </tbody>
       {/* Modal for Edit */}
+
       {accountSelected && (
         <Modal
           show={modal}
           close={Toggle}
-          title={accountSelected.name}
+          title={"Update account details"}
           submitHandler={confirmSub}
         >
           <ModalContent>
-            <h3>
-              <span>Type:</span>
-              <select cols="40" rows="1" defaultValue={accountSelected.type}>
-                {types.map((item, index) => (
-                  <option key={`option-${index}`} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
-            </h3>
-            <h3>
-              <Input
-                id="balance"
-                label="Balance"
-                dataType="number"
-                errorText={"Enter a value more than 6 characters long"}
-                validators={[]}
-                onInput={inputHandler}
-                initialValid={formState.inputs.balance.valid}
-                initialvalue={accountSelected.balance}
-              />
-            </h3>
+            <Input
+              id="name"
+              label="Account Name"
+              dataType="text"
+              errorText={"Enter a value more than 6 characters long"}
+              validators={[]}
+              onInput={inputHandler}
+              initialValid={formState.inputs.name.valid}
+              initialValue={accountSelected.name}
+            />
+            <Input
+              dropDown
+              id="category"
+              label="Category"
+              errorText={"Please enter a category"}
+              onInput={inputHandler}
+              validators={[]}
+              initialValue={accountSelected.category}
+            />
+
+            <Input
+              id="balance"
+              label="Balance"
+              dataType="number"
+              errorText={"Enter a value more than 6 characters long"}
+              validators={[]}
+              onInput={inputHandler}
+              initialValid={formState.inputs.balance.valid}
+              initialValue={accountSelected.balance}
+            />
           </ModalContent>
         </Modal>
       )}
@@ -219,8 +258,31 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
           show={confirmSubmission}
           close={() => setConfirmSubmission(false)}
           title={"Are you sure you want to submit?"}
+          submitHandler={submitUpdate}
         >
-          You are about to make the following changes:{" "}
+          You are about to make the following changes:
+          <table>
+            <thead>
+              <tr>
+                <th>Before</th>
+                <th>After</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{accountSelected.name}</td>
+                <td>{formState.inputs.name.value}</td>
+              </tr>
+              <tr>
+                <td>{accountSelected.category}</td>
+                <td>{formState.inputs.category.value}</td>
+              </tr>
+              <tr>
+                <td>{accountSelected.balance}</td>
+                <td>{formState.inputs.balance.value}</td>
+              </tr>
+            </tbody>
+          </table>
         </Modal>
       )}
     </StyledTable>

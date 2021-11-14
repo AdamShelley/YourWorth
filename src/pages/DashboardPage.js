@@ -159,7 +159,7 @@ const PortfolioPage = ({ data, userId }) => {
           {loadedUser.accounts ? (
             <GraphContainer>
               <Graphs
-                lastUpdated={loadedUser.lastUpdated || loadedUser.firstCreated}
+                lastUpdated={loadedUser.updated_at || loadedUser.created_at}
                 data={loadedUser.accounts}
                 prevAccountDataSnapshots={loadedUser?.prevAccountDataSnapshots}
                 title={"NetWorth over (3) Months"}

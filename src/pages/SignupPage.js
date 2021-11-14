@@ -19,29 +19,63 @@ const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 3rem;
+  justify-content: flex-start;
+  padding: 4rem;
   width: 25rem;
-  background-color: var(--cards);
-  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+  height: 35rem;
+  background-color: var(--cultured);
+  box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.3);
   font-family: "Open Sans", serif;
+  color: var(--gunmetal);
+  border-radius: 3px;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 100;
+  }
 
   form {
     display: flex;
     flex-direction: column;
+    width: 100%;
+
+    label {
+      color: var(--gunmetal);
+    }
   }
 
-  input {
-    width: 90%;
+  .button {
+    padding: 0.8rem 1rem;
+    margin-top: 1rem;
+    border: none;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: 100;
+    border-radius: 3px;
   }
 
-  button {
-    padding: 0.5rem 1rem;
+  .login-button {
+    background-color: var(--cards);
+    color: var(--cultured);
+
+    &:hover {
+    }
   }
 
-  button:disabled {
-    background-color: red;
+  .login-button:disabled {
+    background-color: var(--cultured);
+    cursor: not-allowed;
     color: #ccc;
+  }
+
+  .switch-button {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    margin-top: 2rem;
+    cursor: pointer;
+    flex: 1;
   }
 `;
 
@@ -146,10 +180,11 @@ const SignupPage = () => {
 
   return (
     <SignupContainer>
-      <h2>{loginMode ? "Login" : "Signup"}</h2>
+      <h2>{loginMode ? "Log in" : "Signup"}</h2>
       <form onSubmit={submitHandler}>
         {!loginMode && (
           <Input
+            alignLeft
             id="name"
             label="Name"
             dataType="text"
@@ -159,14 +194,16 @@ const SignupPage = () => {
           />
         )}
         <Input
+          alignLeft
           id="email"
-          label="Email"
+          label="Email Address"
           dataType="text"
           errorText={"Please enter a correct email address"}
           validators={[requiredValidator(), emailValidator()]}
           onInput={inputHandler}
         />
         <Input
+          alignLeft
           id="password"
           label="Password"
           dataType="password"
@@ -174,14 +211,16 @@ const SignupPage = () => {
           validators={[requiredValidator(), minLengthValidator(6)]}
           onInput={inputHandler}
         />
-        <button disabled={!formState.formValid}>
+        <button className="button login-button" disabled={!formState.formValid}>
           {loginMode ? "Login" : "Signup"}
         </button>
         {error && <p>{error}</p>}
       </form>
 
-      <button onClick={switchModeHandler}>
-        Switch to {!loginMode ? "Login" : "Signup"}
+      <button className="switch-button" onClick={switchModeHandler}>
+        {!loginMode
+          ? "Have an account? Log in instead"
+          : `Don't have an account? Sign up `}
       </button>
 
       {loading && (

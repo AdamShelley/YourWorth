@@ -1,15 +1,22 @@
 import React, { useReducer, useEffect } from "react";
 import styled from "styled-components";
+
 import { validate } from "../helpers/validators";
+import { categories } from "../helpers/accountTypes";
 
 const InputContainer = styled.div`
   color: var(--cultured);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${(props) => (props.alignLeft ? "flex-start" : "center")};
   justify-content: space-evenly;
   width: 100%;
   font-family: "Open Sans", serif;
+  margin-top: ${(props) => (props.alignLeft ? "2rem" : "")};
+
+  p {
+    color: var(--gunmetal);
+  }
 
   label {
     margin-right: 0.4rem;
@@ -19,15 +26,20 @@ const InputContainer = styled.div`
   }
 
   input {
-    margin: 1rem;
+    margin: ${(props) => (props.alignLeft ? "" : "1rem")};
+    margin-top: 0.5rem;
     padding: 0.6rem 0.7rem;
     font-size: 1.1rem;
-    text-align: center;
-    width: 50%;
+    text-align: left;
+    width: ${(props) => (props.alignLeft ? "100%" : "50%")};
     font-weight: 100;
     border-radius: 2px;
-    border: none;
+    border: ${(props) =>
+      props.alignLeft ? "1px solid var(--slate-gray)" : "none"};
+    background-color: ${(props) =>
+      props.alignLeft ? "var(--cultured-2)" : "none"};
     box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
+    font-family: inherit;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -40,6 +52,39 @@ const InputContainer = styled.div`
 
   .input-invalid {
     color: red;
+  }
+`;
+
+const SelectContainer = styled.div`
+  color: var(--cultured);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+  font-family: "Open Sans", serif;
+
+  label {
+    margin-right: 0.4rem;
+    font-size: 1rem;
+    font-weight: 100;
+    letter-spacing: 1px;
+  }
+
+  select {
+    margin-top: 0.5rem;
+    padding: 0.6rem 0.7rem;
+    font-size: 1.1rem;
+    text-align: left;
+    width: 100%;
+    font-weight: 100;
+    border-radius: 2px;
+    border: 1px solid var(--slate-gray);
+    background-color: ${(props) =>
+      props.alignLeft ? "var(--cultured-2)" : "none"};
+    box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
+    font-family: inherit;
+    cursor: pointer;
   }
 `;
 
@@ -70,6 +115,10 @@ const Input = ({
   onInput,
   initialValue,
   initialValid,
+  placeholder,
+  accountSelected,
+  alignLeft,
+  dropDown,
 }) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: initialValue || "",
@@ -83,9 +132,10 @@ const Input = ({
   }, [id, onInput, value, valid]);
 
   const changeHandler = (event) => {
+    console.log(event.target.value);
     dispatch({
       type: "CHANGE",
-      value: event.target.value,
+      value: event.target.value ? event.target.value : categories[0],
       validators: validators,
       isBlurred: false,
     });
@@ -97,24 +147,51 @@ const Input = ({
     });
   };
 
-  return (
-    <InputContainer
-      flex
-      className={`${
-        !inputState.valid && inputState.isBlurred && "input-invalid"
-      }`}
-    >
-      <label htmlFor={label}>{label}</label>
-      <input
-        name={label}
-        type={dataType}
-        value={inputState.value}
-        onChange={changeHandler}
-        onBlur={blurHandler}
-      />
-      {!inputState.valid && inputState.isBlurred && <p>{errorText}</p>}
-    </InputContainer>
-  );
+  let input;
+  if (dropDown) {
+    input = (
+      <SelectContainer>
+        <label htmlFor={label}>{label}</label>
+        <select
+          name={label}
+          cols="40"
+          rows="1"
+          defaultValue={accountSelected && accountSelected.category}
+          onChange={changeHandler}
+          value={inputState.value}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </SelectContainer>
+    );
+  } else {
+    input = (
+      <InputContainer
+        flex
+        alignLeft
+        className={`${
+          !inputState.valid && inputState.isBlurred && "input-invalid"
+        }`}
+      >
+        <label htmlFor={label}>{label}</label>
+        <input
+          name={label}
+          type={dataType}
+          value={inputState.value}
+          onChange={changeHandler}
+          onBlur={blurHandler}
+          placeholder={placeholder}
+        />
+        {!inputState.valid && inputState.isBlurred && <p>{errorText}</p>}
+      </InputContainer>
+    );
+  }
+
+  return <>{input}</>;
 };
 
 export default Input;

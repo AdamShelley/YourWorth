@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import Input from "./Input";
 import Loader from "react-loader-spinner";
+
 import { useForm } from "../hooks/form-hook";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
@@ -30,8 +31,8 @@ const AccountUpdateContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    background-color: var(--davys-grey);
-    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: var(--card-header);
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.2);
 
     transition: all 0.2s ease-in-out;
     transition-delay: 0.1s;
@@ -50,7 +51,7 @@ const AccountUpdateContainer = styled.div`
       width: 10%;
       overflow: hidden;
 
-      background-color: var(--davys-grey);
+      background-color: var(--card-header);
       box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
       color: var(--cultured);
       transition: all 0.2s ease-in-out;
@@ -69,6 +70,7 @@ const AccountUpdateContainer = styled.div`
 
 const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
   const [modal, setModal] = useState(false);
+  const [advanceModal, setAdvanceModal] = useState(false);
   const [loadedAccounts, setLoadedAccounts] = useState(accounts);
   const { sendRequest, error, loading } = useFetchHook();
   const auth = useContext(AuthenticationContext);
@@ -96,6 +98,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
 
   const submitAccount = async (e) => {
     e.preventDefault();
+
     const account = {
       name: formState.inputs.name.value,
       category: formState.inputs.category.value,
@@ -104,7 +107,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
     };
 
     try {
-      await sendRequest(
+      const response = await sendRequest(
         `http://localhost:8080/accounts`,
         "POST",
         JSON.stringify(account),
@@ -115,8 +118,8 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       );
 
       closeModal();
-      setLoadedAccounts([...loadedAccounts, account]);
-      updateNetWorth([...loadedAccounts, account]);
+      setLoadedAccounts([...loadedAccounts, response.user]);
+      updateNetWorth([...loadedAccounts, response.user]);
     } catch (error) {
       console.log(error);
     }
@@ -128,6 +131,57 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
     );
 
     updateLoadedUser(loadedAccounts, deletedAccId);
+  };
+
+  const advanceAllHandler = () => {
+    setAdvanceModal(true);
+
+    setFormData(
+      {
+        ...formState.inputs,
+        name: undefined,
+        category: undefined,
+      },
+      false
+    );
+  };
+
+  const submitNewSnapshot = async () => {
+    // Save snapshots of the current accounts
+
+    const newAccountBalance = loadedAccounts.map((acc) => {
+      let newBalance;
+      if (formState.inputs[acc.name].value === "") {
+        newBalance = acc.balance;
+      } else {
+        newBalance = formState.inputs[acc.name].value;
+      }
+
+      return (acc = {
+        ...acc,
+        balance: parseFloat(newBalance),
+      });
+    });
+
+    try {
+      await sendRequest(
+        `http://localhost:8080/accounts/log`,
+        "PATCH",
+        JSON.stringify({
+          snapshot: loadedAccounts,
+          newData: newAccountBalance,
+          userId: auth.userId,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+
+      setAdvanceModal(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -142,6 +196,9 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       <AccountUpdateContainer>
         <button onClick={addAccountHandler}>
           <i className="fas fa-plus"></i> <span>Add Account</span>
+        </button>
+        <button onClick={advanceAllHandler}>
+          <i className="fas fa-arrow-right"></i> <span>Update all</span>
         </button>
       </AccountUpdateContainer>
       <Modal
@@ -159,14 +216,16 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             onInput={inputHandler}
             validators={[requiredValidator()]}
           />
+
           <Input
+            dropDown
             id="category"
-            label="Account type"
-            dataType="text"
+            label="Category"
             errorText={"Please enter a category"}
             onInput={inputHandler}
             validators={[requiredValidator()]}
           />
+
           <Input
             id="balance"
             label="Account balance"
@@ -179,6 +238,44 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         {loading && (
           <Loader type="Rings" color="#00BFFF" height={80} width={80} />
         )}
+      </Modal>
+      <Modal
+        show={advanceModal}
+        title="Update all values for the database"
+        close={() => setAdvanceModal(false)}
+        submitHandler={submitNewSnapshot}
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Before</th>
+              <th>After</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* The before updating */}
+
+            {loadedAccounts.map((acc) => (
+              <>
+                <tr key={acc._id}>
+                  <td>{acc.name}</td>
+                  <td>{acc.balance}</td>
+                  <td>
+                    <Input
+                      updateAllModal
+                      id={acc.name}
+                      label={""}
+                      dataType="number"
+                      onInput={inputHandler}
+                      validators={[]}
+                    />
+                  </td>
+                </tr>
+              </>
+            ))}
+          </tbody>
+        </table>
       </Modal>
     </div>
   );

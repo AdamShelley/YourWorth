@@ -17,6 +17,10 @@ const StyledHeader = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    a:first-child {
+      text-decoration: none;
+    }
   }
 
   h1 {
@@ -64,6 +68,14 @@ const StyledHeader = styled.div`
     font-weight: 500;
     border-bottom: 1px solid var(--light-gray);
   }
+
+  .logout-button {
+    background-color: transparent;
+    border: none;
+    color: var(--cultured);
+    font-family: inherit;
+    font-size: inherit;
+  }
 `;
 
 const Header = () => {
@@ -72,15 +84,19 @@ const Header = () => {
   return (
     <StyledHeader>
       <nav>
-        <h1>
-          <span>Y</span>our<span>W</span>orth
-        </h1>
+        <NavLink exact to="/">
+          <h1>
+            <span>Y</span>our<span>W</span>orth
+          </h1>
+        </NavLink>
         <ul>
-          <li>
-            <NavLink exact activeClassName="selected" to="/">
-              Dashboard
-            </NavLink>
-          </li>
+          {auth.isLoggedIn && (
+            <li>
+              <NavLink exact activeClassName="selected" to="/">
+                Dashboard
+              </NavLink>
+            </li>
+          )}
 
           {auth.isLoggedIn && (
             <li>
@@ -98,7 +114,9 @@ const Header = () => {
           )}
           {auth.isLoggedIn && (
             <li>
-              <button onClick={auth.logout}>Logout</button>
+              <button className="logout-button" onClick={auth.logout}>
+                Logout
+              </button>
             </li>
           )}
         </ul>

@@ -1,4 +1,4 @@
-const types = [
+const categories = [
   "Investments",
   "Savings",
   "Checking",
@@ -6,4 +6,4 @@ const types = [
   "Pension",
 ];
 
-export { types };
+export { categories };
