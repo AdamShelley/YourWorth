@@ -9,6 +9,7 @@ import { useForm } from "../hooks/form-hook";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 import { requiredValidator } from "../helpers/validators";
+import { StyledModalTable } from "../styles/tables";
 
 const AccountUpdateContainer = styled.div`
   display: flex;
@@ -244,8 +245,9 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         title="Update all values for the database"
         close={() => setAdvanceModal(false)}
         submitHandler={submitNewSnapshot}
+        largeModal
       >
-        <table>
+        <StyledModalTable>
           <thead>
             <tr>
               <th>Name</th>
@@ -260,7 +262,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
               <>
                 <tr key={acc._id}>
                   <td>{acc.name}</td>
-                  <td>{acc.balance}</td>
+                  <td>£ {acc.balance.toFixed(2)}</td>
                   <td>
                     <Input
                       updateAllModal
@@ -269,13 +271,14 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
                       dataType="number"
                       onInput={inputHandler}
                       validators={[]}
+                      minimalInput
                     />
                   </td>
                 </tr>
               </>
             ))}
           </tbody>
-        </table>
+        </StyledModalTable>
       </Modal>
     </div>
   );

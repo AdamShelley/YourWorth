@@ -53,6 +53,11 @@ const InputContainer = styled.div`
   .input-invalid {
     color: red;
   }
+
+  .minimal-input {
+    background-color: var(--cultured-2);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -119,6 +124,7 @@ const Input = ({
   accountSelected,
   alignLeft,
   dropDown,
+  minimalInput,
 }) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: initialValue || "",
@@ -185,6 +191,7 @@ const Input = ({
           onChange={changeHandler}
           onBlur={blurHandler}
           placeholder={placeholder}
+          className={`${minimalInput ? " minimal-input" : ""}`}
         />
         {!inputState.valid && inputState.isBlurred && <p>{errorText}</p>}
       </InputContainer>

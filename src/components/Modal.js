@@ -18,7 +18,7 @@ const ModalStylesContainer = styled.div`
     align-items: center;
 
     .modal {
-      min-width: 30vw;
+      max-width: ${({ largeModal }) => ({ largeModal } ? "50vw" : "30vw")};
       height: auto;
       background-color: #fff;
       padding: 2rem;
@@ -95,10 +95,10 @@ const ModalStylesContainer = styled.div`
 `;
 
 const Modal = (props) => {
-  const { show, close, title, submitHandler } = props;
+  const { show, close, title, submitHandler, largeModal } = props;
 
   const content = (
-    <ModalStylesContainer>
+    <ModalStylesContainer largeModal={largeModal}>
       {show && (
         <div className="modalContainer" onClick={() => close()}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>

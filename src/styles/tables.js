@@ -117,4 +117,22 @@ const StyledTable = styled.table`
   }
 `;
 
-export { StyledTable };
+const StyledModalTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+  table-layout: fixed;
+  /* padding: 2rem; */
+  text-align: left;
+  letter-spacing: 1px;
+  color: var(--gunmetal);
+  /* background-color: var(--davys-grey); */
+  background-color: var(--cultured);
+  font-family: "Open Sans", serif;
+
+  td > div {
+    margin-top: 0;
+  }
+`;
+
+export { StyledTable, StyledModalTable };
