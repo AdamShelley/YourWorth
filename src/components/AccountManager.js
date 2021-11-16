@@ -150,6 +150,8 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
   const submitNewSnapshot = async () => {
     // Save snapshots of the current accounts
 
+    console.log(formState.inputs);
+
     const newAccountBalance = loadedAccounts.map((acc) => {
       let newBalance;
       if (formState.inputs[acc.name].value === "") {

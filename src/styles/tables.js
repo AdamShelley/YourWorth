@@ -122,13 +122,17 @@ const StyledModalTable = styled.table`
   border-collapse: collapse;
   margin: auto;
   table-layout: fixed;
-  /* padding: 2rem; */
+
   text-align: left;
   letter-spacing: 1px;
   color: var(--gunmetal);
-  /* background-color: var(--davys-grey); */
+
   background-color: var(--cultured);
   font-family: "Open Sans", serif;
+
+  tr {
+    margin-top: 0.2rem;
+  }
 
   td > div {
     margin-top: 0;

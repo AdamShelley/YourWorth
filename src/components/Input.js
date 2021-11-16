@@ -55,8 +55,11 @@ const InputContainer = styled.div`
   }
 
   .minimal-input {
-    background-color: var(--cultured-2);
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, var(--cultured-2));
+    margin-top: 0;
+    padding: 0.4rem 0.3rem;
+    margin: 0.3rem 0;
+    width: 75%;
   }
 `;
 
