@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
 
 const PieChartDisplay = ({ accounts }) => {
-  console.log(accounts);
-
   let animationDuration = 300;
   const [activeIndex, setActiveIndex] = useState(0);
 

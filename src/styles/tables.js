@@ -119,9 +119,10 @@ const StyledTable = styled.table`
 
 const StyledModalTable = styled.table`
   width: 100%;
+  height: 100%;
   border-collapse: collapse;
   margin: auto;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 
   text-align: left;
   letter-spacing: 1px;

@@ -209,6 +209,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         title="Add a new account to the Portfolio"
         close={closeModal}
         submitHandler={submitAccount}
+        modalSize="medium"
       >
         <div>
           <Input
@@ -247,7 +248,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         title="Update all values for the database"
         close={() => setAdvanceModal(false)}
         submitHandler={submitNewSnapshot}
-        largeModal
+        modalSize="large"
       >
         <StyledModalTable>
           <thead>

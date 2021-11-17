@@ -18,7 +18,7 @@ const ModalStylesContainer = styled.div`
     align-items: center;
 
     .modal {
-      max-width: ${({ largeModal }) => ({ largeModal } ? "50vw" : "30vw")};
+      width: ${({ modalSize }) => handleSize(modalSize)};
       height: auto;
       background-color: #fff;
       padding: 2rem;
@@ -94,11 +94,24 @@ const ModalStylesContainer = styled.div`
   }
 `;
 
+const handleSize = (size) => {
+  switch (size) {
+    case "large":
+      return "40vw";
+    case "medium":
+      return "30vw";
+    case "small":
+      return "30vw";
+    default:
+      return "30vw";
+  }
+};
+
 const Modal = (props) => {
-  const { show, close, title, submitHandler, largeModal } = props;
+  const { show, close, title, submitHandler, modalSize } = props;
 
   const content = (
-    <ModalStylesContainer largeModal={largeModal}>
+    <ModalStylesContainer modalSize={modalSize}>
       {show && (
         <div className="modalContainer" onClick={() => close()}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>

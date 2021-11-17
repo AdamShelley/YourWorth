@@ -32,8 +32,11 @@ const Graphs = ({
   accountList,
 }) => {
   // Functions to format data from Data array for Recharts
+  console.log(lastUpdated);
   const newData = standardizeData(data, lastUpdated);
   const prevData = getPrevData(prevAccountDataSnapshots);
+
+  console.log(newData);
 
   // Sort the data by date
   const finalData = newData.concat(prevData);

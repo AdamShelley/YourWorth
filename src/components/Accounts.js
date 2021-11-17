@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 
 import Modal from "./Modal";
 import { useFetchHook } from "../hooks/fetch-hook";
-import { StyledTable } from "../styles/tables";
+import { StyledTable, StyledModalTable } from "../styles/tables";
 import { commaValue } from "../helpers/commaValue";
 import { types } from "../helpers/accountTypes.js";
 import { useForm } from "../hooks/form-hook";
@@ -215,6 +215,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
           close={Toggle}
           title={"Update account details"}
           submitHandler={confirmSub}
+          modalSize="medium"
         >
           <ModalContent>
             <Input
@@ -257,32 +258,36 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
         <Modal
           show={confirmSubmission}
           close={() => setConfirmSubmission(false)}
-          title={"Are you sure you want to submit?"}
+          title={"You are about to make the following changes: "}
           submitHandler={submitUpdate}
+          modalSize="large"
         >
-          You are about to make the following changes:
-          <table>
+          <StyledModalTable>
             <thead>
               <tr>
+                <th></th>
                 <th>Before</th>
                 <th>After</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>Name</td>
                 <td>{accountSelected.name}</td>
                 <td>{formState.inputs.name.value}</td>
               </tr>
               <tr>
+                <td>Category</td>
                 <td>{accountSelected.category}</td>
                 <td>{formState.inputs.category.value}</td>
               </tr>
               <tr>
+                <td>Balance</td>
                 <td>{accountSelected.balance}</td>
                 <td>{formState.inputs.balance.value}</td>
               </tr>
             </tbody>
-          </table>
+          </StyledModalTable>
         </Modal>
       )}
     </StyledTable>

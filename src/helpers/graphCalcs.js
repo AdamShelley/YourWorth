@@ -1,23 +1,29 @@
-const standardizeData = (data, snapShotDate) => {
-  // Should export this into its own file
+const standardizeData = (data, lastUpdated) => {
   const newDataArray = [];
 
-  // Loop through the data passed via props
+  console.log(lastUpdated);
+  // Formatted date
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = new Date(lastUpdated).toLocaleString("en-US");
 
+  console.log(formattedDate);
+
+  // Loop through the data passed via props
   data.forEach((acc) => {
     // If the array is empty, add the first part of the data
     if (newDataArray.length === 0) {
       const temp = {
-        date: snapShotDate,
-        [acc.name]: acc.amount,
+        date: lastUpdated,
+        [acc.name]: acc.balance,
       };
+
       newDataArray.push(temp);
     }
 
     // Add the rest of the accounts to the latest date
     newDataArray[0] = {
       ...newDataArray[0],
-      [acc.name]: acc.amount,
+      [acc.name]: acc.balance,
     };
   });
 
@@ -25,6 +31,7 @@ const standardizeData = (data, snapShotDate) => {
 };
 
 const getPrevData = (data) => {
+  // console.log(data);
   const prevDataArray = [];
 
   data.forEach((item) => {
