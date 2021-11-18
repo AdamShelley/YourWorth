@@ -71,6 +71,7 @@ const SelectContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   font-family: "Open Sans", serif;
+  margin-top: 2rem;
 
   label {
     margin-right: 0.4rem;
@@ -159,7 +160,7 @@ const Input = ({
   let input;
   if (dropDown) {
     input = (
-      <SelectContainer>
+      <SelectContainer flex alignLeft>
         <label htmlFor={label}>{label}</label>
         <select
           name={label}

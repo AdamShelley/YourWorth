@@ -32,11 +32,11 @@ const Graphs = ({
   accountList,
 }) => {
   // Functions to format data from Data array for Recharts
-  console.log(lastUpdated);
+
   const newData = standardizeData(data, lastUpdated);
   const prevData = getPrevData(prevAccountDataSnapshots);
 
-  console.log(newData);
+  console.log(prevData);
 
   // Sort the data by date
   const finalData = newData.concat(prevData);
@@ -79,6 +79,7 @@ const Graphs = ({
               padding={{ left: 5, right: 5 }}
               tick={{ fontSize: "0.8rem" }}
             />
+            <YAxis />
 
             <Tooltip
               wrapperStyle={{ backgroundColor: "var(--cultured)" }}

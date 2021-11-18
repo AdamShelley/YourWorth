@@ -1,12 +1,9 @@
 const standardizeData = (data, lastUpdated) => {
   const newDataArray = [];
 
-  console.log(lastUpdated);
   // Formatted date
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  const formattedDate = new Date(lastUpdated).toLocaleString("en-US");
-
-  console.log(formattedDate);
+  // const options = { year: "numeric", month: "long", day: "numeric" };
+  // const formattedDate = new Date(lastUpdated).toLocaleString("en-US");
 
   // Loop through the data passed via props
   data.forEach((acc) => {
@@ -45,7 +42,7 @@ const getPrevData = (data) => {
       key.forEach((acc) => {
         temp = {
           ...temp,
-          [acc.name]: acc.amount,
+          [acc.name]: acc.balance,
         };
       });
       prevDataArray.push(temp);

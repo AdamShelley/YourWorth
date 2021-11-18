@@ -125,8 +125,6 @@ const PortfolioPage = ({ data, userId }) => {
     }));
   };
 
-  console.log(loadedUser.updated_at);
-
   return (
     <PortfolioContainer>
       {/* {error && <p>{error}</p>} */}
@@ -160,7 +158,7 @@ const PortfolioPage = ({ data, userId }) => {
             <GraphContainer>
               {loadedUser.prevAccountDataSnapshots.length > 1 && (
                 <Graphs
-                  lastUpdated={loadedUser.updated_at || loadedUser.created_at}
+                  lastUpdated={loadedUser.lastUpdated}
                   data={loadedUser.accounts}
                   prevAccountDataSnapshots={
                     loadedUser?.prevAccountDataSnapshots
@@ -169,7 +167,7 @@ const PortfolioPage = ({ data, userId }) => {
                   accountList={loadedUser.accountList}
                 />
               )}
-              {/* 
+
               <Graphs
                 projected
                 lastUpdated={loadedUser?.lastUpdated || loadedUser.firstCreated}
@@ -178,7 +176,7 @@ const PortfolioPage = ({ data, userId }) => {
                 prevAccountDataSnapshots={loadedUser?.prevAccountDataSnapshots}
                 title={"Projected NetWorth"}
                 targetWorth={loadedUser.targetWorth}
-              /> */}
+              />
             </GraphContainer>
           ) : (
             <p>Not enough data to produce graphs</p>
