@@ -181,6 +181,9 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         }
       );
 
+      // Feed the correct values in for a component load via filter
+      // setLoadedAccounts([...loadedAccounts, ])
+
       setAdvanceModal(false);
     } catch (err) {
       console.log(err);
@@ -228,6 +231,8 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             errorText={"Please enter a category"}
             onInput={inputHandler}
             validators={[requiredValidator()]}
+            initialValid={true}
+            initialValue={"Investments"}
           />
 
           <Input

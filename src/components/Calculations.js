@@ -4,6 +4,7 @@ import { StyledTable } from "../styles/tables";
 
 import Input from "../components/Input.js";
 import { calculateProjections } from "../helpers/calculateProjections";
+import { useForm } from "../hooks/form-hook";
 
 const StyledInputContainer = styled.div`
   display: flex;
@@ -31,9 +32,14 @@ const StyledInputContainer = styled.div`
     justify-content: center;
     width: 100%;
   }
-`;
 
-// FAKE VALUES
+  div > div > input {
+    background-color: var(--cultured-2);
+    width: 75%;
+    box-shadow: none;
+    height: 2.5rem;
+  }
+`;
 
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth } = accountInformation;
@@ -43,12 +49,34 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const [retirementAge, setRetirementAge] = useState(ageToRetire);
   const [drawdown, setDrawdown] = useState(drawDownAmount);
 
+  const [formState, inputHandler] = useForm(
+    {
+      monthlyIncrease: {
+        value: "",
+        valid: false,
+      },
+      retirementAge: {
+        value: "",
+        valid: false,
+      },
+      targetNetWorth: {
+        value: "",
+        valid: false,
+      },
+      drawdown: {
+        value: "",
+        valid: false,
+      },
+    },
+    false
+  );
+
   const updateCalculations = () => {
     const vals = {
-      monthlyAdd,
-      retirementAge,
-      retirementGoal,
-      drawdown,
+      monthlyAdd: formState.inputs.monthlyIncrease.value,
+      retirementAge: formState.inputs.retirementAge.value,
+      retirementGoal: formState.inputs.targetNetWorth.value,
+      drawdown: formState.inputs.drawdown.value,
     };
 
     updateCalcs(vals);
@@ -60,37 +88,42 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
         <h4>Modify your projections</h4>
         <div>
           <Input
+            id="monthlyIncrease"
             label="Monthly Added"
             currentValue={monthlyAdd}
-            updateVal={setMonthlyAdd}
             dataType="number"
-            onInput={() => {}}
+            onInput={inputHandler}
+            validators={[]}
           />
           <Input
-            label="retirement goal amount"
+            id="retirementAge"
+            label="Target Age"
             currentValue={retirementGoal}
-            updateVal={setRetirementGoal}
             dataType="number"
-            onInput={() => {}}
+            onInput={inputHandler}
+            validators={[]}
           />
           <Input
-            label="Target Retirement Age"
+            id="targetNetWorth"
+            label="Target Net Worth"
             currentValue={retirementAge}
-            updateVal={setRetirementAge}
             dataType="number"
-            onInput={() => {}}
+            onInput={inputHandler}
+            validators={[]}
           />
           <Input
+            id="drawdown"
             label="Drawdown per month"
             currentValue={drawdown}
-            updateVal={setDrawdown}
             dataType="number"
-            onInput={() => {}}
+            onInput={inputHandler}
+            validators={[]}
           />
         </div>
         <button type="submit" onClick={updateCalculations}>
           Update
         </button>
+        <button>Reset</button>
       </StyledInputContainer>
       <StyledTable fullscreen>
         {/* <caption>Projection</caption> */}

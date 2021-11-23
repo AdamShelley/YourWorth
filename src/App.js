@@ -13,6 +13,7 @@ import FirstTimeSetUp from "./pages/FirstTimeSetUp";
 import Header from "./components/Header";
 import { AuthenticationContext } from "./context/authenticate-context";
 import { useLogin } from "./hooks/login-hook";
+import Footer from "./components/Footer";
 
 // import { getPrevData } from "./helpers/graphCalcs";
 
@@ -72,6 +73,7 @@ function App() {
         <Router>
           <Header />
           {routes}
+          <Footer />
         </Router>
       </AuthenticationContext.Provider>
     </div>

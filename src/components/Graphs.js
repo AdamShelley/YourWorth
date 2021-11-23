@@ -33,25 +33,14 @@ const Graphs = ({
 }) => {
   // Functions to format data from Data array for Recharts
 
-  const newData = standardizeData(data, lastUpdated);
-  const prevData = getPrevData(prevAccountDataSnapshots);
+  const lastUpdate = lastUpdated.split("T")[0];
 
-  console.log(prevData);
+  const newData = standardizeData(data, lastUpdate);
+  const prevData = getPrevData(prevAccountDataSnapshots);
 
   // Sort the data by date
   const finalData = newData.concat(prevData);
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
-
-  // Convert date from object into readable dates
-  finalData.forEach((snapshot) => {
-    const d = new Date(Date.parse(snapshot.date));
-    const m = d.toLocaleDateString("en-US", { month: "short" });
-    const year = d.toLocaleDateString("en-us", { year: "2-digit" });
-
-    const newDate = `${m}-${year}`;
-
-    snapshot["date"] = newDate;
-  });
 
   return (
     <>
@@ -67,7 +56,7 @@ const Graphs = ({
               top: 5,
               right: 30,
               left: 50,
-              bottom: 30,
+              bottom: 20,
             }}
           >
             <XAxis
@@ -75,9 +64,11 @@ const Graphs = ({
               stroke="var(--cultured)"
               allowDuplicatedCategory={false}
               interval={0}
-              dy={10}
+              dy={20}
               padding={{ left: 5, right: 5 }}
               tick={{ fontSize: "0.8rem" }}
+              angle={-45}
+              height={50}
             />
             <YAxis />
 
@@ -114,17 +105,17 @@ const Graphs = ({
               top: 5,
               right: 30,
               left: 50,
-              bottom: 5,
+              bottom: 20,
             }}
           >
-            <XAxis dataKey="age" interval={10} />
+            <XAxis dataKey="age" interval={10} dy={5} height={50} />
             <YAxis
               domain={[(dataMin) => -100000, (dataMax) => 2000000]}
               type="number"
               allowDataOverflow={true}
             />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign={"bottom"} margin={{ top: "1rem" }} />
             <ReferenceLine y={0} stroke="red" />
             <ReferenceLine y={targetWorth} stroke="green" />
             <Line

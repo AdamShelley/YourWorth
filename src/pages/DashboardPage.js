@@ -23,7 +23,7 @@ const PortfolioContainer = styled.div`
   }
 
   p {
-    margin-top: 5rem;
+    margin-top: 3rem;
     font-size: 1rem;
 
     span {

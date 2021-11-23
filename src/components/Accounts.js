@@ -54,6 +54,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState();
   const { sendRequest, error, loading, clearError } = useFetchHook();
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       name: {

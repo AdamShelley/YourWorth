@@ -6,7 +6,7 @@ const StyledTable = styled.table`
   table-layout: ${(props) => (props.tlayout ? "fixed" : "auto")};
   width: ${(props) => (props.tlayout ? "50%" : "80%")};
   margin: auto;
-  margin-top: ${(props) => (props.tlayout ? "3rem" : "1rem")};
+  margin-top: ${(props) => (props.tlayout ? "5rem" : "1rem")};
   padding: 2rem;
   text-align: left;
   letter-spacing: 1px;

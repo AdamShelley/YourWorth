@@ -197,7 +197,9 @@ const Input = ({
           placeholder={placeholder}
           className={`${minimalInput ? " minimal-input" : ""}`}
         />
-        {!inputState.valid && inputState.isBlurred && <p>{errorText}</p>}
+        {errorText && !inputState.valid && inputState.isBlurred && (
+          <p>{errorText}</p>
+        )}
       </InputContainer>
     );
   }
