@@ -97,6 +97,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
   const addAccountHandler = () => setModal(true);
   const closeModal = () => setModal((prev) => !prev);
 
+  // ADD NEW ACCOUNT
   const submitAccount = async (e) => {
     e.preventDefault();
 
@@ -117,6 +118,8 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
           Authorization: "Bearer " + auth.token,
         }
       );
+
+      console.log(response);
 
       closeModal();
       setLoadedAccounts([...loadedAccounts, response.user]);
@@ -147,9 +150,8 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
     );
   };
 
+  // Save snapshots of the current accounts
   const submitNewSnapshot = async () => {
-    // Save snapshots of the current accounts
-
     console.log(formState.inputs);
 
     const newAccountBalance = loadedAccounts.map((acc) => {
@@ -167,7 +169,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
     });
 
     try {
-      await sendRequest(
+      const response = await sendRequest(
         `http://localhost:8080/accounts/log`,
         "PATCH",
         JSON.stringify({
@@ -182,7 +184,10 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       );
 
       // Feed the correct values in for a component load via filter
-      // setLoadedAccounts([...loadedAccounts, ])
+      console.log(response.user);
+
+      setLoadedAccounts([...response.user.accounts]);
+      updateNetWorth(null, response.user.netWorth);
 
       setAdvanceModal(false);
     } catch (err) {
@@ -260,7 +265,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             <tr>
               <th>Name</th>
               <th>Before</th>
-              <th>After</th>
+              <th style={{ paddingLeft: "1rem" }}>After</th>
             </tr>
           </thead>
           <tbody>
@@ -270,8 +275,10 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
               <>
                 <tr key={acc._id}>
                   <td>{acc.name}</td>
-                  <td>£ {acc.balance.toFixed(2)}</td>
-                  <td>
+                  <td style={{ textAlign: "right" }}>
+                    £{acc.balance.toFixed(2)}
+                  </td>
+                  <td style={{ paddingLeft: "1rem" }}>
                     <Input
                       updateAllModal
                       id={acc.name}

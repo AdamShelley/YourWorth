@@ -48,7 +48,6 @@ let confirmTimer;
 const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   const auth = useContext(AuthenticationContext);
   const [modal, setModal] = useState(false);
-
   const [accountSelected, setAccountSelected] = useState();
   const [confirmSubmission, setConfirmSubmission] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);

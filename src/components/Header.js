@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { AuthenticationContext } from "../context/authenticate-context";
@@ -75,11 +75,68 @@ const StyledHeader = styled.div`
     color: var(--cultured);
     font-family: inherit;
     font-size: inherit;
+    position: relative;
+    cursor: pointer;
   }
 `;
 
+const StyledLogoutModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--cultured-2);
+  background-color: var(--cards);
+  padding: 1rem;
+  position: absolute;
+  right: 2rem;
+  margin-top: 1rem;
+
+  div {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+
+    button {
+      padding: 0.2rem 0.5rem;
+      margin: 0.2rem;
+      width: 4rem;
+      cursor: pointer;
+    }
+  }
+`;
+
+let logoutTimer;
+
 const Header = () => {
   const auth = useContext(AuthenticationContext);
+  const [logoutModal, setLogoutModal] = useState(false);
+
+  const logoutConfirmation = () => {
+    clearTimeout(logoutTimer);
+    setLogoutModal(true);
+    logoutTimer = setTimeout(() => {
+      setLogoutModal(false);
+    }, 5000);
+  };
+
+  const confirmLogout = () => {
+    clearTimeout(logoutTimer);
+    auth.logout();
+    setLogoutModal(false);
+  };
+
+  const LogoutModal = () => {
+    return (
+      <StyledLogoutModal>
+        <p>Are you sure?</p>
+        <div>
+          <button onClick={confirmLogout}>Yes</button>
+          <button onClick={() => setLogoutModal(false)}>No</button>
+        </div>
+      </StyledLogoutModal>
+    );
+  };
 
   return (
     <StyledHeader>
@@ -114,9 +171,10 @@ const Header = () => {
           )}
           {auth.isLoggedIn && (
             <li>
-              <button className="logout-button" onClick={auth.logout}>
+              <button className="logout-button" onClick={logoutConfirmation}>
                 Logout
               </button>
+              {logoutModal && <LogoutModal />}
             </li>
           )}
         </ul>

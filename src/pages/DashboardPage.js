@@ -105,24 +105,36 @@ const PortfolioPage = ({ data, userId }) => {
     setLoadedUser(user);
   };
 
-  const updateNetWorth = (accounts) => {
+  const updateNetWorth = (accounts, netWorth) => {
     console.log("Updating net worth");
 
-    console.log(accounts);
-    let newNetWorth;
-    if (accounts.length > 1) {
-      newNetWorth = accounts.reduce(
-        (a, b) => parseFloat(a.balance) + parseFloat(b.balance)
-      );
+    // Update networth straight from backend
+    if (accounts === null) {
+      setLoadedUser((prevState) => ({
+        ...prevState,
+        netWorth: netWorth,
+      }));
+
+      // if not available from backend then update from accounts list
     } else {
-      newNetWorth = accounts[0].balance;
+      let newNetWorth;
+      if (accounts.length > 1) {
+        newNetWorth = accounts.reduce(
+          (a, sum) => (a += parseFloat(sum.balance)),
+          0
+        );
+      } else {
+        newNetWorth = accounts[0].balance;
+      }
+
+      setLoadedUser((prevState) => ({
+        ...prevState,
+        accounts: accounts,
+        netWorth: newNetWorth,
+      }));
     }
 
-    setLoadedUser((prevState) => ({
-      ...prevState,
-      accounts: accounts,
-      netWorth: newNetWorth,
-    }));
+    console.log(loadedUser);
   };
 
   return (
