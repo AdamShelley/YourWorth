@@ -57,6 +57,11 @@ const AccountPage = () => {
         </div>
         <div>
           <h4>Control Panel</h4>
+          <select name="currency" id="">
+            <option value="" default selected>
+              Change currency
+            </option>
+          </select>
           <button>Delete ALL Data</button>
           <button>Delete Account</button>
         </div>

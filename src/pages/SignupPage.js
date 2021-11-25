@@ -18,20 +18,29 @@ import {
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 4rem;
-  width: 25rem;
-  height: 35rem;
+  width: 28rem;
+  height: 36rem;
   background-color: var(--cultured);
-  box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.3);
+
   font-family: "Open Sans", serif;
   color: var(--gunmetal);
   border-radius: 3px;
+  border-top: 8px solid var(--card-header);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  .signup-container-content {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
 
   h2 {
-    font-size: 2rem;
-    font-weight: 100;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 1px;
   }
 
   form {
@@ -55,6 +64,31 @@ const SignupContainer = styled.div`
     border-radius: 3px;
   }
 
+  .helper-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      label {
+        font-size: 0.8rem;
+        margin-left: 0.3rem;
+      }
+      > input {
+      }
+    }
+
+    > button {
+      border: none;
+      background-color: transparent;
+      font-weight: 500;
+    }
+  }
+
   .login-button {
     background-color: var(--cards);
     color: var(--cultured);
@@ -69,13 +103,27 @@ const SignupContainer = styled.div`
     color: #ccc;
   }
 
+  .switch-button-container {
+    background-color: var(--card-header);
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.3);
+  }
+
   .switch-button {
     width: 100%;
     border: none;
     background-color: transparent;
-    margin-top: 2rem;
     cursor: pointer;
     flex: 1;
+    font-size: 0.9rem;
+    color: var(--cultured-2);
   }
 `;
 
@@ -180,52 +228,67 @@ const SignupPage = () => {
 
   return (
     <SignupContainer>
-      <h2>{loginMode ? "Log in" : "Signup"}</h2>
-      <form onSubmit={submitHandler}>
-        {!loginMode && (
-          <Input
-            alignLeft
-            id="name"
-            label="Name"
-            dataType="text"
-            errorText={"Please enter a name."}
-            validators={[requiredValidator()]}
-            onInput={inputHandler}
-          />
-        )}
-        <Input
-          alignLeft
-          id="email"
-          label="Email Address"
-          dataType="text"
-          errorText={"Please enter a correct email address"}
-          validators={[requiredValidator(), emailValidator()]}
-          onInput={inputHandler}
-        />
-        <Input
-          alignLeft
-          id="password"
-          label="Password"
-          dataType="password"
-          errorText={"Enter a password more than 6 characters long"}
-          validators={[requiredValidator(), minLengthValidator(6)]}
-          onInput={inputHandler}
-        />
-        <button className="button login-button" disabled={!formState.formValid}>
-          {loginMode ? "Login" : "Signup"}
-        </button>
-        {error && <p>{error}</p>}
-      </form>
-
-      <button className="switch-button" onClick={switchModeHandler}>
-        {!loginMode
-          ? "Have an account? Log in instead"
-          : `Don't have an account? Sign up `}
-      </button>
-
       {loading && (
         <Loader type="Rings" color="#00BFFF" height={80} width={80} />
       )}
+      <div className="signup-container-content">
+        <h2>{loginMode ? "Welcome back!" : "Signup"}</h2>
+        <form onSubmit={submitHandler}>
+          {!loginMode && (
+            <Input
+              alignLeft
+              id="name"
+              label="Name"
+              dataType="text"
+              errorText={"Please enter a name."}
+              validators={[requiredValidator()]}
+              onInput={inputHandler}
+            />
+          )}
+          <Input
+            alignLeft
+            id="email"
+            label="Email Address"
+            dataType="text"
+            errorText={"Please enter a correct email address"}
+            validators={[requiredValidator(), emailValidator()]}
+            onInput={inputHandler}
+          />
+          <Input
+            alignLeft
+            id="password"
+            label="Password"
+            dataType="password"
+            errorText={"Enter a password more than 6 characters long"}
+            validators={[requiredValidator(), minLengthValidator(6)]}
+            onInput={inputHandler}
+          />
+          <div className="helper-buttons">
+            <div>
+              <input type="radio" name="remember" id="remember" />
+              <label htmlFor="remember">Remember me?</label>
+            </div>
+
+            <button>Forgot your password?</button>
+          </div>
+
+          <button
+            className="button login-button"
+            disabled={!formState.formValid}
+          >
+            {loginMode ? "Login" : "Signup"}
+          </button>
+          {error && <p>{error}</p>}
+        </form>
+      </div>
+
+      <div className="switch-button-container">
+        <button className="switch-button" onClick={switchModeHandler}>
+          {!loginMode
+            ? "Have an account? Log in instead"
+            : `Don't have an account? Sign up `}
+        </button>
+      </div>
     </SignupContainer>
   );
 };

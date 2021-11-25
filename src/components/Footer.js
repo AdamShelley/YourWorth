@@ -8,6 +8,7 @@ const StyledFooter = styled.div`
   background-color: var(--cards);
   height: 10vh;
   width: 100%;
+  margin-top: 5rem;
 `;
 
 const Footer = () => {

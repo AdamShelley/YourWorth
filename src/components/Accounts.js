@@ -148,7 +148,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
         <tr>
           <th>Account</th>
           <th>Type</th>
-          <th>Amount</th>
+          <th style={{ textAlign: "right" }}>Amount</th>
           {portfolioPage && <th></th>}
         </tr>
       </thead>
@@ -162,7 +162,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
             <tr key={`row-${index}`}>
               <td>{account.name}</td>
               <td>{account.category}</td>
-              <td>£{number}</td>
+              <td style={{ textAlign: "right" }}>£{number}</td>
               {portfolioPage && (
                 <>
                   <td className="box-buttons">
@@ -172,25 +172,25 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
                           className="box edit-box"
                           onClick={() => editAccount(account)}
                         >
-                          <i className="fas fa-search"></i>
+                          Edit
                         </div>
+
                         <div
                           className="box delete-box"
                           onClick={() => startDeletion(index)}
                         >
-                          <i className="fas fa-trash"></i>
+                          Delete
                         </div>
                       </>
                     )}
                     {confirmDeletion && index === deleteIndex && (
-                      <div>
-                        <button
-                          className="box delete-account-btn"
-                          onClick={() => confirmDeleteAccount(account)}
-                        >
-                          Confirm
-                        </button>
-                      </div>
+                      <button
+                        href="/"
+                        className="box delete-account-btn"
+                        onClick={() => confirmDeleteAccount(account)}
+                      >
+                        Confirm
+                      </button>
                     )}
                   </td>
                   {loading && confirmDeletion && index === deleteIndex && (

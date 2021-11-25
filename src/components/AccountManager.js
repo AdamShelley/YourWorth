@@ -20,51 +20,35 @@ const AccountUpdateContainer = styled.div`
   button {
     margin: 1rem;
 
-    padding: 0.7rem 1.2rem;
+    padding: 1rem 1.2rem;
     text-align: center;
     border: 1px solid transparent;
     background-color: var(--cultured);
     color: var(--cultured);
     border-radius: 1px;
     cursor: pointer;
-    width: 1rem;
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     background-color: var(--card-header);
     box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.2);
-
-    transition: all 0.2s ease-in-out;
-    transition-delay: 0.1s;
     max-height: 2rem;
+    width: 10rem;
+    letter-spacing: 0.5px;
+
+    i {
+      margin-right: 0.5rem;
+    }
 
     span {
       text-align: center;
       color: var(--cultured);
-      opacity: 0;
       overflow: hidden;
       transition-delay: 0.2s;
-      visibility: hidden;
     }
 
     &:hover {
-      width: 10%;
-      overflow: hidden;
-
-      background-color: var(--card-header);
-      box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
-      color: var(--cultured);
-      transition: all 0.2s ease-in-out;
-
-      span {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      i {
-        margin-right: 0.5rem;
-      }
     }
   }
 `;
