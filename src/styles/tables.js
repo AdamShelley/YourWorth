@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledTable = styled.table`
-  width: ${(props) => (props.fullscreen ? "90vw" : "50vw")};
+  width: ${(props) => (props.fullscreen ? "80vw" : "50vw")};
   border-collapse: collapse;
   table-layout: ${(props) => (props.tlayout ? "fixed" : "auto")};
   width: ${(props) => (props.tlayout ? "50%" : "80%")};
@@ -35,7 +35,7 @@ const StyledTable = styled.table`
   }
 
   th {
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
   }
 
   th {
@@ -55,7 +55,7 @@ const StyledTable = styled.table`
   }
 
   tr {
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 
     &:hover .box {
       display: flex;
@@ -64,8 +64,8 @@ const StyledTable = styled.table`
 
   td {
     padding-left: 1.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
     font-size: 0.8rem;
 
     .box {

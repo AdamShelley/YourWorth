@@ -143,7 +143,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
 
   return (
     <StyledTable tlayout>
-      <caption>Accounts</caption>
+      {/* <caption>Accounts</caption> */}
       <thead>
         <tr>
           <th>Account</th>

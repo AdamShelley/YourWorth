@@ -70,7 +70,7 @@ const PieChartDisplay = ({ accounts }) => {
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
-          dy={18}
+          dy={10}
           textAnchor={textAnchor}
           fill="#999"
         >

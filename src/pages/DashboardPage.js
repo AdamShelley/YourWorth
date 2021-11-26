@@ -148,7 +148,7 @@ const PortfolioPage = ({ data, userId }) => {
           <h2>Portfolio</h2>
 
           <p>
-            Your NET worth is{" "}
+            Your net worth is
             <span>£{commaValue(loadedUser?.netWorth) || 0}</span>
           </p>
           {/* Pie Chart Section */}

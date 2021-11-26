@@ -38,7 +38,8 @@ const AccountUpdateContainer = styled.div`
     letter-spacing: 0.5px;
 
     i {
-      margin-right: 0.5rem;
+      margin-right: 0.7rem;
+      font-size: 0.6rem;
     }
 
     span {
