@@ -60,6 +60,9 @@ const StyledTable = styled.table`
     &:hover .box {
       display: flex;
     }
+
+    &:hover {
+    }
   }
 
   td {
@@ -76,7 +79,10 @@ const StyledTable = styled.table`
       cursor: pointer;
       display: none;
       justify-content: space-between;
-      margin: 0 0.5rem;
+      margin: 0 0.2rem;
+    }
+    .box-sep {
+      color: var(--slate-gray);
     }
   }
 

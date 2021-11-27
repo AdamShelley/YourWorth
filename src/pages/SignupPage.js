@@ -124,6 +124,7 @@ const SignupContainer = styled.div`
     flex: 1;
     font-size: 0.9rem;
     color: var(--cultured-2);
+    font-weight: 500;
   }
 `;
 

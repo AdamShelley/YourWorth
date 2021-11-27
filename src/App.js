@@ -72,7 +72,7 @@ function App() {
       >
         <Router>
           <Header />
-          {routes}
+          <main>{routes}</main>
           <Footer />
         </Router>
       </AuthenticationContext.Provider>

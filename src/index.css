@@ -22,6 +22,10 @@
   margin: 0;
 }
 
+main {
+  min-height: 100vh;
+}
+
 body {
   font-family: "Mate SC", serif;
   /* background-color: var(--gunmetal); */

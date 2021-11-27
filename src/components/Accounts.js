@@ -174,7 +174,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
                         >
                           Edit
                         </div>
-
+                        <span className="box box-sep">|</span>
                         <div
                           className="box delete-box"
                           onClick={() => startDeletion(index)}
