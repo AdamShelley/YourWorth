@@ -118,8 +118,6 @@ const StyledModalTable = styled.table`
   height: 100%;
   border-collapse: collapse;
   margin: auto;
-  /* table-layout: fixed; */
-
   text-align: left;
   letter-spacing: 1px;
   color: var(--gunmetal);
@@ -129,6 +127,10 @@ const StyledModalTable = styled.table`
 
   tr {
     margin-top: 0.2rem;
+  }
+
+  td {
+    padding: 0 1rem;
   }
 
   td > div {
