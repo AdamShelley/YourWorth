@@ -212,6 +212,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             errorText={"Please enter an account name"}
             onInput={inputHandler}
             validators={[requiredValidator()]}
+            darkInput
           />
 
           <Input
@@ -223,6 +224,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             validators={[requiredValidator()]}
             initialValid={true}
             initialValue={"Investments"}
+            darkInput
           />
 
           <Input
@@ -232,6 +234,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             errorText={"Please enter a balance"}
             onInput={inputHandler}
             validators={[requiredValidator()]}
+            darkInput
           />
         </div>
         {loading && (

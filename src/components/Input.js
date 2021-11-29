@@ -61,6 +61,30 @@ const InputContainer = styled.div`
     margin: 0.3rem 0;
     width: 75%;
   }
+
+  .dark-container:first-child {
+    margin-top: 0;
+  }
+
+  .dark-container {
+    label {
+      color: var(--cultured-2) !important;
+    }
+  }
+
+  .dark-input {
+    background-color: var(--cards);
+    border: 1px solid var(--card-header);
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+    color: var(--cultured-2);
+  }
+
+  .dark-input-lighter {
+    background-color: var(--background);
+    border: 1px solid var(--card-header);
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+    color: var(--cultured-2);
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -94,6 +118,30 @@ const SelectContainer = styled.div`
     box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5);
     font-family: inherit;
     cursor: pointer;
+  }
+
+  .dark-container:first-child {
+    margin-top: 0;
+  }
+
+  .dark-container {
+    label {
+      color: var(--cultured-2) !important;
+    }
+  }
+
+  .dark-input {
+    background-color: var(--cards);
+    border: 1px solid var(--card-header);
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+    color: var(--cultured-2);
+  }
+
+  .dark-input-lighter {
+    background-color: var(--background);
+    border: 1px solid var(--card-header);
+    box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+    color: var(--cultured-2);
   }
 `;
 
@@ -129,6 +177,8 @@ const Input = ({
   alignLeft,
   dropDown,
   minimalInput,
+  darkInput,
+  darkInputLighter,
 }) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: initialValue || "",
@@ -169,6 +219,9 @@ const Input = ({
           defaultValue={accountSelected && accountSelected.category}
           onChange={changeHandler}
           value={inputState.value}
+          className={`${minimalInput ? " minimal-input" : ""}${
+            darkInput ? "dark-input" : ""
+          } ${darkInputLighter ? "dark-input-lighter" : ""}`}
         >
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -185,7 +238,7 @@ const Input = ({
         alignLeft
         className={`${
           !inputState.valid && inputState.isBlurred && "input-invalid"
-        }`}
+        } ${darkInput ? "dark-container" : ""}`}
       >
         <label htmlFor={label}>{label}</label>
         <input
@@ -195,7 +248,9 @@ const Input = ({
           onChange={changeHandler}
           onBlur={blurHandler}
           placeholder={placeholder}
-          className={`${minimalInput ? " minimal-input" : ""}`}
+          className={`${minimalInput ? " minimal-input" : ""}${
+            darkInput ? "dark-input" : ""
+          } ${darkInputLighter ? "dark-input-lighter" : ""}`}
         />
         {errorText && !inputState.valid && inputState.isBlurred && (
           <p>{errorText}</p>

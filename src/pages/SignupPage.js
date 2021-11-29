@@ -229,9 +229,6 @@ const SignupPage = () => {
 
   return (
     <SignupContainer>
-      {loading && (
-        <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-      )}
       <div className="signup-container-content">
         <h2>{loginMode ? "Welcome back!" : "Signup"}</h2>
         <form onSubmit={submitHandler}>
@@ -281,6 +278,9 @@ const SignupPage = () => {
           </button>
           {error && <p>{error}</p>}
         </form>
+        {loading && (
+          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+        )}
       </div>
 
       <div className="switch-button-container">

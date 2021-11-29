@@ -11,7 +11,7 @@ const ModalStylesContainer = styled.div`
     left: 0;
     right: 0;
     /* background-color: rgba($color: #000000, $alpha: 0.35); */
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 999;
     display: flex;
     justify-content: center;
@@ -23,20 +23,29 @@ const ModalStylesContainer = styled.div`
       background-color: #fff;
       padding: 2rem;
       border-radius: 2px;
-      color: var(--gunmetal);
+      /* color: var(--gunmetal); */
       /* background-color: rgba(255, 255, 255, 0.35); */
-      background-color: var(--cultured);
+      /* background-color: var(--cultured); */
+
       backdrop-filter: blur(5px);
-      box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
+
+      // Testing dark
+      /* background-color: var(--cards); */
+      background-color: var(--background);
+      border: 1px solid var(--slate-gray);
 
       &_header {
         position: relative;
         border-bottom: 1px solid #dddddd;
 
         &-title {
+          font-size: 1.2rem;
+          text-transform: lowercase;
           text-align: center;
           margin-bottom: 1rem;
           font-weight: 100;
+          line-height: 1.8;
         }
       }
 
@@ -45,9 +54,9 @@ const ModalStylesContainer = styled.div`
         padding: 2rem 0;
         color: var(--gunmetal);
 
-        & label {
+        /* & label {
           color: var(--gunmetal);
-        }
+        } */
 
         & input {
           font-weight: 100;
@@ -81,8 +90,8 @@ const ModalStylesContainer = styled.div`
         }
         .submit {
           margin-right: 1rem;
-          border: 1px solid var(--charleston-green);
-          background-color: var(--charleston-green);
+          border: 1px solid var(--slate-gray);
+          background-color: var(--card-header);
           color: var(--cultured);
 
           &:hover {

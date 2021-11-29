@@ -9,10 +9,14 @@ const AccountPageStyles = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
-  margin-top: 4rem;
+  margin-top: 2rem;
   min-height: 100vh;
+  font-family: "Opens Sans", serif;
 
-  h2 {
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
   }
 
   > div {
@@ -31,14 +35,18 @@ const AccountPageStyles = styled.div`
 
   .settings-section {
     margin-top: 1rem;
-    padding: 2rem;
+    padding: 2rem 0;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 
     h4 {
-      margin-top: 2rem;
       width: 100%;
+      font-size: 1.1rem;
+      font-family: "Opens Sans", serif;
+      font-weight: 100;
+      letter-spacing: 0.5px;
+      line-height: 1.8;
     }
 
     div {
@@ -56,14 +64,24 @@ const AccountPageStyles = styled.div`
         padding: 1rem;
         margin: 0.5rem;
         width: 50%;
-        background-color: var(--cultured);
-        border: none;
+        height: 4rem;
+        background-color: var(--cards);
+        border: 1px solid var(--card-header);
+        box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
+        color: var(--cultured-2);
         border-radius: 2px;
         text-align: center;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--gunmetal);
+        font-size: 1rem;
+        font-family: inherit;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        line-height: 1.8;
         cursor: pointer;
+        transition: all 0.2s ease-out;
+
+        &:hover {
+          border: 1px solid var(--cultured-2);
+        }
       }
     }
   }
@@ -95,11 +113,22 @@ const AccountPage = () => {
   return (
     <AccountPageStyles>
       <div>
+        <h1>Settings</h1>
         <div className="settings-section">
-          <h4>Account Details</h4>
+          <h4>Account</h4>
           <div>
-            <Input label="Name" validators={[]} onInput={inputHandler} />
-            <Input label="Age" validators={[]} onInput={inputHandler} />
+            <Input
+              label="Name"
+              validators={[]}
+              onInput={inputHandler}
+              darkInput
+            />
+            <Input
+              label="Age"
+              validators={[]}
+              onInput={inputHandler}
+              darkInput
+            />
           </div>
         </div>
 
@@ -110,11 +139,13 @@ const AccountPage = () => {
               label="Target Retirement Age"
               validators={[]}
               onInput={inputHandler}
+              darkInput
             />
             <Input
               label="Target Retirement Goal"
               validators={[]}
               onInput={inputHandler}
+              darkInput
             />
           </div>
         </div>
