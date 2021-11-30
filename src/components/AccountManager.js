@@ -79,8 +79,22 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
     false
   );
 
-  const addAccountHandler = () => setModal(true);
-  const closeModal = () => setModal((prev) => !prev);
+  const addAccountHandler = () => {
+    setModal(true);
+    preventScroll();
+  };
+  const closeModal = () => {
+    setModal((prev) => !prev);
+    preventScroll();
+  };
+
+  const preventScroll = () => {
+    if (document.body.style.overflow !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  };
 
   // ADD NEW ACCOUNT
   const submitAccount = async (e) => {
@@ -124,6 +138,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
 
   const advanceAllHandler = () => {
     setAdvanceModal(true);
+    preventScroll();
 
     setFormData(
       {
@@ -244,7 +259,10 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       <Modal
         show={advanceModal}
         title="Update all values for the database"
-        close={() => setAdvanceModal(false)}
+        close={() => {
+          setAdvanceModal(false);
+          preventScroll();
+        }}
         submitHandler={submitNewSnapshot}
         modalSize="large"
       >
@@ -274,7 +292,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
                       dataType="number"
                       onInput={inputHandler}
                       validators={[]}
-                      minimalInput
+                      darkInput
                     />
                   </td>
                 </tr>

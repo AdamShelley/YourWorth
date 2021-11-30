@@ -11,7 +11,7 @@ const ModalStylesContainer = styled.div`
     left: 0;
     right: 0;
     /* background-color: rgba($color: #000000, $alpha: 0.35); */
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: flex;
     justify-content: center;
@@ -33,11 +33,11 @@ const ModalStylesContainer = styled.div`
       // Testing dark
       /* background-color: var(--cards); */
       background-color: var(--background);
-      border: 1px solid var(--slate-gray);
+      border: 1px solid var(--cards);
 
       &_header {
         position: relative;
-        border-bottom: 1px solid #dddddd;
+        border-bottom: 1px solid var(--slate-gray);
 
         &-title {
           font-size: 1.2rem;
@@ -50,8 +50,10 @@ const ModalStylesContainer = styled.div`
       }
 
       &_content {
-        border-bottom: 1px solid #dddddd;
-        padding: 2rem 0;
+        border-bottom: 1px solid var(--slate-gray);
+        padding: 1rem;
+        padding-bottom: 3rem;
+
         color: var(--gunmetal);
 
         /* & label {

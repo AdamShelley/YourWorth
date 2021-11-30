@@ -15,11 +15,15 @@ import {
   requiredValidator,
 } from "../helpers/validators";
 
+const SignupPageStyles = styled.div`
+  height: 90vh;
+`;
+
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 28rem;
-  height: 36rem;
+  height: 40rem;
   background-color: var(--cultured);
 
   font-family: "Open Sans", serif;
@@ -39,8 +43,9 @@ const SignupContainer = styled.div`
 
   h2 {
     font-size: 1.4rem;
-    font-weight: 400;
-    letter-spacing: 1px;
+    font-weight: 100;
+    letter-spacing: 0.5px;
+    color: var(--background);
   }
 
   form {
@@ -85,11 +90,13 @@ const SignupContainer = styled.div`
     > button {
       border: none;
       background-color: transparent;
-      font-weight: 500;
+      font-weight: 100;
+      color: var(--gunmetal);
     }
   }
 
   .login-button {
+    margin-top: 4rem;
     background-color: var(--cards);
     color: var(--cultured);
 
@@ -106,6 +113,7 @@ const SignupContainer = styled.div`
   .switch-button-container {
     background-color: var(--card-header);
     width: 100%;
+    min-height: 5rem;
     height: 100%;
     border-radius: 0;
     border-bottom-left-radius: 5px;
@@ -113,7 +121,7 @@ const SignupContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 1px 2px 1px rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 2px 1px rgba(255, 255, 255, 0.3);
   }
 
   .switch-button {
@@ -123,8 +131,9 @@ const SignupContainer = styled.div`
     cursor: pointer;
     flex: 1;
     font-size: 0.9rem;
-    color: var(--cultured-2);
-    font-weight: 500;
+    color: var(--gainsboro);
+    line-height: 1.8;
+    letter-spacing: 0.3px;
   }
 `;
 
@@ -228,69 +237,75 @@ const SignupPage = () => {
   };
 
   return (
-    <SignupContainer>
-      <div className="signup-container-content">
-        <h2>{loginMode ? "Welcome back!" : "Signup"}</h2>
-        <form onSubmit={submitHandler}>
-          {!loginMode && (
-            <Input
-              alignLeft
-              id="name"
-              label="Name"
-              dataType="text"
-              errorText={"Please enter a name."}
-              validators={[requiredValidator()]}
-              onInput={inputHandler}
-            />
-          )}
-          <Input
-            alignLeft
-            id="email"
-            label="Email Address"
-            dataType="text"
-            errorText={"Please enter a correct email address"}
-            validators={[requiredValidator(), emailValidator()]}
-            onInput={inputHandler}
-          />
-          <Input
-            alignLeft
-            id="password"
-            label="Password"
-            dataType="password"
-            errorText={"Enter a password more than 6 characters long"}
-            validators={[requiredValidator(), minLengthValidator(6)]}
-            onInput={inputHandler}
-          />
-          <div className="helper-buttons">
-            <div>
-              <input type="radio" name="remember" id="remember" />
-              <label htmlFor="remember">Remember me?</label>
+    <SignupPageStyles>
+      <SignupContainer>
+        {!loading && (
+          <>
+            <div className="signup-container-content">
+              <h2>{loginMode ? "Welcome back!" : "Signup"}</h2>
+              <form onSubmit={submitHandler}>
+                {!loginMode && (
+                  <Input
+                    alignLeft
+                    id="name"
+                    label="Name"
+                    dataType="text"
+                    errorText={"Please enter a name."}
+                    validators={[requiredValidator()]}
+                    onInput={inputHandler}
+                  />
+                )}
+                <Input
+                  alignLeft
+                  id="email"
+                  label="Email Address"
+                  dataType="text"
+                  errorText={"Please enter a correct email address"}
+                  validators={[requiredValidator(), emailValidator()]}
+                  onInput={inputHandler}
+                />
+                <Input
+                  alignLeft
+                  id="password"
+                  label="Password"
+                  dataType="password"
+                  errorText={"Enter a password more than 6 characters long"}
+                  validators={[requiredValidator(), minLengthValidator(6)]}
+                  onInput={inputHandler}
+                />
+                <div className="helper-buttons">
+                  <div>
+                    <input type="radio" name="remember" id="remember" />
+                    <label htmlFor="remember">Remember me?</label>
+                  </div>
+
+                  <button>Forgot your password?</button>
+                </div>
+
+                <button
+                  className="button login-button"
+                  disabled={!formState.formValid}
+                >
+                  {loginMode ? "Login" : "Signup"}
+                </button>
+                {error && <p>{error}</p>}
+              </form>
             </div>
 
-            <button>Forgot your password?</button>
-          </div>
-
-          <button
-            className="button login-button"
-            disabled={!formState.formValid}
-          >
-            {loginMode ? "Login" : "Signup"}
-          </button>
-          {error && <p>{error}</p>}
-        </form>
-        {loading && (
-          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+            <div className="switch-button-container">
+              <button className="switch-button" onClick={switchModeHandler}>
+                {!loginMode
+                  ? "Have an account? Log in instead"
+                  : `Don't have an account? Sign up `}
+              </button>
+            </div>
+          </>
         )}
-      </div>
-
-      <div className="switch-button-container">
-        <button className="switch-button" onClick={switchModeHandler}>
-          {!loginMode
-            ? "Have an account? Log in instead"
-            : `Don't have an account? Sign up `}
-        </button>
-      </div>
-    </SignupContainer>
+        {loading && (
+          <Loader type="Rings" color="#00BFFF" height={"100%"} width={"100%"} />
+        )}
+      </SignupContainer>
+    </SignupPageStyles>
   );
 };
 

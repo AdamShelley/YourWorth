@@ -39,6 +39,20 @@ const StyledInputContainer = styled.div`
     box-shadow: none;
     height: 2.5rem;
   }
+
+  button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid var(--slate-gray);
+    background-color: var(--card-header);
+    color: var(--cultured);
+    margin: 1rem;
+
+    &:hover {
+      border: 1px solid var(--cadet-blue-crayola);
+    }
+  }
 `;
 
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
@@ -94,6 +108,9 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             dataType="number"
             onInput={inputHandler}
             validators={[]}
+            initialValid={formState.inputs.monthlyIncrease.valid}
+            initialValue={1000}
+            darkInputLighter
           />
           <Input
             id="retirementAge"
@@ -101,7 +118,10 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             currentValue={retirementGoal}
             dataType="number"
             onInput={inputHandler}
+            initialValid={formState.inputs.retirementAge.valid}
+            initialValue={50}
             validators={[]}
+            darkInputLighter
           />
           <Input
             id="targetNetWorth"
@@ -109,7 +129,10 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             currentValue={retirementAge}
             dataType="number"
             onInput={inputHandler}
+            initialValid={formState.inputs.targetNetWorth.valid}
+            initialValue={500000}
             validators={[]}
+            darkInputLighter
           />
           <Input
             id="drawdown"
@@ -117,13 +140,18 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             currentValue={drawdown}
             dataType="number"
             onInput={inputHandler}
+            initialValid={formState.inputs.drawdown.valid}
+            initialValue={1500}
             validators={[]}
+            darkInputLighter
           />
         </div>
-        <button type="submit" onClick={updateCalculations}>
-          Update
-        </button>
-        <button>Reset</button>
+        <div>
+          <button type="submit" onClick={updateCalculations}>
+            Update
+          </button>
+          <button>Reset</button>
+        </div>
       </StyledInputContainer>
       <StyledTable fullscreen>
         {/* <caption>Projection</caption> */}

@@ -72,7 +72,18 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
     true
   );
 
-  const Toggle = () => setModal(!modal);
+  const Toggle = () => {
+    setModal(!modal);
+    preventScroll();
+  };
+
+  const preventScroll = () => {
+    if (document.body.style.overflow !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  };
 
   const confirmSub = () => {
     setModal(false);
@@ -227,6 +238,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
               onInput={inputHandler}
               initialValid={formState.inputs.name.valid}
               initialValue={accountSelected.name}
+              darkInput
             />
             <Input
               dropDown
@@ -236,6 +248,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
               onInput={inputHandler}
               validators={[]}
               initialValue={accountSelected.category}
+              darkInput
             />
 
             <Input
@@ -247,6 +260,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
               onInput={inputHandler}
               initialValid={formState.inputs.balance.valid}
               initialValue={accountSelected.balance}
+              darkInput
             />
           </ModalContent>
         </Modal>

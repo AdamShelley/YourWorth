@@ -120,13 +120,21 @@ const StyledModalTable = styled.table`
   margin: auto;
   text-align: left;
   letter-spacing: 1px;
-  color: var(--gunmetal);
-
-  background-color: var(--cultured);
+  color: var(--cultured-2);
+  font-size: 0.9rem;
   font-family: "Open Sans", serif;
+  font-weight: 400;
 
-  tr {
+  th {
+    padding: 0 1rem;
+  }
+
+  thead > tr {
     margin-top: 0.2rem;
+    border-bottom: 1px solid var(--cultured-2);
+    line-height: 2;
+  }
+  tr {
   }
 
   td {
