@@ -4,15 +4,29 @@ import styled from "styled-components";
 const StyledFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--cards);
+  justify-content: space-evenly;
+  border-top: 1px solid var(--slate-gray);
+  /* background-color: var(--cards); */
   height: 10vh;
   width: 100%;
-  margin-top: 5rem;
+  color: var(--cultured-2);
+  font-family: "Open Sans", serif;
+  font-size: 0.9rem;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const Footer = () => {
-  return <StyledFooter>This is the footer area</StyledFooter>;
+  return (
+    <StyledFooter>
+      <div>Created by Adam Shelley</div>
+      <div>Github link here</div>
+      <a href="http://www.adamshelley.com">adamshelley.com</a>
+    </StyledFooter>
+  );
 };
 
 export default Footer;

@@ -77,6 +77,8 @@ const InputContainer = styled.div`
     border: 1px solid var(--card-header);
     box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
     color: var(--cultured-2);
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
   }
 
   .dark-input-lighter {
@@ -134,6 +136,8 @@ const SelectContainer = styled.div`
     border: 1px solid var(--card-header);
     box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
     color: var(--cultured-2);
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
   }
 
   .dark-input-lighter {

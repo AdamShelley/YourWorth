@@ -135,10 +135,14 @@ const StyledModalTable = styled.table`
     line-height: 2;
   }
   tr {
+    th {
+      padding: 0.5rem 1rem;
+      padding-bottom: 0.5rem;
+    }
   }
 
   td {
-    padding: 0 1rem;
+    padding: 1rem;
   }
 
   td > div {

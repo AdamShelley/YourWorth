@@ -38,11 +38,12 @@ const ModalStylesContainer = styled.div`
       &_header {
         position: relative;
         border-bottom: 1px solid var(--slate-gray);
+        padding: 0.5rem 1rem;
 
         &-title {
           font-size: 1.2rem;
           text-transform: lowercase;
-          text-align: center;
+          text-align: left;
           margin-bottom: 1rem;
           font-weight: 100;
           line-height: 1.8;

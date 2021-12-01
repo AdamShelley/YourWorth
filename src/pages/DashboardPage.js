@@ -141,7 +141,7 @@ const PortfolioPage = ({ data, userId }) => {
     <PortfolioContainer>
       {/* {error && <p>{error}</p>} */}
       {loading && (
-        <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+        <Loader type="Rings" color="#00BFFF" height={"100%"} width={"100%"} />
       )}
       {loadedUser && (
         <>

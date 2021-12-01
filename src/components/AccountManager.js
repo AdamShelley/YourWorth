@@ -270,8 +270,10 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
           <thead>
             <tr>
               <th>Name</th>
-              <th style={{ textAlign: "right" }}>Before</th>
-              <th style={{ paddingLeft: "1rem" }}>After</th>
+              <th style={{ textAlign: "center" }}>Before</th>
+              <th style={{ paddingLeft: "1rem", textAlign: "center" }}>
+                After
+              </th>
             </tr>
           </thead>
           <tbody>

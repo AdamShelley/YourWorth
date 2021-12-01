@@ -16,7 +16,7 @@ import {
 } from "../helpers/validators";
 
 const SignupPageStyles = styled.div`
-  height: 90vh;
+  height: 85vh;
 `;
 
 const SignupContainer = styled.div`
@@ -302,7 +302,12 @@ const SignupPage = () => {
           </>
         )}
         {loading && (
-          <Loader type="Rings" color="#00BFFF" height={"100%"} width={"100%"} />
+          <Loader
+            type="Rings"
+            color="var(--background)"
+            height={"100%"}
+            width={"100%"}
+          />
         )}
       </SignupContainer>
     </SignupPageStyles>

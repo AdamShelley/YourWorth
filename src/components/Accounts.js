@@ -271,8 +271,11 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
       {confirmSubmission && (
         <Modal
           show={confirmSubmission}
-          close={() => setConfirmSubmission(false)}
-          title={"You are about to make the following changes: "}
+          close={() => {
+            setConfirmSubmission(false);
+            preventScroll();
+          }}
+          title={"Confirm your changes: "}
           submitHandler={submitUpdate}
           modalSize="large"
         >
@@ -286,17 +289,23 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
             </thead>
             <tbody>
               <tr>
-                <td>Name</td>
+                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                  Name
+                </td>
                 <td>{accountSelected.name}</td>
                 <td>{formState.inputs.name.value}</td>
               </tr>
               <tr>
-                <td>Category</td>
+                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                  Category
+                </td>
                 <td>{accountSelected.category}</td>
                 <td>{formState.inputs.category.value}</td>
               </tr>
               <tr>
-                <td>Balance</td>
+                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                  Balance
+                </td>
                 <td>{accountSelected.balance}</td>
                 <td>{formState.inputs.balance.value}</td>
               </tr>
