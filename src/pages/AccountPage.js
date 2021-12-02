@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Input from "../components/Input";
+import { useFetchHook } from "../hooks/fetch-hook";
 
 import { useForm } from "../hooks/form-hook";
 
@@ -43,7 +44,6 @@ const AccountPageStyles = styled.div`
     h4 {
       width: 100%;
       font-size: 1.1rem;
-      font-family: "Opens Sans", serif;
       font-weight: 100;
       letter-spacing: 0.5px;
       line-height: 1.8;
@@ -87,7 +87,10 @@ const AccountPageStyles = styled.div`
   }
 `;
 
-const AccountPage = () => {
+const AccountPage = ({ userId }) => {
+  const [loadedUser, setLoadedUser] = useState();
+  const { sendRequest, error, loading, clearError } = useFetchHook();
+
   const [formState, inputHandler] = useForm(
     {
       name: {
@@ -110,59 +113,88 @@ const AccountPage = () => {
     false
   );
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const responseData = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_ADDRESS}/users/${userId}`,
+          "GET"
+        );
+
+        console.log(responseData.user);
+        setLoadedUser(responseData.user);
+      } catch (err) {}
+    };
+    fetchUser();
+  }, [setLoadedUser, sendRequest, userId]);
+
   return (
     <AccountPageStyles>
-      <div>
-        <h1>Settings</h1>
-        <div className="settings-section">
-          <h4>Account</h4>
-          <div>
-            <Input
-              label="Name"
-              validators={[]}
-              onInput={inputHandler}
-              darkInput
-            />
-            <Input
-              label="Age"
-              validators={[]}
-              onInput={inputHandler}
-              darkInput
-            />
-          </div>
-        </div>
+      {loadedUser && (
+        <div>
+          <h1>Settings</h1>
+          <div className="settings-section">
+            <h4>Account</h4>
+            <div>
+              <Input
+                label="Name"
+                validators={[]}
+                onInput={inputHandler}
+                initialValue={loadedUser.name}
+                darkInput
+              />
 
-        <div className="settings-section">
-          <h4>Finance Goals</h4>
-          <div>
-            <Input
-              label="Target Retirement Age"
-              validators={[]}
-              onInput={inputHandler}
-              darkInput
-            />
-            <Input
-              label="Target Retirement Goal"
-              validators={[]}
-              onInput={inputHandler}
-              darkInput
-            />
+              <Input
+                label="Age"
+                validators={[]}
+                onInput={inputHandler}
+                initialValue={loadedUser.age}
+                darkInput
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="settings-section">
-          <h4>Control Panel</h4>
-          <div className="settings-control">
-            <select name="currency" id="">
-              <option value="" default selected>
-                Change currency
-              </option>
-            </select>
-            <button>Delete ALL Data</button>
-            <button>Delete Account</button>
+          <div className="settings-section">
+            <h4>Finance Goals</h4>
+            <div>
+              <Input
+                label="Target Retirement Age"
+                validators={[]}
+                onInput={inputHandler}
+                initialValue={loadedUser.ageToRetire}
+                darkInput
+              />
+              <Input
+                label="Target Retirement Goal"
+                validators={[]}
+                onInput={inputHandler}
+                initialValue={loadedUser.targetWorth}
+                darkInput
+              />
+              <Input
+                label="Drawdown (per month)"
+                validators={[]}
+                onInput={inputHandler}
+                initialValue={loadedUser.drawDownAmount}
+                darkInput
+              />
+            </div>
+          </div>
+
+          <div className="settings-section">
+            <h4>Control Panel</h4>
+            <div className="settings-control">
+              <select name="currency" id="">
+                <option value="" default selected>
+                  Change currency
+                </option>
+              </select>
+              <button>Delete ALL Data</button>
+              <button>Delete Account</button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </AccountPageStyles>
   );
 };
