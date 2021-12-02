@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Input from "../components/Input";
 import { useFetchHook } from "../hooks/fetch-hook";
 
 import { useForm } from "../hooks/form-hook";
+import { AuthenticationContext } from "../context/authenticate-context";
 
 const AccountPageStyles = styled.div`
   width: 100vw;
@@ -88,6 +89,7 @@ const AccountPageStyles = styled.div`
 `;
 
 const AccountPage = ({ userId }) => {
+  const auth = useContext(AuthenticationContext);
   const [loadedUser, setLoadedUser] = useState();
   const { sendRequest, error, loading, clearError } = useFetchHook();
 
@@ -105,7 +107,11 @@ const AccountPage = ({ userId }) => {
         value: "",
         valid: false,
       },
-      targetNetWorth: {
+      targetNetworth: {
+        value: "",
+        valid: false,
+      },
+      drawdown: {
         value: "",
         valid: false,
       },
@@ -128,59 +134,97 @@ const AccountPage = ({ userId }) => {
     fetchUser();
   }, [setLoadedUser, sendRequest, userId]);
 
+  const submitUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/`,
+        "PATCH",
+        JSON.stringify({
+          name: formState.inputs.name.value,
+          age: formState.inputs.age.value,
+          targetAge: formState.inputs.targetAge.value,
+          targetNetworth: formState.inputs.targetNetworth.value,
+          drawdown: formState.inputs.drawdown.value,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <AccountPageStyles>
       {loadedUser && (
         <div>
           <h1>Settings</h1>
-          <div className="settings-section">
-            <h4>Account</h4>
-            <div>
+          <form onSubmit={submitUpdate}>
+            <div className="settings-section">
+              <h4>Account</h4>
+
               <Input
+                id="name"
                 label="Name"
                 validators={[]}
                 onInput={inputHandler}
                 initialValue={loadedUser.name}
+                initialValid={true}
+                placeholder={"Add a name here"}
                 darkInput
               />
 
               <Input
+                id="age"
                 label="Age"
                 validators={[]}
                 onInput={inputHandler}
                 initialValue={loadedUser.age}
+                initialValid={true}
                 darkInput
               />
             </div>
-          </div>
 
-          <div className="settings-section">
-            <h4>Finance Goals</h4>
-            <div>
-              <Input
-                label="Target Retirement Age"
-                validators={[]}
-                onInput={inputHandler}
-                initialValue={loadedUser.ageToRetire}
-                darkInput
-              />
-              <Input
-                label="Target Retirement Goal"
-                validators={[]}
-                onInput={inputHandler}
-                initialValue={loadedUser.targetWorth}
-                darkInput
-              />
-              <Input
-                label="Drawdown (per month)"
-                validators={[]}
-                onInput={inputHandler}
-                initialValue={loadedUser.drawDownAmount}
-                darkInput
-              />
+            <div className="settings-section">
+              <h4>Finance Goals</h4>
+              <div>
+                <Input
+                  id="targetAge"
+                  label="Target Retirement Age"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.ageToRetire}
+                  initialValid={true}
+                  darkInput
+                />
+                <Input
+                  id="targetNetworth"
+                  label="Target Retirement Goal"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.targetWorth}
+                  initialValid={true}
+                  darkInput
+                />
+                <Input
+                  id="drawdown"
+                  label="Drawdown (per month)"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.drawDownAmount}
+                  initialValid={true}
+                  darkInput
+                />
+              </div>
             </div>
-          </div>
-
+            <button type="submit" onClick={submitUpdate}>
+              Update
+            </button>
+          </form>
           <div className="settings-section">
             <h4>Control Panel</h4>
             <div className="settings-control">
