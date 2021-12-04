@@ -26,6 +26,30 @@ const AccountPageStyles = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2rem;
+
+    & button,
+    select {
+      padding: 1rem 2rem;
+      background-color: var(--cards);
+      border: 1px solid var(--card-header);
+      color: var(--cultured-2);
+      letter-spacing: 1px;
+      align-self: flex-end;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  form > button {
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      border: 1px solid var(--cultured-2);
+    }
   }
 
   > div > div {
@@ -41,6 +65,7 @@ const AccountPageStyles = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    border-top: 1px solid var(--card-header);
 
     h4 {
       width: 100%;
@@ -52,6 +77,10 @@ const AccountPageStyles = styled.div`
 
     div {
       width: 100%;
+    }
+
+    div:first-child {
+      margin-top: 0;
     }
 
     .settings-control {
@@ -134,19 +163,21 @@ const AccountPage = ({ userId }) => {
     fetchUser();
   }, [setLoadedUser, sendRequest, userId]);
 
+  // Update user details via update button
   const submitUpdate = async (e) => {
     e.preventDefault();
 
     try {
       await sendRequest(
-        `${process.env.REACT_APP_BACKEND_ADDRESS}/`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/update`,
         "PATCH",
         JSON.stringify({
+          userId: auth.userId,
           name: formState.inputs.name.value,
-          age: formState.inputs.age.value,
+          currentAge: formState.inputs.age.value,
           targetAge: formState.inputs.targetAge.value,
-          targetNetworth: formState.inputs.targetNetworth.value,
-          drawdown: formState.inputs.drawdown.value,
+          targetWorth: formState.inputs.targetNetworth.value,
+          drawDownAmount: formState.inputs.drawdown.value,
         }),
         {
           "Content-Type": "application/json",
@@ -166,27 +197,28 @@ const AccountPage = ({ userId }) => {
           <form onSubmit={submitUpdate}>
             <div className="settings-section">
               <h4>Account</h4>
+              <div>
+                <Input
+                  id="name"
+                  label="Name"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.name}
+                  initialValid={true}
+                  placeholder={"Add a name here"}
+                  darkInput
+                />
 
-              <Input
-                id="name"
-                label="Name"
-                validators={[]}
-                onInput={inputHandler}
-                initialValue={loadedUser.name}
-                initialValid={true}
-                placeholder={"Add a name here"}
-                darkInput
-              />
-
-              <Input
-                id="age"
-                label="Age"
-                validators={[]}
-                onInput={inputHandler}
-                initialValue={loadedUser.age}
-                initialValid={true}
-                darkInput
-              />
+                <Input
+                  id="age"
+                  label="Age"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.age}
+                  initialValid={true}
+                  darkInput
+                />
+              </div>
             </div>
 
             <div className="settings-section">

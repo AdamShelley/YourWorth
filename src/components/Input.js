@@ -121,14 +121,14 @@ const SelectContainer = styled.div`
     cursor: pointer;
   }
 
-  .dark-container:first-child {
-    margin-top: 0;
-  }
-
   .dark-container {
     label {
       color: var(--cultured-2) !important;
     }
+  }
+
+  .dark-container:first-child {
+    padding-top: 0;
   }
 
   .dark-input {
