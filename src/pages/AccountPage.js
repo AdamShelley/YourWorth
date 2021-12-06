@@ -5,6 +5,7 @@ import { useFetchHook } from "../hooks/fetch-hook";
 
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
+import Loader from "react-loader-spinner";
 
 const AccountPageStyles = styled.div`
   width: 100vw;
@@ -168,7 +169,7 @@ const AccountPage = ({ userId }) => {
     e.preventDefault();
 
     try {
-      await sendRequest(
+      const response = await sendRequest(
         `${process.env.REACT_APP_BACKEND_ADDRESS}/users/update`,
         "PATCH",
         JSON.stringify({
@@ -184,6 +185,8 @@ const AccountPage = ({ userId }) => {
           Authorization: "Bearer " + auth.token,
         }
       );
+
+      setLoadedUser(response.user);
     } catch (err) {
       console.log(err);
     }
@@ -254,16 +257,14 @@ const AccountPage = ({ userId }) => {
               </div>
             </div>
             <button type="submit" onClick={submitUpdate}>
-              Update
+              {loading ? "Updating" : "Update"}
             </button>
           </form>
           <div className="settings-section">
             <h4>Control Panel</h4>
             <div className="settings-control">
               <select name="currency" id="">
-                <option value="" default selected>
-                  Change currency
-                </option>
+                <option value="">Change currency</option>
               </select>
               <button>Delete ALL Data</button>
               <button>Delete Account</button>

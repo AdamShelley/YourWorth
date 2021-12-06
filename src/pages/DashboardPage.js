@@ -140,9 +140,7 @@ const PortfolioPage = ({ data, userId }) => {
   return (
     <PortfolioContainer>
       {/* {error && <p>{error}</p>} */}
-      {loading && (
-        <Loader type="Rings" color="#00BFFF" height={"100%"} width={"100%"} />
-      )}
+
       {loadedUser && (
         <>
           <h2>Portfolio</h2>
@@ -151,6 +149,7 @@ const PortfolioPage = ({ data, userId }) => {
             Your net worth is
             <span>£{commaValue(loadedUser?.netWorth) || 0}</span>
           </p>
+
           {/* Pie Chart Section */}
           {loadedUser.accounts.length > 0 ? (
             <PieChartContainer>
@@ -159,6 +158,7 @@ const PortfolioPage = ({ data, userId }) => {
           ) : (
             <p>Start by adding accounts </p>
           )}
+
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}

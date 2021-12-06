@@ -280,25 +280,23 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             {/* The before updating */}
 
             {loadedAccounts.map((acc) => (
-              <>
-                <tr key={acc._id}>
-                  <td>{acc.name}</td>
-                  <td style={{ textAlign: "right" }}>
-                    £{acc.balance.toFixed(2)}
-                  </td>
-                  <td style={{ paddingLeft: "1rem" }}>
-                    <Input
-                      updateAllModal
-                      id={acc.name}
-                      label={""}
-                      dataType="number"
-                      onInput={inputHandler}
-                      validators={[]}
-                      darkInput
-                    />
-                  </td>
-                </tr>
-              </>
+              <tr key={acc._id}>
+                <td>{acc.name}</td>
+                <td style={{ textAlign: "right" }}>
+                  £{acc.balance.toFixed(2)}
+                </td>
+                <td style={{ paddingLeft: "1rem" }}>
+                  <Input
+                    updateAllModal
+                    id={acc.name}
+                    label={""}
+                    dataType="number"
+                    onInput={inputHandler}
+                    validators={[]}
+                    darkInput
+                  />
+                </td>
+              </tr>
             ))}
           </tbody>
         </StyledModalTable>
