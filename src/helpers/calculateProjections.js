@@ -1,5 +1,4 @@
 const calculateProjections = (loadedUser, monthlyIncrease) => {
-  console.log(loadedUser);
   const { netWorth, ageToRetire, drawDownAmount } = loadedUser;
 
   const totalProjections = [];
@@ -82,6 +81,7 @@ const calculateProjections = (loadedUser, monthlyIncrease) => {
 
   // 3%, 5%, 7%, 10% increases
   // Take into account Monthly inflation
+
   return totalProjections;
 };
 

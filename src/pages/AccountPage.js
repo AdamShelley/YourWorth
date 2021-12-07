@@ -67,6 +67,7 @@ const AccountPageStyles = styled.div`
     align-items: flex-start;
     justify-content: space-between;
     border-top: 1px solid var(--card-header);
+    min-height: 100%;
 
     h4 {
       width: 100%;
@@ -89,6 +90,10 @@ const AccountPageStyles = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
+
+      div {
+        min-height: 100%;
+      }
 
       select,
       button {
@@ -121,7 +126,7 @@ const AccountPageStyles = styled.div`
 const AccountPage = ({ userId }) => {
   const auth = useContext(AuthenticationContext);
   const [loadedUser, setLoadedUser] = useState();
-  const { sendRequest, error, loading, clearError } = useFetchHook();
+  const { sendRequest, loading } = useFetchHook();
 
   const [formState, inputHandler] = useForm(
     {
@@ -200,61 +205,84 @@ const AccountPage = ({ userId }) => {
           <form onSubmit={submitUpdate}>
             <div className="settings-section">
               <h4>Account</h4>
-              <div>
-                <Input
-                  id="name"
-                  label="Name"
-                  validators={[]}
-                  onInput={inputHandler}
-                  initialValue={loadedUser.name}
-                  initialValid={true}
-                  placeholder={"Add a name here"}
-                  darkInput
-                />
+              {!loading ? (
+                <div>
+                  <Input
+                    id="name"
+                    label="Name"
+                    validators={[]}
+                    onInput={inputHandler}
+                    initialValue={loadedUser.name}
+                    initialValid={true}
+                    placeholder={"Add a name here"}
+                    disabled={loading}
+                    darkInput
+                  />
 
-                <Input
-                  id="age"
-                  label="Age"
-                  validators={[]}
-                  onInput={inputHandler}
-                  initialValue={loadedUser.age}
-                  initialValid={true}
-                  darkInput
+                  <Input
+                    id="age"
+                    label="Age"
+                    validators={[]}
+                    onInput={inputHandler}
+                    initialValue={loadedUser.age}
+                    initialValid={true}
+                    disabled={loading}
+                    darkInput
+                  />
+                </div>
+              ) : (
+                <Loader
+                  type="ThreeDots"
+                  color="var(--cultured-2)"
+                  height={"100%"}
+                  width={"30%"}
                 />
-              </div>
+              )}
             </div>
 
             <div className="settings-section">
               <h4>Finance Goals</h4>
-              <div>
-                <Input
-                  id="targetAge"
-                  label="Target Retirement Age"
-                  validators={[]}
-                  onInput={inputHandler}
-                  initialValue={loadedUser.ageToRetire}
-                  initialValid={true}
-                  darkInput
+              {!loading ? (
+                <div>
+                  <Input
+                    id="targetAge"
+                    label="Target Retirement Age"
+                    validators={[]}
+                    onInput={inputHandler}
+                    initialValue={loadedUser.ageToRetire}
+                    initialValid={true}
+                    disabled={loading}
+                    darkInput
+                  />
+                  <Input
+                    id="targetNetworth"
+                    label="Target Retirement Goal"
+                    validators={[]}
+                    onInput={inputHandler}
+                    initialValue={loadedUser.targetWorth}
+                    initialValid={true}
+                    disabled={loading}
+                    darkInput
+                  />
+                  <Input
+                    id="drawdown"
+                    label="Drawdown (per month)"
+                    validators={[]}
+                    onInput={inputHandler}
+                    initialValue={loadedUser.drawDownAmount}
+                    initialValid={true}
+                    disabled={loading}
+                    darkInput
+                  />
+                </div>
+              ) : (
+                <Loader
+                  type="ThreeDots"
+                  color="var(--cultured-2)"
+                  height={"100%"}
+                  width={"30%"}
                 />
-                <Input
-                  id="targetNetworth"
-                  label="Target Retirement Goal"
-                  validators={[]}
-                  onInput={inputHandler}
-                  initialValue={loadedUser.targetWorth}
-                  initialValid={true}
-                  darkInput
-                />
-                <Input
-                  id="drawdown"
-                  label="Drawdown (per month)"
-                  validators={[]}
-                  onInput={inputHandler}
-                  initialValue={loadedUser.drawDownAmount}
-                  initialValid={true}
-                  darkInput
-                />
-              </div>
+              )}
             </div>
             <button type="submit" onClick={submitUpdate}>
               {loading ? "Updating" : "Update"}

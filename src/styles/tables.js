@@ -88,7 +88,7 @@ const StyledTable = styled.table`
 
   .target-worth-hit {
     border: 1px solid black;
-    background-color: green !important;
+    background-color: var(--card-header) !important;
     border-radius: 2px;
     z-index: 1;
   }
@@ -96,7 +96,7 @@ const StyledTable = styled.table`
     border: 2px solid var(--cultured) !important;
     z-index: 999;
 
-    background-color: var(--slate-gray);
+    background-color: var(--background);
   }
 
   .target-year-hit-box {

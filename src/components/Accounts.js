@@ -5,8 +5,8 @@ import Loader from "react-loader-spinner";
 import Modal from "./Modal";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable, StyledModalTable } from "../styles/tables";
-import { commaValue } from "../helpers/commaValue";
-import { types } from "../helpers/accountTypes.js";
+// import { commaValue } from "../helpers/commaValue";
+// import { types } from "../helpers/accountTypes.js";
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 
@@ -52,9 +52,9 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
   const [confirmSubmission, setConfirmSubmission] = useState(false);
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState();
-  const { sendRequest, error, loading, clearError } = useFetchHook();
+  const { sendRequest, loading } = useFetchHook();
 
-  const [formState, inputHandler, setFormData] = useForm(
+  const [formState, inputHandler] = useForm(
     {
       name: {
         value: "",

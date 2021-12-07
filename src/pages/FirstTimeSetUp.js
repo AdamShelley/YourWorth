@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 
 import Input from "../components/Input";
@@ -74,8 +74,8 @@ const FirstTimeSetUp = ({ loadedUser }) => {
   const pages = 3;
   const history = useHistory();
   const [section, setSection] = useState(1);
-  const { sendRequest, loading, error } = useFetchHook();
-  const [formState, inputHandler, setFormData] = useForm(
+  const { sendRequest } = useFetchHook();
+  const [formState, inputHandler] = useForm(
     {
       netWorth: {
         value: "",

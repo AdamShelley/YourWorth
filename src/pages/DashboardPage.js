@@ -4,7 +4,7 @@ import AccountManager from "../components/AccountManager";
 import Calculations from "../components/Calculations";
 import PieChartDisplay from "../components/PieChartDisplay";
 import Graphs from "../components/Graphs";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import { commaValue } from "../helpers/commaValue";
 import { calculateProjections } from "../helpers/calculateProjections";
 import { useFetchHook } from "../hooks/fetch-hook";
@@ -57,7 +57,7 @@ const PortfolioPage = ({ data, userId }) => {
   const [loadedUser, setLoadedUser] = useState();
   const [calculatedProjections, setCalculatedProjections] = useState([]);
   const [monthlyAdd, setMonthlyAdd] = useState(fakeMonthlyIncrease);
-  const { sendRequest, error, loading, clearError } = useFetchHook();
+  const { sendRequest } = useFetchHook();
 
   useEffect(() => {
     if (loadedUser?.accounts)
@@ -65,7 +65,6 @@ const PortfolioPage = ({ data, userId }) => {
   }, [loadedUser, monthlyAdd]);
 
   // Get user by Id
-
   useEffect(() => {
     const fetchUser = async () => {
       try {

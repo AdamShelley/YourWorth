@@ -58,7 +58,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
   const [modal, setModal] = useState(false);
   const [advanceModal, setAdvanceModal] = useState(false);
   const [loadedAccounts, setLoadedAccounts] = useState(accounts);
-  const { sendRequest, error, loading } = useFetchHook();
+  const { sendRequest, loading } = useFetchHook();
   const auth = useContext(AuthenticationContext);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -190,6 +190,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       updateNetWorth(null, response.user.netWorth);
 
       setAdvanceModal(false);
+      preventScroll();
     } catch (err) {
       console.log(err);
     }

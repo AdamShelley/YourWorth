@@ -177,7 +177,6 @@ const Input = ({
   initialValid,
   placeholder,
   accountSelected,
-  alignLeft,
   dropDown,
   minimalInput,
   darkInput,
@@ -195,11 +194,11 @@ const Input = ({
   }, [id, onInput, value, valid]);
 
   const changeHandler = (event) => {
-    console.log(event.target.value);
     dispatch({
       type: "CHANGE",
       value: event.target.value ? event.target.value : categories[0],
       validators: validators,
+
       isBlurred: false,
     });
   };

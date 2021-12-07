@@ -142,7 +142,7 @@ const SignupPage = () => {
   const history = useHistory();
 
   const auth = useContext(AuthenticationContext);
-  const { sendRequest, error, loading, clearError } = useFetchHook();
+  const { sendRequest, error, loading } = useFetchHook();
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {

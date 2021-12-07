@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { StyledTable } from "../styles/tables";
 
 import Input from "../components/Input.js";
-import { calculateProjections } from "../helpers/calculateProjections";
+
 import { useForm } from "../hooks/form-hook";
 
 const StyledInputContainer = styled.div`
@@ -58,11 +58,6 @@ const StyledInputContainer = styled.div`
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth } = accountInformation;
 
-  const [monthlyAdd, setMonthlyAdd] = useState(1500);
-  const [retirementGoal, setRetirementGoal] = useState(targetWorth);
-  const [retirementAge, setRetirementAge] = useState(ageToRetire);
-  const [drawdown, setDrawdown] = useState(drawDownAmount);
-
   const [formState, inputHandler] = useForm(
     {
       monthlyIncrease: {
@@ -104,7 +99,6 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
           <Input
             id="monthlyIncrease"
             label="Monthly Added"
-            currentValue={monthlyAdd}
             dataType="number"
             onInput={inputHandler}
             validators={[]}
@@ -115,33 +109,30 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
           <Input
             id="retirementAge"
             label="Target Age"
-            currentValue={retirementGoal}
             dataType="number"
             onInput={inputHandler}
             initialValid={formState.inputs.retirementAge.valid}
-            initialValue={50}
+            initialValue={ageToRetire}
             validators={[]}
             darkInputLighter
           />
           <Input
             id="targetNetWorth"
             label="Target Net Worth"
-            currentValue={retirementAge}
             dataType="number"
             onInput={inputHandler}
             initialValid={formState.inputs.targetNetWorth.valid}
-            initialValue={500000}
+            initialValue={targetWorth}
             validators={[]}
             darkInputLighter
           />
           <Input
             id="drawdown"
             label="Drawdown per month"
-            currentValue={drawdown}
             dataType="number"
             onInput={inputHandler}
             initialValid={formState.inputs.drawdown.valid}
-            initialValue={1500}
+            initialValue={drawDownAmount}
             validators={[]}
             darkInputLighter
           />
@@ -170,7 +161,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
         </thead>
         <tbody>
           {data.map((year, index) => {
-            const targetYearHit = year.age === retirementAge;
+            const targetYearHit = year.age === ageToRetire;
 
             return (
               <tr
