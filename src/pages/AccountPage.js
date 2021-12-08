@@ -28,98 +28,145 @@ const AccountPageStyles = styled.div`
     flex-direction: column;
     padding: 2rem;
 
-    & button,
+    /* button,
     select {
-      padding: 1rem 2rem;
+      margin-top: 1rem;
+      padding: 4rem 3rem;
       background-color: var(--cards);
       border: 1px solid var(--card-header);
       color: var(--cultured-2);
       letter-spacing: 1px;
-      align-self: flex-end;
-    }
-  }
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      cursor: pointer;
 
-  form {
-    display: flex;
-    flex-direction: column;
-  }
+      h3 {
+        font-weight: 400;
+        color: var(--cultured);
+      }
 
-  form > button {
-    cursor: pointer;
-    transition: all 0.2s ease-out;
+      p {
+        margin-top: 0.5rem;
+        color: var(--culture-2);
+        text-align: left;
+        font-weight: 500;
+        line-height: 1.5;
+      }
 
-    &:hover {
-      border: 1px solid var(--cultured-2);
-    }
-  }
-
-  > div > div {
-    border-top: 1px solid var(--cards);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-evenly;
-  }
-
-  .settings-section {
-    margin-top: 1rem;
-    padding: 2rem 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    border-top: 1px solid var(--card-header);
-    min-height: 100%;
-
-    h4 {
-      width: 100%;
-      font-size: 1.1rem;
-      font-weight: 100;
-      letter-spacing: 0.5px;
-      line-height: 1.8;
+      &:hover {
+        border: 1px solid var(--cultured-2);
+      }
+    } */
+    select {
+      height: 4rem;
+      display: flex;
+      /* } */
     }
 
-    div {
-      width: 100%;
+    form {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        align-self: flex-end;
+        width: 30%;
+        display: flex;
+        align-items: center;
+        background-color: var(--card-header);
+      }
     }
 
-    div:first-child {
-      margin-top: 0;
+    > div > div {
+      border-top: 1px solid var(--cards);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-evenly;
+    }
+
+    .settings-section {
+      margin-top: 1rem;
+      padding: 2rem 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-top: 1px solid var(--card-header);
+      min-height: 100%;
+
+      h4 {
+        width: 50%;
+        font-size: 1.1rem;
+        font-weight: 100;
+        letter-spacing: 0.5px;
+        line-height: 1.8;
+      }
+
+      div {
+        width: 80%;
+        min-height: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        label {
+          align-self: flex-start;
+        }
+      }
+
+      div:first-child {
+        margin-top: 0;
+      }
     }
 
     .settings-control {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-evenly;
+      width: 100%;
 
       div {
-        min-height: 100%;
-      }
-
-      select,
-      button {
-        padding: 1rem;
-        margin: 0.5rem;
-        width: 50%;
-        height: 4rem;
-        background-color: var(--cards);
-        border: 1px solid var(--card-header);
-        box-shadow: 0 1px 2px rgba(255, 255, 255, 0.25);
-        color: var(--cultured-2);
-        border-radius: 2px;
-        text-align: center;
-        font-size: 1rem;
-        font-family: inherit;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        line-height: 1.8;
-        cursor: pointer;
-        transition: all 0.2s ease-out;
-
-        &:hover {
-          border: 1px solid var(--cultured-2);
-        }
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     }
+  }
+`;
+
+const ButtonStyled = styled.button`
+  margin-top: 1rem;
+  padding: 4rem 3rem;
+  background-color: var(--cards);
+  border: 1px solid var(--card-header);
+  color: var(--cultured-2);
+  letter-spacing: 1px;
+  width: 70%;
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  cursor: pointer;
+
+  h3 {
+    font-weight: 400;
+    color: var(--cultured);
+  }
+
+  p {
+    margin-top: 0.5rem;
+    color: var(--culture-2);
+    text-align: left;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  &:hover {
+    border: 1px solid var(--cultured-2);
   }
 `;
 
@@ -284,18 +331,33 @@ const AccountPage = ({ userId }) => {
                 />
               )}
             </div>
-            <button type="submit" onClick={submitUpdate}>
+            <ButtonStyled type="submit" onClick={submitUpdate}>
               {loading ? "Updating" : "Update"}
-            </button>
+            </ButtonStyled>
           </form>
           <div className="settings-section">
             <h4>Control Panel</h4>
             <div className="settings-control">
-              <select name="currency" id="">
+              <select
+                className="select-currency"
+                name="currency"
+                id="select-currency"
+              >
                 <option value="">Change currency</option>
               </select>
-              <button>Delete ALL Data</button>
-              <button>Delete Account</button>
+
+              <ButtonStyled>
+                <h3>Reset data</h3>
+                <p>
+                  Delete all data for this account, including accounts and
+                  previously saved snapshots
+                </p>
+              </ButtonStyled>
+
+              <ButtonStyled>
+                <h3>Delete Account</h3>
+                <p> Completely delete all traces of your account </p>
+              </ButtonStyled>
             </div>
           </div>
         </div>
