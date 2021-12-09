@@ -7,6 +7,8 @@ import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 import Loader from "react-loader-spinner";
 
+import { currencies } from "../helpers/currencies";
+
 const AccountPageStyles = styled.div`
   width: 100vw;
   display: flex;
@@ -72,15 +74,25 @@ const AccountPageStyles = styled.div`
 
       button {
         align-self: flex-end;
-        width: 30%;
+        width: 25%;
         display: flex;
         align-items: center;
-        background-color: var(--card-header);
+        justify-content: center;
+        background-color: var(--cards);
+        padding: 1rem 2rem;
+        border: 1px solid var(--card-header);
+        color: var(--cultured);
+        cursor: pointer;
+        letter-spacing: 1px;
+
+        &:hover {
+          border: 1px solid var(--cultured-2);
+        }
       }
     }
 
     > div > div {
-      border-top: 1px solid var(--cards);
+      /* border-top: 1px solid var(--cards); */
       display: flex;
       align-items: flex-start;
       justify-content: space-evenly;
@@ -163,6 +175,26 @@ const ButtonStyled = styled.button`
     text-align: left;
     font-weight: 500;
     line-height: 1.5;
+  }
+
+  &:hover {
+    border: 1px solid var(--cultured-2);
+  }
+`;
+
+const SelectStyled = styled.select`
+  margin-top: 1rem;
+  background-color: var(--cards);
+  border: 1px solid var(--card-header);
+  color: var(--cultured-2);
+  letter-spacing: 1px;
+  width: 70%;
+  padding: 0 3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  & option {
+    height: 100%;
   }
 
   &:hover {
@@ -331,20 +363,27 @@ const AccountPage = ({ userId }) => {
                 />
               )}
             </div>
-            <ButtonStyled type="submit" onClick={submitUpdate}>
+            <button
+              className="update-button"
+              type="submit"
+              onClick={submitUpdate}
+            >
               {loading ? "Updating" : "Update"}
-            </ButtonStyled>
+            </button>
           </form>
           <div className="settings-section">
             <h4>Control Panel</h4>
             <div className="settings-control">
-              <select
+              <SelectStyled
                 className="select-currency"
                 name="currency"
                 id="select-currency"
               >
                 <option value="">Change currency</option>
-              </select>
+                {currencies.map((currency) => (
+                  <option value={currency}>{currency}</option>
+                ))}
+              </SelectStyled>
 
               <ButtonStyled>
                 <h3>Reset data</h3>
