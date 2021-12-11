@@ -10,6 +10,7 @@ import { useFetchHook } from "../hooks/fetch-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 import { requiredValidator } from "../helpers/validators";
 import { StyledModalTable } from "../styles/tables";
+import { ButtonStyled } from "../styles/inputStyles";
 
 const AccountUpdateContainer = styled.div`
   display: flex;
@@ -18,24 +19,15 @@ const AccountUpdateContainer = styled.div`
   align-items: center;
 
   button {
-    margin: 1rem;
-
-    padding: 1rem 1.2rem;
-    text-align: center;
-    border: 1px solid transparent;
-    background-color: var(--cultured);
-    color: var(--cultured);
-    border-radius: 1px;
-    cursor: pointer;
-    overflow: hidden;
+    margin-right: 1rem;
+    padding: 2rem 0.5rem;
+    width: 10rem;
+    max-height: 2rem;
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.2);
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: var(--card-header);
-    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.2);
-    max-height: 2rem;
-    width: 10rem;
-    letter-spacing: 0.5px;
 
     i {
       margin-right: 0.7rem;
@@ -43,13 +35,13 @@ const AccountUpdateContainer = styled.div`
     }
 
     span {
+      font-size: 0.8rem;
+      text-align: justify;
+      text-justify: auto;
       text-align: center;
       color: var(--cultured);
       overflow: hidden;
       transition-delay: 0.2s;
-    }
-
-    &:hover {
     }
   }
 `;
@@ -206,12 +198,12 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
         />
       )}
       <AccountUpdateContainer>
-        <button onClick={addAccountHandler}>
+        <ButtonStyled onClick={addAccountHandler}>
           <i className="fas fa-plus"></i> <span>Add Account</span>
-        </button>
-        <button onClick={advanceAllHandler}>
+        </ButtonStyled>
+        <ButtonStyled onClick={advanceAllHandler}>
           <i className="fas fa-arrow-right"></i> <span>Update all</span>
-        </button>
+        </ButtonStyled>
       </AccountUpdateContainer>
       <Modal
         show={modal}
@@ -301,6 +293,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
             ))}
           </tbody>
         </StyledModalTable>
+        <p>Leaving values empty will keep the previous balance.</p>
       </Modal>
     </div>
   );

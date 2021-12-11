@@ -54,12 +54,21 @@ const ModalStylesContainer = styled.div`
         border-bottom: 1px solid var(--slate-gray);
         padding: 1rem;
         padding-bottom: 3rem;
+        font-family: "Open Sans", serif;
 
         color: var(--gunmetal);
 
         /* & label {
           color: var(--gunmetal);
         } */
+
+        p {
+          margin-top: 1rem;
+          color: var(--cultured-2);
+          font-family: "Open Sans", serif;
+          font-size: 0.9rem;
+          font-weight: 300;
+        }
 
         & input {
           font-weight: 100;
@@ -77,6 +86,7 @@ const ModalStylesContainer = styled.div`
           padding: 0.5rem 1rem;
           cursor: pointer;
           border-radius: 2px;
+          font-family: "Open Sans", serif;
         }
         .modal-close {
           font-weight: 300;
