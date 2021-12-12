@@ -108,8 +108,12 @@ const StyledTable = styled.table`
     border: none;
     cursor: pointer;
     text-align: center;
-    color: var(--gainsboro);
+    color: var(--cultured-2);
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-family: "Open Sans", serif;
     background-color: transparent;
+    text-decoration: underline;
   }
 `;
 

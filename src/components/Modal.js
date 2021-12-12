@@ -2,6 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import { ButtonStyled } from "../styles/inputStyles";
 
 const ModalStylesContainer = styled.div`
   .modalContainer {
@@ -76,36 +77,40 @@ const ModalStylesContainer = styled.div`
       }
 
       &_footer {
-        padding: 2rem 0;
+        padding: 1rem 0;
         padding-bottom: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
         button {
-          padding: 0.5rem 1rem;
+          margin: 1rem;
+          padding: 1rem;
           cursor: pointer;
           border-radius: 2px;
           font-family: "Open Sans", serif;
+          width: 50%;
+          height: 3rem;
+          display: flex;
+          align-items: center;
         }
+
         .modal-close {
-          font-weight: 300;
-          border: 1px solid var(--slate-gray);
-          background-color: var(--cultured);
-          color: var(--slate-gray);
+          /* border: 1px solid var(--slate-gray); */
+          background-color: var(--background);
+          /* color: var(--slate-gray); */
           border-radius: 2px;
           transition: all 0.1s ease-in;
 
           &:hover {
-            color: var(--charleston-green);
-            border: 1px solid var(--charleston-green);
+            color: var(--cultured-2);
+            border: 1px solid var(--cultured-2);
           }
         }
         .submit {
-          margin-right: 1rem;
-          border: 1px solid var(--slate-gray);
-          background-color: var(--card-header);
-          color: var(--cultured);
+          /* border: 1px solid var(--slate-gray); */
+          /* background-color: var(--card-header); */
+          /* color: var(--cultured); */
 
           &:hover {
             background-color: rgba(54, 67, 72, 0.8);
@@ -142,12 +147,12 @@ const Modal = (props) => {
             </header>
             <main className="modal_content">{props.children}</main>
             <footer className="modal_footer">
-              <button className="submit" onClick={submitHandler}>
+              <ButtonStyled className="submit" onClick={submitHandler}>
                 Submit
-              </button>
-              <button className="modal-close" onClick={() => close()}>
+              </ButtonStyled>
+              <ButtonStyled className="modal-close" onClick={() => close()}>
                 Cancel
-              </button>
+              </ButtonStyled>
             </footer>
           </div>
         </div>

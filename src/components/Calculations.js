@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { StyledTable } from "../styles/tables";
 
 import Input from "../components/Input.js";
-
+import { ButtonStyled } from "../styles/inputStyles";
 import { useForm } from "../hooks/form-hook";
 
 const StyledInputContainer = styled.div`
@@ -19,9 +19,12 @@ const StyledInputContainer = styled.div`
   background-color: var(--cards);
   box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
   margin-top: 10rem;
+  font-family: "Open Sans", serif;
 
   h4 {
     color: var(--cultured);
+    font-family: "Open Sans", serif;
+    font-weight: 100;
     align-self: flex-start;
   }
 
@@ -36,18 +39,19 @@ const StyledInputContainer = styled.div`
   div > div > input {
     background-color: var(--cultured-2);
     width: 75%;
-    box-shadow: none;
     height: 2.5rem;
+    font-size: 0.9rem;
   }
 
   button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 2px;
-    border: 1px solid var(--slate-gray);
-    background-color: var(--card-header);
-    color: var(--cultured);
     margin: 1rem;
+    padding: 1.2rem 1rem;
+    color: var(--cultured);
+    background-color: var(--charleston-green);
+    width: 15%;
+    height: 1.2rem;
+    display: flex;
+    align-items: center;
 
     &:hover {
       border: 1px solid var(--cadet-blue-crayola);
@@ -138,12 +142,13 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
           />
         </div>
         <div>
-          <button type="submit" onClick={updateCalculations}>
+          <ButtonStyled type="submit" onClick={updateCalculations}>
             Update
-          </button>
-          <button>Reset</button>
+          </ButtonStyled>
+          <ButtonStyled>Reset</ButtonStyled>
         </div>
       </StyledInputContainer>
+
       <StyledTable fullscreen>
         {/* <caption>Projection</caption> */}
 

@@ -20,7 +20,7 @@ const AccountUpdateContainer = styled.div`
 
   button {
     margin-right: 1rem;
-    padding: 2rem 0.5rem;
+    padding: 1.5rem 0.5rem;
     width: 10rem;
     max-height: 2rem;
     box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.2);

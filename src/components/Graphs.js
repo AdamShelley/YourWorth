@@ -20,6 +20,13 @@ const StyledGraphContainer = styled.div`
   justify-content: center;
   margin-top: 10rem;
   width: 100%;
+  font-family: "Open Sans", serif;
+
+  h3 {
+    font-weight: 100;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 `;
 
 const Graphs = ({

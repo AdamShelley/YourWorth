@@ -200,7 +200,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
                         className="box delete-account-btn"
                         onClick={() => confirmDeleteAccount(account)}
                       >
-                        Confirm
+                        Click to confirm
                       </button>
                     )}
                   </td>
