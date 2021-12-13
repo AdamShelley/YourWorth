@@ -16,6 +16,7 @@ const StyledTable = styled.table`
   box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
   font-family: "Open Sans", serif;
   border-radius: 5px;
+  border: 1px solid var(--card-header);
 
   caption {
     margin-bottom: 1rem;

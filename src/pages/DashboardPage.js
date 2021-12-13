@@ -25,10 +25,11 @@ const PortfolioContainer = styled.div`
   p {
     margin-top: 3rem;
     font-size: 1rem;
+    font-family: "Open Sans", serif;
 
     span {
-      color: var(--light-gray);
-      font-size: 1.4rem;
+      color: lightblue;
+      font-size: 1.2rem;
       letter-spacing: 1px;
       margin-left: 0.6rem;
     }
@@ -157,7 +158,7 @@ const PortfolioPage = ({ data, userId }) => {
           ) : (
             <p>Start by adding accounts </p>
           )}
-
+          <p>Value as of {loadedUser.lastUpdated.split("T")[0]}</p>
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}

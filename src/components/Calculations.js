@@ -11,15 +11,17 @@ const StyledInputContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 60%;
   margin-top: 1rem;
   padding: 1rem 2rem;
   color: black;
   /* background-color: var(--davys-grey); */
   background-color: var(--cards);
-  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
   margin-top: 10rem;
   font-family: "Open Sans", serif;
+  border: 1px solid var(--card-header);
+  border-radius: 3px;
 
   h4 {
     color: var(--cultured);
