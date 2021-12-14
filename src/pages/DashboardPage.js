@@ -14,6 +14,7 @@ const PortfolioContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  min-height: 100vh;
 
   h2 {
     font-size: 2.5rem;
@@ -33,6 +34,11 @@ const PortfolioContainer = styled.div`
       letter-spacing: 1px;
       margin-left: 0.6rem;
     }
+  }
+
+  .last-value {
+    font-size: 0.8rem;
+    width: 50%;
   }
 `;
 
@@ -158,10 +164,13 @@ const PortfolioPage = ({ data, userId }) => {
           ) : (
             <p>Start by adding accounts </p>
           )}
-          <p>Value as of {loadedUser.lastUpdated.split("T")[0]}</p>
+          <p className="last-value">
+            Value as of {loadedUser.lastUpdated.split("T")[0]}
+          </p>
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}
+            netWorth={loadedUser?.netWorth}
             updateLoadedUser={updateLoadedUser}
             updateNetWorth={updateNetWorth}
           />

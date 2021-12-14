@@ -61,18 +61,18 @@ const PieChartDisplay = ({ accounts }) => {
           fill="none"
         />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text
+        {/* <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
           fill="#333"
-        >{`PV ${value}`}</text>
+        >{`PV ${value}`}</text> */}
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           dy={10}
           textAnchor={textAnchor}
-          fill="#999"
+          fill="var(--cultured-2)"
         >
           {` ${payload.name}: £${payload.balance.toLocaleString(undefined, {
             minimumFactionDigits: 2,

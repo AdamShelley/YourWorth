@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledFooter = styled.div`
@@ -13,6 +14,23 @@ const StyledFooter = styled.div`
   font-family: "Open Sans", serif;
   font-size: 0.9rem;
   padding: 2rem;
+
+  div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  div:first-child > a {
+    margin-top: 1rem;
+    color: var(--light-gray);
+    text-decoration: none;
+
+    &:hover {
+      font-weight: 800;
+      text-decoration: underline;
+    }
+  }
 
   div {
     display: flex;
@@ -30,10 +48,11 @@ const StyledFooter = styled.div`
 
     a {
       text-decoration: none;
-      color: var(--cultured);
+      color: lightblue;
 
       &:hover {
-        color: lightblue;
+        font-weight: 800;
+        text-decoration: underline;
       }
     }
   }
@@ -51,16 +70,22 @@ const StyledFooter = styled.div`
 const Footer = () => {
   return (
     <StyledFooter>
-      <a href="https://github.com/AdamShelley" target="_blank" rel="noreferrer">
-        <i className="fab fa-github"></i>
-      </a>
+      <div>
+        <a
+          href="https://github.com/AdamShelley"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i className="fab fa-github"></i>
+        </a>
+        <Link to="/yourdata">Find out how your data is handled</Link>
+      </div>
 
       <div>
         <p>Created by Adam Shelley</p>
         <p>
-          Visit me
+          Visit me{" "}
           <a href="http://www.adamshelley.com" target="_blank" rel="noreferrer">
-            {" "}
             here!
           </a>
         </p>

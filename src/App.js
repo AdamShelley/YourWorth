@@ -9,6 +9,7 @@ import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
 import SignupPage from "./pages/SignupPage";
 import FirstTimeSetUp from "./pages/FirstTimeSetUp";
+import YourData from "./pages/YourData";
 
 import Header from "./components/Header";
 import { AuthenticationContext } from "./context/authenticate-context";
@@ -38,9 +39,13 @@ function App() {
         <Route path="/account">
           <AccountPage userId={userId} />
         </Route>
+        <Route path="/yourdata">
+          <YourData />
+        </Route>
         <Route path="/">
           <DashboardPage userId={userId} />
         </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -50,6 +55,9 @@ function App() {
       <Switch>
         <Route path="/signup">
           <SignupPage />
+        </Route>
+        <Route path="/yourdata">
+          <YourData />
         </Route>
         {/* <Route path="/">
           <DashboardPage noUser />

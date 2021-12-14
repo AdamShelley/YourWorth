@@ -45,7 +45,7 @@ const ModalContent = styled.div`
 
 let confirmTimer;
 
-const Accounts = ({ accounts, portfolioPage, onDelete }) => {
+const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
   const auth = useContext(AuthenticationContext);
   const [modal, setModal] = useState(false);
   const [accountSelected, setAccountSelected] = useState();
@@ -159,6 +159,7 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
         <tr>
           <th>Account</th>
           <th>Type</th>
+          <th>% of Portfolio</th>
           <th style={{ textAlign: "right" }}>Amount</th>
           {portfolioPage && <th></th>}
         </tr>
@@ -169,10 +170,17 @@ const Accounts = ({ accounts, portfolioPage, onDelete }) => {
             minimumFractionDigits: 2,
           });
 
+          const percentOfNetWorth = parseFloat(
+            (account.balance / netWorth) * 100
+          );
+
           return (
             <tr key={`row-${index}`}>
               <td>{account.name}</td>
               <td>{account.category}</td>
+              <td style={{ textAlign: "center" }}>
+                {percentOfNetWorth.toFixed(0)}%
+              </td>
               <td style={{ textAlign: "right" }}>£{number}</td>
               {portfolioPage && (
                 <>

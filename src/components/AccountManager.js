@@ -13,11 +13,11 @@ import { StyledModalTable } from "../styles/tables";
 import { ButtonStyled } from "../styles/inputStyles";
 
 const AccountUpdateContainer = styled.div`
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
 
   button {
     margin-right: 1rem;
@@ -47,7 +47,12 @@ const AccountUpdateContainer = styled.div`
   }
 `;
 
-const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
+const AccountManager = ({
+  accounts,
+  netWorth,
+  updateLoadedUser,
+  updateNetWorth,
+}) => {
   const [modal, setModal] = useState(false);
   const [advanceModal, setAdvanceModal] = useState(false);
   const [loadedAccounts, setLoadedAccounts] = useState(accounts);
@@ -194,6 +199,7 @@ const AccountManager = ({ accounts, updateLoadedUser, updateNetWorth }) => {
       {loadedAccounts.length > 0 && (
         <Accounts
           portfolioPage
+          netWorth={netWorth}
           accounts={loadedAccounts}
           onDelete={onDeleteHandler}
         />

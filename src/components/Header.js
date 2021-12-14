@@ -162,6 +162,13 @@ const Header = () => {
               </NavLink>
             </li>
           )}
+          {/* {auth.isLoggedIn && (
+            <li>
+              <NavLink activeClassName="selected" to="/yourdata">
+                Your data
+              </NavLink>
+            </li>
+          )} */}
           {!auth.isLoggedIn && (
             <li>
               <NavLink exact activeClassName="selected" to="/signup">
