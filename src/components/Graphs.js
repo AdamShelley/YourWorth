@@ -49,11 +49,12 @@ const Graphs = ({
   const finalData = newData.concat(prevData);
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
+  const ToolTipContent = <div>Tooltip content here</div>;
+
   return (
     <>
       <StyledGraphContainer>
         <h3>{title}</h3>
-
         {!projected ? (
           <AreaChart
             width={600}
@@ -68,25 +69,37 @@ const Graphs = ({
           >
             <XAxis
               dataKey="date"
-              stroke="var(--cultured)"
+              stroke="var(--light-gray)"
               allowDuplicatedCategory={false}
               interval={0}
-              dy={20}
+              dy={30}
               padding={{ left: 5, right: 5 }}
               tick={{ fontSize: "0.8rem" }}
               angle={-45}
               height={50}
             />
-            <YAxis />
 
-            <Tooltip
+            <YAxis
+              stroke="var(--light-gray)"
+              label={{
+                value: "Balance",
+                angle: -90,
+                position: "insideLeft",
+                fill: "var(--light-gray)",
+                dx: -20,
+                dy: 30,
+              }}
+            />
+            {/* <Tooltip
               wrapperStyle={{ backgroundColor: "var(--cultured)" }}
               labelStyle={{
                 color: "var(--charleston-green)",
                 fontSize: "0.9rem",
               }}
               itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
-            />
+            /> */}
+
+            <Tooltip content={ToolTipContent} />
 
             {accountList.map((acc, index) => {
               return (
@@ -94,10 +107,10 @@ const Graphs = ({
                   key={`area-${index}`}
                   type="monotone"
                   dataKey={acc}
-                  stroke="var(--cultured-2)"
+                  stroke="var(--slate-gray)"
                   activeDot={{ r: 2 }}
-                  fill="#8884d8"
-                  fillOpacity={0.4}
+                  fill="var(--card-header)"
+                  fillOpacity={0.45}
                   stackId={index}
                 />
               );
@@ -115,13 +128,32 @@ const Graphs = ({
               bottom: 20,
             }}
           >
-            <XAxis dataKey="age" interval={10} dy={5} height={50} />
+            <XAxis
+              dataKey="age"
+              interval={10}
+              dy={5}
+              height={50}
+              stroke="var(--light-gray)"
+            />
             <YAxis
-              domain={[(dataMin) => -100000, (dataMax) => 2000000]}
+              domain={[(dataMin) => -50000, (dataMax) => 1000000]}
               type="number"
               allowDataOverflow={true}
+              stroke="var(--light-gray)"
             />
-            <Tooltip />
+
+            <Tooltip
+              wrapperStyle={{ backgroundColor: "var(--cultured)" }}
+              labelStyle={{
+                color: "var(--charleston-green)",
+                fontSize: "0.9rem",
+              }}
+              formatter={(value, name) => [
+                value.toFixed(0),
+                name.toUpperCase() + " %",
+              ]}
+              itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
+            />
             <Legend verticalAlign={"bottom"} margin={{ top: "1rem" }} />
             <ReferenceLine y={0} stroke="red" />
             <ReferenceLine y={targetWorth} stroke="green" />
@@ -144,7 +176,12 @@ const Graphs = ({
               stroke="var(--light-gray)"
               dot={false}
             />
-            <Line type="monotone" dataKey="ten" stroke="#82ca9d" dot={false} />
+            <Line
+              type="monotone"
+              dataKey="ten"
+              stroke="var(--cultured-2)"
+              dot={false}
+            />
           </LineChart>
         )}
       </StyledGraphContainer>

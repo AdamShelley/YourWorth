@@ -98,7 +98,8 @@ const SelectContainer = styled.div`
   width: 100%;
   font-family: "Open Sans", serif;
   margin-top: 2rem;
-  #15152a label {
+
+  label {
     margin-right: 0.4rem;
     font-size: 1rem;
     font-weight: 100;

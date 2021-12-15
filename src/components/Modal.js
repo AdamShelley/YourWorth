@@ -17,6 +17,7 @@ const ModalStylesContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Open Sans", serif;
 
     .modal {
       width: ${({ modalSize }) => handleSize(modalSize)};
@@ -43,7 +44,6 @@ const ModalStylesContainer = styled.div`
 
         &-title {
           font-size: 1.2rem;
-          text-transform: lowercase;
           text-align: left;
           margin-bottom: 1rem;
           font-weight: 100;

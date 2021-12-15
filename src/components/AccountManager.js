@@ -13,7 +13,7 @@ import { StyledModalTable } from "../styles/tables";
 import { ButtonStyled } from "../styles/inputStyles";
 
 const AccountUpdateContainer = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
