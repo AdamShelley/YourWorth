@@ -24,8 +24,6 @@ const StyledTable = styled.table`
 
   thead {
     font-size: 0.8rem;
-    font-weight: 400;
-    text-transform: uppercase;
   }
 
   thead > tr:first-child {
@@ -112,9 +110,10 @@ const StyledTable = styled.table`
     color: var(--cultured-2);
     letter-spacing: 1px;
     font-weight: 400;
+    font-size: 0.8rem;
     font-family: "Open Sans", serif;
     background-color: transparent;
-    text-decoration: underline;
+    /* text-decoration: underline; */
   }
 `;
 

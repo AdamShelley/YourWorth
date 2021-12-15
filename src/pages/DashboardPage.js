@@ -29,8 +29,10 @@ const PortfolioContainer = styled.div`
     font-family: "Open Sans", serif;
 
     span {
-      color: lightblue;
-      font-size: 1.2rem;
+      /* color: lightblue; */
+      color: var(--cultured);
+
+      font-size: 1.1rem;
       letter-spacing: 1px;
       margin-left: 0.6rem;
     }

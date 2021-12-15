@@ -8,16 +8,17 @@ const StyledFooter = styled.div`
   justify-content: space-between;
   border-top: 1px solid var(--slate-gray);
   background-color: var(--cards);
-  height: 10vh;
+  /* height: 10vh; */
   width: 100%;
   color: var(--cultured);
   font-family: "Open Sans", serif;
   font-size: 0.9rem;
-  padding: 2rem;
+  padding: 1rem 2rem;
 
   div:first-child {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
   }
 
