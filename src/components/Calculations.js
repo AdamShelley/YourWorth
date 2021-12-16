@@ -100,7 +100,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
   return (
     <>
       <StyledInputContainer>
-        <h4>Modify your projections</h4>
+        <h4>Modify your projections - play around with your figures</h4>
         <div>
           <Input
             id="monthlyIncrease"
@@ -194,10 +194,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   }
                 >
                   £
-                  {year.three.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {year.three > 0
+                    ? year.three.toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })
+                    : 0}
                 </td>
                 <td
                   className={
@@ -209,10 +211,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   }
                 >
                   £
-                  {year.five.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {year.five > 0
+                    ? year.five.toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })
+                    : 0}
                 </td>
                 <td
                   className={
@@ -224,10 +228,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   }
                 >
                   £
-                  {year.seven.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {year.seven > 0
+                    ? year.seven.toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })
+                    : 0}
                 </td>
                 <td
                   className={
@@ -239,10 +245,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   }
                 >
                   £
-                  {year.ten.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {year.ten > 0
+                    ? year.ten.toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })
+                    : 0}
                 </td>
                 <td>
                   £

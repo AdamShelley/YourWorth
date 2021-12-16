@@ -60,7 +60,7 @@ const calculateProjections = (loadedUser, monthlyIncrease) => {
       ten -= drawDownYearly;
 
       drawDownYearly *= estimatedInflation;
-      total -= drawDownYearly;
+      // total -= drawDownYearly;
     }
 
     const temp = {

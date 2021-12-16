@@ -29,6 +29,16 @@ const StyledGraphContainer = styled.div`
   }
 `;
 
+const StyledTooltip = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: var(--cultured-2);
+  color: var(--cards);
+  padding: 1rem;
+`;
+
 const Graphs = ({
   data,
   prevAccountDataSnapshots,
@@ -49,7 +59,16 @@ const Graphs = ({
   const finalData = newData.concat(prevData);
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
-  const ToolTipContent = <div>Tooltip content here</div>;
+  console.log(finalData);
+
+  const ToolTipContent = (
+    <StyledTooltip>
+      <h5>What goes here?</h5>
+      {finalData.map((d) => {
+        return <p>{d.account}</p>;
+      })}
+    </StyledTooltip>
+  );
 
   return (
     <>
