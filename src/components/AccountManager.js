@@ -107,7 +107,7 @@ const AccountManager = ({
 
     try {
       const response = await sendRequest(
-        `http://localhost:8080/accounts`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/accounts`,
         "POST",
         JSON.stringify(account),
         {
@@ -168,7 +168,7 @@ const AccountManager = ({
 
     try {
       const response = await sendRequest(
-        `http://localhost:8080/accounts/log`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/accounts/log`,
         "PATCH",
         JSON.stringify({
           snapshot: loadedAccounts,

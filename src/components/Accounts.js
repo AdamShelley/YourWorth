@@ -93,7 +93,7 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
   const submitUpdate = async () => {
     try {
       await sendRequest(
-        `http://localhost:8080/accounts/${accountSelected._id}`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/accounts/${accountSelected._id}`,
         "PATCH",
         JSON.stringify({
           name: formState.inputs.name.value,
@@ -137,7 +137,7 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
     // Send request to backend to delete the account
     try {
       await sendRequest(
-        `http://localhost:8080/accounts/${account._id}`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/accounts/${account._id}`,
         "DELETE",
         null,
         {

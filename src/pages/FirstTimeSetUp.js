@@ -98,7 +98,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
   const submitSetup = async () => {
     try {
       await sendRequest(
-        `http://localhost:8080/users/update`,
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/update`,
         "PATCH",
         JSON.stringify({
           userId: loadedUser._id,
