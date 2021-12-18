@@ -204,6 +204,8 @@ const SignupPage = () => {
         );
 
         auth.login(responseData.userId, responseData.token);
+
+        console.log("Submitted login");
         history.push("/");
       } catch (err) {
         console.log(err);

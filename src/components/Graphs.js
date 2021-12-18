@@ -37,6 +37,12 @@ const StyledTooltip = styled.div`
   background-color: var(--cultured-2);
   color: var(--cards);
   padding: 1rem;
+
+  p {
+    padding: 0.2rem;
+    font-size: 0.8rem;
+    margin: 0;
+  }
 `;
 
 const Graphs = ({
@@ -61,14 +67,28 @@ const Graphs = ({
 
   console.log(finalData);
 
-  const ToolTipContent = (
-    <StyledTooltip>
-      <h5>What goes here?</h5>
-      {finalData.map((d) => {
-        return <p>{d.account}</p>;
-      })}
-    </StyledTooltip>
-  );
+  const ToolTipContent = ({ active, payload, label }) => {
+    if (active && payload) {
+      const keys = Object.entries(payload[0]?.payload);
+
+      return (
+        <StyledTooltip>
+          <h5>{label}</h5>
+          {keys.map((ob) => {
+            if (ob[0] !== "date") {
+              return (
+                <p>
+                  {ob[0]}: {ob[1]}
+                </p>
+              );
+            }
+          })}
+        </StyledTooltip>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <>
@@ -118,7 +138,7 @@ const Graphs = ({
               itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
             /> */}
 
-            <Tooltip content={ToolTipContent} />
+            <Tooltip content={ToolTipContent} cursor={false} />
 
             {accountList.map((acc, index) => {
               return (
