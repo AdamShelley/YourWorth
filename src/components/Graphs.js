@@ -32,16 +32,37 @@ const StyledGraphContainer = styled.div`
 const StyledTooltip = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: space-between;
   justify-content: center;
-  background-color: var(--cultured-2);
-  color: var(--cards);
+
+  /* background-color: var(--cultured-2); */
+  background-color: var(--cards);
+  /* color: var(--cards); */
+  color: var(--cultured-2);
+  border: 1px solid var(--slate-gray);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   padding: 1rem;
+  border-radius: 10px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0.2rem;
+  }
 
   p {
-    padding: 0.2rem;
     font-size: 0.8rem;
-    margin: 0;
+    margin: 0.2rem !important;
+    font-weight: 200;
+  }
+
+  p:first-child {
+    padding-right: 2rem;
   }
 `;
 
@@ -69,17 +90,23 @@ const Graphs = ({
 
   const ToolTipContent = ({ active, payload, label }) => {
     if (active && payload) {
+      const formatDate = label.split("-");
+      const month = new Date(label).toLocaleString("en-us", { month: "short" });
+
+      const newDate = `${formatDate[2]} ${month} ${formatDate[0]}`;
+
       const keys = Object.entries(payload[0]?.payload);
 
       return (
         <StyledTooltip>
-          <h5>{label}</h5>
+          <h5>{newDate}</h5>
           {keys.map((ob) => {
             if (ob[0] !== "date") {
               return (
-                <p>
-                  {ob[0]}: {ob[1]}
-                </p>
+                <div key={ob[1]}>
+                  <p>{ob[0]}:</p>
+                  <p>{ob[1].toLocaleString()}</p>
+                </div>
               );
             }
           })}
