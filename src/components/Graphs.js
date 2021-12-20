@@ -88,30 +88,42 @@ const Graphs = ({
 
   console.log(finalData);
 
-  const ToolTipContent = ({ active, payload, label }) => {
+  const ToolTipContent = ({ active, payload, label, netWorth }) => {
+    console.log(payload);
     if (active && payload) {
-      const formatDate = label.split("-");
-      const month = new Date(label).toLocaleString("en-us", { month: "short" });
+      if (netWorth) {
+        const formatDate = label.split("-");
+        const month = new Date(label).toLocaleString("en-us", {
+          month: "short",
+        });
 
-      const newDate = `${formatDate[2]} ${month} ${formatDate[0]}`;
+        const newDate = `${formatDate[2]} ${month} ${formatDate[0]}`;
 
-      const keys = Object.entries(payload[0]?.payload);
+        const keys = Object.entries(payload[0]?.payload);
 
-      return (
-        <StyledTooltip>
-          <h5>{newDate}</h5>
-          {keys.map((ob) => {
-            if (ob[0] !== "date") {
-              return (
-                <div key={ob[1]}>
-                  <p>{ob[0]}:</p>
-                  <p>{ob[1].toLocaleString()}</p>
-                </div>
-              );
-            }
-          })}
-        </StyledTooltip>
-      );
+        return (
+          <StyledTooltip>
+            <h5>{newDate}</h5>
+            {keys.map((ob) => {
+              if (ob[0] !== "date") {
+                return (
+                  <div key={ob[1]}>
+                    <p>{ob[0]}:</p>
+                    <p>{ob[1].toLocaleString()}</p>
+                  </div>
+                );
+              }
+            })}
+          </StyledTooltip>
+        );
+      } else {
+        return (
+          <StyledTooltip>
+            <h5>Projection</h5>
+            {/* Add formatted % data */}
+          </StyledTooltip>
+        );
+      }
     }
 
     return null;
@@ -165,7 +177,7 @@ const Graphs = ({
               itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
             /> */}
 
-            <Tooltip content={ToolTipContent} cursor={false} />
+            <Tooltip content={ToolTipContent} cursor={false} netWorth />
 
             {accountList.map((acc, index) => {
               return (
@@ -208,7 +220,7 @@ const Graphs = ({
               stroke="var(--light-gray)"
             />
 
-            <Tooltip
+            {/* <Tooltip
               wrapperStyle={{ backgroundColor: "var(--cultured)" }}
               labelStyle={{
                 color: "var(--charleston-green)",
@@ -219,7 +231,10 @@ const Graphs = ({
                 name.toUpperCase() + " %",
               ]}
               itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
-            />
+            /> */}
+
+            <Tooltip content={ToolTipContent} cursor={false} projected />
+
             <Legend verticalAlign={"bottom"} margin={{ top: "1rem" }} />
             <ReferenceLine y={0} stroke="red" />
             <ReferenceLine y={targetWorth} stroke="green" />
