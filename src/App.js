@@ -19,37 +19,39 @@ import Footer from "./components/Footer";
 // import { getPrevData } from "./helpers/graphCalcs";
 
 function App() {
-  const { token, login, logout, userId } = useLogin();
+  const { token, login, logout, userId, firstTimeUser } = useLogin();
 
   let routes;
   // Fetch all user data for the logged in user
-  if (token && userId) {
-    // if (loadedUser?.firstTimeUser) {
-    //   routes = (
-    //     <>
-    //       <Route path="/setup">
-    //         <FirstTimeSetUp />
-    //       </Route>
-    //       <Redirect to="/setup" />
-    //     </>
-    //   );
-    // } else {
-    routes = (
-      <Switch>
-        <Route path="/account">
-          <AccountPage userId={userId} />
-        </Route>
-        <Route path="/yourdata">
-          <YourData />
-        </Route>
-        <Route path="/">
-          <DashboardPage userId={userId} />
-        </Route>
 
-        <Redirect to="/" />
-      </Switch>
-    );
-    // }
+  if (token && userId) {
+    // If the user has logged in for the first time redirect to this page
+    if (firstTimeUser) {
+      routes = (
+        <>
+          <Route path="/setup">
+            <FirstTimeSetUp />
+          </Route>
+          <Redirect to="/setup" />
+        </>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path="/account">
+            <AccountPage userId={userId} />
+          </Route>
+          <Route path="/yourdata">
+            <YourData />
+          </Route>
+          <Route path="/">
+            <DashboardPage userId={userId} />
+          </Route>
+
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
   } else {
     routes = (
       <Switch>
@@ -76,6 +78,7 @@ function App() {
           logout: logout,
           token: token,
           userId: userId,
+          firstTimeUser: firstTimeUser,
         }}
       >
         <Router>

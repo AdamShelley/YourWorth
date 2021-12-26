@@ -85,7 +85,7 @@ const StyledLogoutModal = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--cultured-2);
+  border: 1px solid var(--card-header);
   background-color: var(--cards);
   padding: 1rem;
   position: absolute;

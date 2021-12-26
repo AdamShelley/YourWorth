@@ -82,7 +82,7 @@ const PortfolioPage = ({ data, userId }) => {
           "GET"
         );
 
-        console.log(responseData.user);
+        // console.log(responseData.user);
         setLoadedUser(responseData.user);
       } catch (err) {}
     };
@@ -166,9 +166,11 @@ const PortfolioPage = ({ data, userId }) => {
           ) : (
             <p>Start by adding accounts </p>
           )}
-          <p className="last-value">
-            Value as of {loadedUser.lastUpdated.split("T")[0]}
-          </p>
+          {loadedUser.lastUpdated && (
+            <p className="last-value">
+              Value as of {loadedUser.lastUpdated.split("T")[0]}
+            </p>
+          )}
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}

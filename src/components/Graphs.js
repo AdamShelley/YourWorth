@@ -86,10 +86,7 @@ const Graphs = ({
   const finalData = newData.concat(prevData);
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
-  console.log(finalData);
-
   const ToolTipContent = ({ active, payload, label, netWorth }) => {
-    console.log(payload);
     if (active && payload) {
       if (netWorth) {
         const formatDate = label.split("-");
@@ -117,10 +114,24 @@ const Graphs = ({
           </StyledTooltip>
         );
       } else {
+        const keys = Object.entries(payload[0]?.payload);
+
         return (
           <StyledTooltip>
             <h5>Projection</h5>
             {/* Add formatted % data */}
+            {keys.map((ob) => {
+              if (ob[0] === "total") {
+                return;
+              } else {
+                return (
+                  <div key={ob[1]}>
+                    <p>{ob[0]}:</p>
+                    <p>{ob[1].toLocaleString()}</p>
+                  </div>
+                );
+              }
+            })}
           </StyledTooltip>
         );
       }

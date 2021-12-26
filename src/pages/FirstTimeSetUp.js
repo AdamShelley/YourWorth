@@ -16,9 +16,10 @@ const SetupCard = styled.div`
   border-radius: 2px;
   min-width: 35rem;
   min-height: 30rem;
-
+  margin: 4rem;
   background-color: var(--cards);
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); */
+  border: 1px solid var(--slate-gray);
 
   section {
     display: flex;
@@ -29,6 +30,8 @@ const SetupCard = styled.div`
 
   h2 {
     font-size: 1.2rem;
+    font-weight: 300;
+    font-family: "Open Sans", serif;
   }
 
   p {
@@ -43,6 +46,11 @@ const SetupCard = styled.div`
   input {
     margin-top: 0.5rem;
     padding: 0.3rem 0.5rem;
+    background-color: var(--background) !important;
+  }
+
+  p {
+    color: var(--light-gray);
   }
 
   button {
@@ -122,8 +130,8 @@ const FirstTimeSetUp = ({ loadedUser }) => {
     <SetupCard>
       {section === 1 && (
         <section>
-          <h2> First Time USER. Please set up your account</h2>
-          <p>Please input some details about your worth & goals</p>
+          <h2> Welcome to YourWorth. Please provide a few details.</h2>
+          {/* <p>Please input some details about your worth & goals</p> */}
           <Input
             id="netWorth"
             label="Net Worth"
@@ -133,6 +141,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
             onInput={inputHandler}
             initialValue={formState.inputs.netWorth.value}
             initialValid={formState.inputs.netWorth.valid}
+            darkInput
           />
           <Input
             id="targetWorth"
@@ -143,6 +152,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
             onInput={inputHandler}
             initialValue={formState.inputs.targetWorth.value}
             initialValid={formState.inputs.targetWorth.valid}
+            darkInput
           />
           <Input
             id="targetAge"
@@ -153,6 +163,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
             onInput={inputHandler}
             initialValue={formState.inputs.targetAge.value}
             initialValid={formState.inputs.targetAge.valid}
+            darkInput
           />
           <button onClick={() => setSection(2)}>Next -></button>
         </section>

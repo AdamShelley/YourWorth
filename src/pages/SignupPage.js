@@ -202,11 +202,18 @@ const SignupPage = () => {
             "Content-Type": "application/json",
           }
         );
+        console.log(responseData);
+        auth.login(
+          responseData.userId,
+          responseData.token,
+          responseData.firstTimeUser
+        );
 
-        auth.login(responseData.userId, responseData.token);
-
-        console.log("Submitted login");
-        history.push("/");
+        if (responseData.firstTimeUser) {
+          history.push("/setup");
+        } else {
+          history.push("/");
+        }
       } catch (err) {
         console.log(err);
       }
@@ -228,8 +235,10 @@ const SignupPage = () => {
           }
         );
 
+        console.log(responseData);
+
         // redirect to homepage or settings
-        auth.login(responseData.userId, responseData.token);
+        auth.login(responseData.userId, responseData.token, true);
 
         history.push("/");
       } catch (err) {

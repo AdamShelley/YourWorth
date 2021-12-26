@@ -100,7 +100,9 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
   return (
     <>
       <StyledInputContainer>
-        <h4>Modify your projections - play around with your figures</h4>
+        <h4>
+          Modify your projections ( this will not update your data permanently )
+        </h4>
         <div>
           <Input
             id="monthlyIncrease"
