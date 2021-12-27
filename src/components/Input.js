@@ -194,12 +194,14 @@ const Input = ({
     onInput(id, value, valid);
   }, [id, onInput, value, valid]);
 
+  //  Defaulting my code to 'Investments'
+  // // ? event.target.value : categories[0],
+
   const changeHandler = (event) => {
     dispatch({
       type: "CHANGE",
-      value: event.target.value ? event.target.value : categories[0],
+      value: event.target.value,
       validators: validators,
-
       isBlurred: false,
     });
   };
@@ -209,6 +211,8 @@ const Input = ({
       type: "BLUR",
     });
   };
+
+  // console.log(inputState.value);
 
   let input;
   if (dropDown) {
