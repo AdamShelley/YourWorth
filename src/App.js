@@ -32,6 +32,9 @@ function App() {
           <Route path="/setup">
             <FirstTimeSetUp />
           </Route>
+          <Route path="/yourdata">
+            <YourData />
+          </Route>
           <Redirect to="/setup" />
         </>
       );

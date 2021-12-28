@@ -14,6 +14,7 @@ const StyledFooter = styled.div`
   font-family: "Open Sans", serif;
   font-size: 0.9rem;
   padding: 1rem 2rem;
+  margin-top: 2rem;
 
   div:first-child {
     display: flex;

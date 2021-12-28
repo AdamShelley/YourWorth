@@ -8,48 +8,28 @@ import { useForm } from "../hooks/form-hook";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { requiredValidator } from "../helpers/validators";
 
+import { ReactComponent as Launch } from "../images/launch.svg";
+
 const SetupCard = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 2px;
   min-width: 35rem;
-  min-height: 30rem;
-  margin: 2rem;
+  /* min-height: 40rem; */
+  /* margin: 1rem; */
   /* background-color: var(--cards); */
   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); */
   /* border: 1px solid var(--slate-gray); */
   font-family: "Open Sans", serif;
 
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 60%;
-    height: 70vh;
-  }
-
-  h2 {
-    font-size: 1.4rem;
-    font-weight: 300;
-  }
-
-  p {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-  }
-
-  label {
-    margin-top: 0.5rem;
-  }
-
-  input {
-    margin-top: 0.5rem;
-    padding: 0.3rem 0.5rem;
+  svg {
+    max-height: 45vh;
+    max-width: 40%;
+    padding: 1rem;
+    /* margin-top: 2rem; */
   }
 
   p {
@@ -68,10 +48,74 @@ const SetupCard = styled.div`
       border-radius: 50%;
     }
     .current-page {
-      background-color: red;
+      background-color: var(--card-header);
     }
     .completed-page {
-      background-color: green;
+      background-color: var(--gainsboro);
+    }
+  }
+`;
+
+const SectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 40rem;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    /* height: 60vh; */
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    h4 {
+      font-weight: 300;
+    }
+
+    p {
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 300;
+      width: 60%;
+      line-height: 1.6;
+      text-align: justify;
+      text-justify: auto;
+      /* margin-bottom: 2rem; */
+    }
+
+    > div {
+      margin-top: 4rem;
+      width: 80%;
+      display: flex;
+      align-items: space-evenly;
+
+      > div {
+        margin-right: 1rem;
+
+        label {
+          margin-top: 0.5rem;
+          font-size: 1rem;
+          font-weight: 400;
+          color: var(--gainsboro);
+        }
+
+        input {
+          margin-top: 0.5rem;
+          font-size: 1.1rem;
+          padding: 0.6rem !important;
+          width: 100%;
+
+          /* max-width: 10rem; */
+        }
+      }
     }
   }
 `;
@@ -96,8 +140,43 @@ const ButtonContainer = styled.div`
     cursor: pointer;
     letter-spacing: 1px;
 
+    &:disabled {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+
     &:hover {
       border: 1px solid var(--cultured-2);
+    }
+  }
+`;
+
+const FinalSubmitStyle = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ul {
+    list-style: none;
+    width: 50%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+
+      p {
+        font-weight: 500;
+        width: auto;
+
+        span {
+          color: lightgoldenrodyellow;
+        }
+      }
     }
   }
 `;
@@ -154,104 +233,168 @@ const FirstTimeSetUp = ({ loadedUser }) => {
 
   return (
     <SetupCard>
-      {section === 1 && (
-        <section>
-          <h2> Welcome to YourWorth. </h2>
-          <p>Please provide a few details to get started.</p>
-          {/* <p>Please input some details about your worth & goals</p> */}
-          <Input
-            id="netWorth"
-            label="Net Worth"
-            dataType="number"
-            errorText={"Please enter a value."}
-            validators={[requiredValidator()]}
-            onInput={inputHandler}
-            initialValue={formState.inputs.netWorth.value}
-            initialValid={formState.inputs.netWorth.valid}
-            darkInput
-          />
-          <Input
-            id="targetWorth"
-            label="Target Net Worth"
-            dataType="number"
-            errorText={"Please enter a value."}
-            validators={[requiredValidator()]}
-            onInput={inputHandler}
-            initialValue={formState.inputs.targetWorth.value}
-            initialValid={formState.inputs.targetWorth.valid}
-            darkInput
-          />
-          <Input
-            id="targetAge"
-            label="Target Age"
-            dataType="number"
-            errorText={"Please enter a value."}
-            validators={[requiredValidator()]}
-            onInput={inputHandler}
-            initialValue={formState.inputs.targetAge.value}
-            initialValid={formState.inputs.targetAge.valid}
-            darkInput
-          />
-          <ButtonContainer>
-            <button onClick={() => setSection(2)}>Next</button>
-          </ButtonContainer>
-        </section>
-      )}
-      {section === 2 && (
-        <section>
-          <p>Continue to input your information.</p>
-          <Input
-            id="currentAge"
-            label="Current Age"
-            dataType="number"
-            errorText={"Please enter a value."}
-            validators={[]}
-            onInput={inputHandler}
-            initialValue={formState.inputs.currentAge.value}
-            initialValid={formState.inputs.currentAge.valid}
-          />
-          <Input
-            id="drawDownAmount"
-            label="Drawdown Amount"
-            dataType="number"
-            errorText={"Please enter a value."}
-            validators={[]}
-            onInput={inputHandler}
-            initialValue={formState.inputs.drawDownAmount.value}
-            initialValid={formState.inputs.drawDownAmount.valid}
-          />
-          <ButtonContainer>
-            <button onClick={() => setSection(1)}> Back</button>
-            <button onClick={() => setSection(3)}>Next</button>
-          </ButtonContainer>
-        </section>
-      )}
-      {section === 3 && (
-        <section>
-          <h2>Confirm your details</h2>
-          <p>Current Net Worth: {formState.inputs.netWorth.value}</p>
-          <p>Target Net Worth: {formState.inputs.targetWorth.value}</p>
-          <p>Target age to retire: {formState.inputs.targetAge.value}</p>
-          <p>Current Age: {formState.inputs.currentAge.value}</p>
-          <p>Draw down amount: {formState.inputs.drawDownAmount.value}</p>
-          <ButtonContainer>
-            <button onClick={() => setSection(2)}>Go Back</button>
-            <button onClick={submitSetup} disabled={!formState.formValid}>
-              Submit
-            </button>
-          </ButtonContainer>
-        </section>
-      )}
-      <div className="circle-container">
-        {[...Array(pages)].map((p, index) => (
-          <div
-            className={`page-circle ${
-              index + 1 === section ? "current-page" : ""
-            } ${index + 1 < section ? "completed-page" : ""}`}
-          ></div>
-        ))}
-      </div>
-      {/* <p>Page {section} of 3</p> */}
+      <Launch />
+      <SectionContainer>
+        {section === 1 && (
+          <section>
+            <h2> Welcome to YourWorth. </h2>
+            <p>
+              We need to take a few details to get started. (You can always
+              change these later.)
+            </p>
+            {/* <p>Please input some details about your worth & goals</p> */}
+            <div>
+              <Input
+                id="netWorth"
+                label="What is your current Net Worth?"
+                dataType="number"
+                // errorText={"Please enter your net worth."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.netWorth.value}
+                initialValid={formState.inputs.netWorth.valid}
+                darkInput
+              />
+              <Input
+                id="targetWorth"
+                label="What is your target Net Worth?"
+                dataType="number"
+                // errorText={"Please enter your target goal."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.targetWorth.value}
+                initialValid={formState.inputs.targetWorth.valid}
+                darkInput
+              />
+              <Input
+                id="targetAge"
+                label="What is your target age of retirement?"
+                dataType="number"
+                // errorText={"Please enter your target age to retire."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.targetAge.value}
+                initialValid={formState.inputs.targetAge.valid}
+                darkInput
+              />
+            </div>
+            <ButtonContainer>
+              <button onClick={() => setSection(2)}>Next</button>
+            </ButtonContainer>
+          </section>
+        )}
+        {section === 2 && (
+          <section>
+            <h4>Almost done!</h4>
+            <div>
+              <Input
+                id="currentAge"
+                label="What is your current age?"
+                dataType="number"
+                // errorText={"Please enter your current age."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.currentAge.value}
+                initialValid={formState.inputs.currentAge.valid}
+                darkInput
+              />
+              <Input
+                id="drawDownAmount"
+                label="What will you drawdown?"
+                dataType="number"
+                // errorText={"Please enter a draw down amount."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.drawDownAmount.value}
+                initialValid={formState.inputs.drawDownAmount.valid}
+                darkInput
+              />
+            </div>
+            <ButtonContainer>
+              <button onClick={() => setSection(1)}> Back</button>
+              <button onClick={() => setSection(3)}>Next</button>
+            </ButtonContainer>
+          </section>
+        )}
+        {section === 3 && (
+          <FinalSubmitStyle>
+            <h2>Confirm your details</h2>
+
+            <ul>
+              <li>
+                <p>Current Net Worth</p>
+                <p>
+                  {formState.inputs.netWorth.value ? (
+                    formState.inputs.netWorth.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>Target Net Worth</p>
+                <p>
+                  {formState.inputs.targetWorth.value ? (
+                    formState.inputs.targetWorth.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>Target age to retire</p>
+                <p>
+                  {formState.inputs.targetAge.value ? (
+                    formState.inputs.targetAge.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>Current Age</p>
+                <p>
+                  {formState.inputs.currentAge.value ? (
+                    formState.inputs.currentAge.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>Draw down amount</p>
+                <p>
+                  {formState.inputs.drawDownAmount.value ? (
+                    formState.inputs.drawDownAmount.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+            </ul>
+
+            <ButtonContainer>
+              <button onClick={() => setSection(2)}>Go Back</button>
+              <button onClick={submitSetup} disabled={!formState.formValid}>
+                Confirm
+              </button>
+            </ButtonContainer>
+            {!formState.formValid && (
+              <p>Please complete the information above.</p>
+            )}
+          </FinalSubmitStyle>
+        )}
+
+        <div className="circle-container">
+          {[...Array(pages)].map((p, index) => (
+            <div
+              className={`page-circle ${
+                index + 1 === section ? "current-page" : ""
+              } ${index + 1 < section ? "completed-page" : ""}`}
+            ></div>
+          ))}
+        </div>
+      </SectionContainer>
     </SetupCard>
   );
 };

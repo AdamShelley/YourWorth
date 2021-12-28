@@ -147,7 +147,7 @@ const Header = () => {
           </h1>
         </NavLink>
         <ul>
-          {auth.isLoggedIn && (
+          {auth.isLoggedIn && !auth.firstTimeUser && (
             <li>
               <NavLink exact activeClassName="selected" to="/">
                 Dashboard
@@ -155,7 +155,7 @@ const Header = () => {
             </li>
           )}
 
-          {auth.isLoggedIn && (
+          {auth.isLoggedIn && !auth.firstTimeUser && (
             <li>
               <NavLink activeClassName="selected" to="/account">
                 Account
