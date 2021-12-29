@@ -29,7 +29,6 @@ const SetupCard = styled.div`
     max-height: 45vh;
     max-width: 40%;
     padding: 1rem;
-    /* margin-top: 2rem; */
   }
 
   p {
@@ -48,10 +47,12 @@ const SetupCard = styled.div`
       border-radius: 50%;
     }
     .current-page {
-      background-color: var(--card-header);
+      background-color: var(--cadet-blue-crayola);
+      border: 1px solid var(--cadet-blue-crayola);
     }
     .completed-page {
-      background-color: var(--gainsboro);
+      background-color: var(--cultured);
+      border: 1px solid var(--cultured);
     }
   }
 `;
@@ -60,6 +61,7 @@ const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 40rem;
 
   section {
@@ -68,22 +70,22 @@ const SectionContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 50vw;
-    /* height: 60vh; */
+    min-height: 60vh;
 
     h2 {
-      font-size: 1.7rem;
+      font-size: 2rem;
       font-weight: 300;
       letter-spacing: 1px;
     }
 
     h4 {
-      font-weight: 300;
+      font-weight: 400;
     }
 
     p {
       margin-top: 2rem;
       font-size: 1rem;
-      font-weight: 300;
+      font-weight: 400;
       width: 60%;
       line-height: 1.6;
       text-align: justify;
@@ -92,7 +94,7 @@ const SectionContainer = styled.div`
     }
 
     > div {
-      margin-top: 4rem;
+      margin-top: 2rem;
       width: 80%;
       display: flex;
       align-items: space-evenly;
@@ -102,7 +104,7 @@ const SectionContainer = styled.div`
 
         label {
           margin-top: 0.5rem;
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 400;
           color: var(--gainsboro);
         }
@@ -110,18 +112,29 @@ const SectionContainer = styled.div`
         input {
           margin-top: 0.5rem;
           font-size: 1.1rem;
-          padding: 0.6rem !important;
+          padding: 0.6rem 1rem !important;
           width: 100%;
+          color: var(--cultured);
+          font-weight: 400;
 
           /* max-width: 10rem; */
         }
       }
     }
+
+    > div:nth-child(3) {
+      margin-top: 0;
+      justify-content: space-evenly;
+    }
+
+    > div:last-child {
+      width: 50%;
+    }
   }
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 2rem;
+  margin-top: 2rem !important;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -143,6 +156,12 @@ const ButtonContainer = styled.div`
     &:disabled {
       background-color: transparent;
       cursor: not-allowed;
+      color: var(--slate-gray);
+      border: 1px solid var(--slate-gray);
+
+      &:hover {
+        border: 1px solid var(--slate-gray);
+      }
     }
 
     &:hover {
@@ -157,6 +176,11 @@ const FinalSubmitStyle = styled.section`
   align-items: center;
   justify-content: center;
 
+  p {
+    text-align: center !important;
+    font-weight: 400 !important;
+  }
+
   ul {
     list-style: none;
     width: 50%;
@@ -170,12 +194,16 @@ const FinalSubmitStyle = styled.section`
       justify-content: space-between;
 
       p {
-        font-weight: 500;
+        font-weight: 800;
         width: auto;
 
         span {
-          color: lightgoldenrodyellow;
+          color: gold;
         }
+      }
+
+      p:last-child {
+        font-weight: 400;
       }
     }
   }
@@ -238,12 +266,13 @@ const FirstTimeSetUp = ({ loadedUser }) => {
         {section === 1 && (
           <section>
             <h2> Welcome to YourWorth. </h2>
+            <p>We need to take a few details to get started.</p>
             <p>
-              We need to take a few details to get started. (You can always
+              This will be used to calculate your projections. (You can always
               change these later.)
             </p>
             {/* <p>Please input some details about your worth & goals</p> */}
-            <div>
+            {/* <div>
               <Input
                 id="netWorth"
                 label="What is your current Net Worth?"
@@ -277,7 +306,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
                 initialValid={formState.inputs.targetAge.valid}
                 darkInput
               />
-            </div>
+            </div> */}
             <ButtonContainer>
               <button onClick={() => setSection(2)}>Next</button>
             </ButtonContainer>
@@ -285,8 +314,43 @@ const FirstTimeSetUp = ({ loadedUser }) => {
         )}
         {section === 2 && (
           <section>
-            <h4>Almost done!</h4>
+            <h4>Please provide the following information.</h4>
             <div>
+              <Input
+                id="netWorth"
+                label="What is your current Net Worth?"
+                dataType="number"
+                // errorText={"Please enter your net worth."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.netWorth.value}
+                initialValid={formState.inputs.netWorth.valid}
+                darkInput
+              />
+              <Input
+                id="targetWorth"
+                label="What is your target Net Worth?"
+                dataType="number"
+                // errorText={"Please enter your target goal."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.targetWorth.value}
+                initialValid={formState.inputs.targetWorth.valid}
+                darkInput
+              />
+            </div>
+            <div>
+              <Input
+                id="targetAge"
+                label="What is your target age of retirement?"
+                dataType="number"
+                // errorText={"Please enter your target age to retire."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.targetAge.value}
+                initialValid={formState.inputs.targetAge.valid}
+                darkInput
+              />
               <Input
                 id="currentAge"
                 label="What is your current age?"

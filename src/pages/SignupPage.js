@@ -43,9 +43,9 @@ const SignupContainer = styled.div`
 
   h2 {
     font-size: 1.4rem;
-    font-weight: 100;
+    font-weight: 400;
     letter-spacing: 0.5px;
-    color: var(--background);
+    color: var(--card-header);
   }
 
   form {
