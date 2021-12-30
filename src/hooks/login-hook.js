@@ -16,7 +16,6 @@ export const useLogin = () => {
     setTokenExpiration(tokenExpireDate);
     setFirstTimeUser(initialSetup);
 
-    console.log(initialSetup);
     localStorage.setItem(
       "userData",
       JSON.stringify({

@@ -116,6 +116,7 @@ const SectionContainer = styled.div`
           width: 100%;
           color: var(--cultured);
           font-weight: 400;
+          border-radius: 3px;
 
           /* max-width: 10rem; */
         }
@@ -134,7 +135,7 @@ const SectionContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 2rem !important;
+  margin-top: 3rem !important;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -152,6 +153,7 @@ const ButtonContainer = styled.div`
     color: var(--cultured);
     cursor: pointer;
     letter-spacing: 1px;
+    border-radius: 3px;
 
     &:disabled {
       background-color: transparent;
@@ -187,15 +189,16 @@ const FinalSubmitStyle = styled.section`
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 
     li {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
 
       p {
         font-weight: 800;
         width: auto;
+        margin-top: 0.8rem;
 
         span {
           color: gold;
@@ -204,6 +207,7 @@ const FinalSubmitStyle = styled.section`
 
       p:last-child {
         font-weight: 400;
+        color: #09f378;
       }
     }
   }
@@ -271,42 +275,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
               This will be used to calculate your projections. (You can always
               change these later.)
             </p>
-            {/* <p>Please input some details about your worth & goals</p> */}
-            {/* <div>
-              <Input
-                id="netWorth"
-                label="What is your current Net Worth?"
-                dataType="number"
-                // errorText={"Please enter your net worth."}
-                validators={[requiredValidator()]}
-                onInput={inputHandler}
-                initialValue={formState.inputs.netWorth.value}
-                initialValid={formState.inputs.netWorth.valid}
-                darkInput
-              />
-              <Input
-                id="targetWorth"
-                label="What is your target Net Worth?"
-                dataType="number"
-                // errorText={"Please enter your target goal."}
-                validators={[requiredValidator()]}
-                onInput={inputHandler}
-                initialValue={formState.inputs.targetWorth.value}
-                initialValid={formState.inputs.targetWorth.valid}
-                darkInput
-              />
-              <Input
-                id="targetAge"
-                label="What is your target age of retirement?"
-                dataType="number"
-                // errorText={"Please enter your target age to retire."}
-                validators={[requiredValidator()]}
-                onInput={inputHandler}
-                initialValue={formState.inputs.targetAge.value}
-                initialValid={formState.inputs.targetAge.valid}
-                darkInput
-              />
-            </div> */}
+
             <ButtonContainer>
               <button onClick={() => setSection(2)}>Next</button>
             </ButtonContainer>

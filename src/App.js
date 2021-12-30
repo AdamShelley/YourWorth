@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import { AuthenticationContext } from "./context/authenticate-context";
 import { useLogin } from "./hooks/login-hook";
 import Footer from "./components/Footer";
+import SplashPage from "./pages/SplashPage";
 
 // import { getPrevData } from "./helpers/graphCalcs";
 
@@ -47,6 +48,9 @@ function App() {
           <Route path="/yourdata">
             <YourData />
           </Route>
+          <Route path="/splash">
+            <SplashPage />
+          </Route>
           <Route path="/">
             <DashboardPage userId={userId} />
           </Route>
@@ -64,10 +68,10 @@ function App() {
         <Route path="/yourdata">
           <YourData />
         </Route>
-        {/* <Route path="/">
-          <DashboardPage noUser />
-        </Route> */}
-        <Redirect to="/signup" />
+        <Route path="/splash">
+          <SplashPage />
+        </Route>
+        <Redirect to="/splash" />
       </Switch>
     );
   }
