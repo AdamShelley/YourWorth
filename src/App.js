@@ -71,7 +71,7 @@ function App() {
         <Route path="/splash">
           <SplashPage />
         </Route>
-        <Redirect to="/splash" />
+        <Redirect to="/" />
       </Switch>
     );
   }

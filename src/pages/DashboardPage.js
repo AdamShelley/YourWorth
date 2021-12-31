@@ -24,7 +24,7 @@ const PortfolioContainer = styled.div`
   }
 
   p {
-    margin-top: 3rem;
+    margin-top: 1rem;
     font-size: 1rem;
     font-family: "Open Sans", serif;
 
@@ -47,7 +47,9 @@ const PortfolioContainer = styled.div`
 const PieChartContainer = styled.div`
   margin-top: 2rem;
   height: 25rem;
-  width: 50rem;
+  width: 100vw;
+  font-family: "Open Sans", serif;
+  font-size: 1rem;
 `;
 
 const GraphContainer = styled.div`

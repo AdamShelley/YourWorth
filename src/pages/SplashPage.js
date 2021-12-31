@@ -15,7 +15,7 @@ const SplashContainer = styled.div`
   h1 {
     font-size: 2.5rem;
     font-weight: 400;
-    margin-top: 5rem;
+    margin-top: 4rem;
     letter-spacing: 1px;
   }
 
@@ -83,11 +83,7 @@ const SplashPage = () => {
         <FinancePicture />
         <div>
           <h3>Track your portfolio</h3>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. In cum
-            voluptatibus, corporis iure odio nobis fugiat voluptatem facilis quo
-            id.
-          </p>
+          <p>Keep track of your entire portfolio.</p>
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. In cum
             voluptatibus, corporis iure odio nobis fugiat voluptatem facilis quo
