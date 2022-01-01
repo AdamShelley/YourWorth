@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { AuthenticationContext } from "../context/authenticate-context";
 
 const StyledHeader = styled.div`
@@ -110,6 +110,7 @@ let logoutTimer;
 
 const Header = () => {
   const auth = useContext(AuthenticationContext);
+  const history = useHistory();
   const [logoutModal, setLogoutModal] = useState(false);
 
   const logoutConfirmation = () => {
@@ -124,6 +125,7 @@ const Header = () => {
     clearTimeout(logoutTimer);
     auth.logout();
     setLogoutModal(false);
+    history.push("/signup");
   };
 
   const LogoutModal = () => {
@@ -169,6 +171,13 @@ const Header = () => {
               </NavLink>
             </li>
           )} */}
+          {!auth.isLoggedIn && (
+            <li>
+              <NavLink activeClassName="selected" to="/splash">
+                About
+              </NavLink>
+            </li>
+          )}
           {!auth.isLoggedIn && (
             <li>
               <NavLink exact activeClassName="selected" to="/signup">

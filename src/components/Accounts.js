@@ -133,6 +133,7 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
   const confirmDeleteAccount = async (account) => {
     setDeleteIndex(null);
     setConfirmDeletion(false);
+    preventScroll();
 
     // Send request to backend to delete the account
     try {
@@ -280,8 +281,8 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
         <Modal
           show={confirmSubmission}
           close={() => {
-            setConfirmSubmission(false);
             preventScroll();
+            setConfirmSubmission(false);
           }}
           title={"Confirm your changes: "}
           submitHandler={submitUpdate}
