@@ -100,18 +100,22 @@ const PortfolioPage = ({ data, userId }) => {
       targetWorth: parseFloat(updatedValues.retirementGoal),
       drawDownAmount: parseFloat(updatedValues.drawdown),
     });
-
-    console.log(dataSet);
   };
 
-  const updateLoadedUser = (accounts, accId) => {
-    const findAcc = accounts.filter((acc) => acc._id === accId);
+  const updateLoadedUser = (accounts, accId, deletion) => {
+    let findAcc;
+    if (deletion) {
+      findAcc = accounts.filter((acc) => acc._id === accId);
+    }
 
     let user = {
       ...loadedUser,
-      netWorth: (loadedUser.netWorth -= parseFloat(findAcc[0].balance)),
+      netWorth: findAcc
+        ? (loadedUser.netWorth -= parseFloat(findAcc[0].balance))
+        : loadedUser.netWorth,
       accounts: accounts,
     };
+
     setLoadedUser(user);
   };
 
@@ -143,14 +147,10 @@ const PortfolioPage = ({ data, userId }) => {
         netWorth: newNetWorth,
       }));
     }
-
-    console.log(loadedUser);
   };
 
   return (
     <PortfolioContainer>
-      {/* {error && <p>{error}</p>} */}
-
       {loadedUser && (
         <>
           <h2>Portfolio</h2>

@@ -48,7 +48,7 @@ function App() {
           <Route path="/yourdata">
             <YourData />
           </Route>
-          <Route path="/splash">
+          <Route path="/splash" exact>
             <SplashPage />
           </Route>
           <Route path="/">
@@ -71,7 +71,7 @@ function App() {
         <Route path="/splash">
           <SplashPage />
         </Route>
-        <Redirect to="/" />
+        {/* <Redirect to="/splash" /> */}
       </Switch>
     );
   }

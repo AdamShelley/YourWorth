@@ -1,15 +1,11 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Loader from "react-loader-spinner";
-
 import Modal from "./Modal";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable, StyledModalTable } from "../styles/tables";
-// import { commaValue } from "../helpers/commaValue";
-// import { types } from "../helpers/accountTypes.js";
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
-
 import Input from "./Input";
 
 const ModalContent = styled.div`
@@ -45,7 +41,14 @@ const ModalContent = styled.div`
 
 let confirmTimer;
 
-const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
+const Accounts = ({
+  accounts,
+  netWorth,
+  portfolioPage,
+  onDelete,
+  updateNetWorth,
+  updateAccountList,
+}) => {
   const auth = useContext(AuthenticationContext);
   const [modal, setModal] = useState(false);
   const [accountSelected, setAccountSelected] = useState();
@@ -72,11 +75,13 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
     true
   );
 
+  // Toggle function for the modal
   const Toggle = () => {
     setModal(!modal);
     preventScroll();
   };
 
+  // Helper function to prevent & re-enable scrolling
   const preventScroll = () => {
     if (document.body.style.overflow !== "hidden") {
       document.body.style.overflow = "hidden";
@@ -85,12 +90,34 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
     }
   };
 
+  // Confirm modal helper function
   const confirmSub = () => {
     setModal(false);
     setConfirmSubmission(true);
   };
 
+  // Submit edit modal data to the backend
   const submitUpdate = async () => {
+    preventScroll();
+
+    // Update frontend
+    const newAccounts = accounts.map((acc) => {
+      if (acc._id === accountSelected._id) {
+        return (acc = {
+          ...acc,
+          name: formState.inputs.name.value,
+          category: formState.inputs.category.value,
+          balance: parseFloat(formState.inputs.balance.value),
+        });
+      }
+      return acc;
+    });
+
+    updateAccountList(newAccounts);
+
+    updateNetWorth(newAccounts);
+
+    // Submit to backend
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_ADDRESS}/accounts/${accountSelected._id}`,
@@ -118,7 +145,7 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
     setAccountSelected(acc);
   };
 
-  // Delete the account (TODO Later)
+  // Delete the account
   const startDeletion = (index) => {
     clearTimeout(confirmTimer);
     setDeleteIndex(index);
@@ -130,6 +157,7 @@ const Accounts = ({ accounts, netWorth, portfolioPage, onDelete }) => {
     }, 3000);
   };
 
+  // Confirm deletion to the backend
   const confirmDeleteAccount = async (account) => {
     setDeleteIndex(null);
     setConfirmDeletion(false);

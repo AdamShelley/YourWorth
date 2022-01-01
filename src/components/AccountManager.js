@@ -131,7 +131,7 @@ const AccountManager = ({
       accounts.filter((acc) => acc._id !== deletedAccId)
     );
 
-    updateLoadedUser(loadedAccounts, deletedAccId);
+    updateLoadedUser(loadedAccounts, deletedAccId, true);
   };
 
   const advanceAllHandler = () => {
@@ -194,6 +194,10 @@ const AccountManager = ({
     }
   };
 
+  const updateAccountList = (accounts) => {
+    setLoadedAccounts(accounts);
+  };
+
   return (
     <div>
       {loadedAccounts.length > 0 && (
@@ -202,6 +206,8 @@ const AccountManager = ({
           netWorth={netWorth}
           accounts={loadedAccounts}
           onDelete={onDeleteHandler}
+          updateAccountList={updateAccountList}
+          updateNetWorth={updateNetWorth}
         />
       )}
       <AccountUpdateContainer>
@@ -276,6 +282,7 @@ const AccountManager = ({
               </th>
             </tr>
           </thead>
+          ifi{" "}
           <tbody>
             {/* The before updating */}
 
