@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 // import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
-
+import { AuthenticationContext } from "../context/authenticate-context";
 import Input from "../components/Input";
 import { useForm } from "../hooks/form-hook";
 import { useFetchHook } from "../hooks/fetch-hook";
@@ -18,7 +18,7 @@ const SetupCard = styled.div`
   padding: 1rem;
   border-radius: 2px;
   min-width: 35rem;
-  /* min-height: 40rem; */
+  min-height: 100vh;
   /* margin: 1rem; */
   /* background-color: var(--cards); */
   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); */
@@ -213,9 +213,10 @@ const FinalSubmitStyle = styled.section`
   }
 `;
 
-const FirstTimeSetUp = ({ loadedUser }) => {
+const FirstTimeSetUp = () => {
   const pages = 3;
   const history = useHistory();
+  const auth = useContext(AuthenticationContext);
   const [section, setSection] = useState(1);
   const { sendRequest } = useFetchHook();
   const [formState, inputHandler] = useForm(
@@ -244,7 +245,7 @@ const FirstTimeSetUp = ({ loadedUser }) => {
         `${process.env.REACT_APP_BACKEND_ADDRESS}/users/update`,
         "PATCH",
         JSON.stringify({
-          userId: loadedUser._id,
+          userId: auth.userId,
           netWorth: formState.inputs.netWorth.value,
           targetWorth: formState.inputs.targetWorth.value,
           currentAge: formState.inputs.currentAge.value,
@@ -260,8 +261,6 @@ const FirstTimeSetUp = ({ loadedUser }) => {
       console.log(err);
     }
   };
-
-  console.log(formState.isValid);
 
   return (
     <SetupCard>

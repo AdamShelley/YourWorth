@@ -240,7 +240,7 @@ const SignupPage = () => {
         // redirect to homepage or settings
         auth.login(responseData.userId, responseData.token, true);
 
-        history.push("/");
+        history.push("/setup");
       } catch (err) {
         console.log(err);
       }

@@ -36,7 +36,7 @@ function App() {
           <Route path="/yourdata">
             <YourData />
           </Route>
-          <Redirect to="/setup" />
+          <Redirect to="/setup" loadedUser={userId} />
         </>
       );
     } else {
@@ -71,7 +71,7 @@ function App() {
         <Route path="/splash">
           <SplashPage />
         </Route>
-        {/* <Redirect to="/splash" /> */}
+        <Redirect to="/splash" />
       </Switch>
     );
   }
