@@ -29,7 +29,7 @@ function App() {
     // If the user has logged in for the first time redirect to this page
     if (firstTimeUser) {
       routes = (
-        <>
+        <Switch>
           <Route path="/setup">
             <FirstTimeSetUp />
           </Route>
@@ -37,7 +37,7 @@ function App() {
             <YourData />
           </Route>
           <Redirect to="/setup" loadedUser={userId} />
-        </>
+        </Switch>
       );
     } else {
       routes = (
