@@ -51,11 +51,11 @@ function App() {
           <Route path="/splash" exact>
             <SplashPage />
           </Route>
-          <Route path="/">
+          <Route path="/dashboard">
             <DashboardPage userId={userId} />
           </Route>
 
-          <Redirect to="/" />
+          <Redirect to="/dashboard" />
         </Switch>
       );
     }
@@ -71,7 +71,7 @@ function App() {
         <Route path="/splash">
           <SplashPage />
         </Route>
-        <Redirect to="/splash" />
+        {/* <Redirect to="/splash" /> */}
       </Switch>
     );
   }

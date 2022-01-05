@@ -62,7 +62,8 @@ const StyledInputContainer = styled.div`
 `;
 
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
-  const { ageToRetire, drawDownAmount, targetWorth } = accountInformation;
+  const { ageToRetire, drawDownAmount, targetWorth, monthlyIncrease } =
+    accountInformation;
 
   const [formState, inputHandler] = useForm(
     {

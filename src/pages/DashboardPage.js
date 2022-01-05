@@ -61,14 +61,11 @@ const GraphContainer = styled.div`
   max-width: 100%;
 `;
 
-// Make this dynamic later
-const fakeMonthlyIncrease = 1000;
-
 const PortfolioPage = ({ data, userId }) => {
   const [dataSet, setDataSet] = useState(data);
   const [loadedUser, setLoadedUser] = useState();
   const [calculatedProjections, setCalculatedProjections] = useState([]);
-  const [monthlyAdd, setMonthlyAdd] = useState(fakeMonthlyIncrease);
+  const [monthlyAdd, setMonthlyAdd] = useState(0);
   const { sendRequest } = useFetchHook();
 
   useEffect(() => {

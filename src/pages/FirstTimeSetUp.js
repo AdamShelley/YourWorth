@@ -235,6 +235,10 @@ const FirstTimeSetUp = () => {
         value: "",
         valid: false,
       },
+      monthlyIncrease: {
+        value: "",
+        valid: false,
+      },
     },
     false
   );
@@ -251,6 +255,7 @@ const FirstTimeSetUp = () => {
           currentAge: formState.inputs.currentAge.value,
           targetAge: formState.inputs.targetAge.value,
           drawDownAmount: formState.inputs.drawDownAmount.value,
+          monthlyIncrease: formState.inputs.monthlyIncrease.value,
         }),
         {
           "Content-Type": "application/json",
@@ -304,6 +309,17 @@ const FirstTimeSetUp = () => {
                 onInput={inputHandler}
                 initialValue={formState.inputs.targetWorth.value}
                 initialValid={formState.inputs.targetWorth.valid}
+                darkInput
+              />
+              <Input
+                id="monthlyIncrease"
+                label="What will you add every month?"
+                dataType="number"
+                // errorText={"Please enter a draw down amount."}
+                validators={[requiredValidator()]}
+                onInput={inputHandler}
+                initialValue={formState.inputs.monthlyIncrease.value}
+                initialValid={formState.inputs.monthlyIncrease.valid}
                 darkInput
               />
             </div>
@@ -388,6 +404,16 @@ const FirstTimeSetUp = () => {
                 <p>
                   {formState.inputs.currentAge.value ? (
                     formState.inputs.currentAge.value
+                  ) : (
+                    <span>Missing</span>
+                  )}
+                </p>
+              </li>
+              <li>
+                <p>Monthly Increase</p>
+                <p>
+                  {formState.inputs.monthlyIncrease.value ? (
+                    formState.inputs.monthlyIncrease.value
                   ) : (
                     <span>Missing</span>
                   )}

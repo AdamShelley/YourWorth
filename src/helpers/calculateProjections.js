@@ -39,13 +39,13 @@ const calculateProjections = (loadedUser, monthlyIncrease) => {
       seven *= 1.07;
       ten *= 1.1;
 
-      // if (i > 1) {
-      three += yearlyInput;
-      five += yearlyInput;
-      seven += yearlyInput;
-      ten += yearlyInput;
-      monthlyAdd *= 1.02;
-      // }
+      if (i > 1) {
+        three += yearlyInput;
+        five += yearlyInput;
+        seven += yearlyInput;
+        ten += yearlyInput;
+        monthlyAdd *= 1.02;
+      }
 
       total += yearlyInput;
     } else {
