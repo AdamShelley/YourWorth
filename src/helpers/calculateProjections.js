@@ -1,5 +1,7 @@
-const calculateProjections = (loadedUser, monthlyIncrease) => {
-  const { netWorth, ageToRetire, drawDownAmount } = loadedUser;
+const calculateProjections = (dataSet, monthlyIncrease) => {
+  const { netWorth, ageToRetire, drawDownAmount } = dataSet;
+
+  console.log(dataSet);
 
   const totalProjections = [];
 
@@ -8,7 +10,7 @@ const calculateProjections = (loadedUser, monthlyIncrease) => {
   let monthlyAdd = parseFloat(monthlyIncrease);
 
   // How many years to calculate in advance
-  const yearsToCalculate = 100 - loadedUser.age + 1;
+  const yearsToCalculate = 100 - dataSet.age + 1;
   // const targetYear = Number(targetWorthDateHit.split("-")[0].slice(2, 4));
 
   // yearly drawDown
@@ -25,7 +27,7 @@ const calculateProjections = (loadedUser, monthlyIncrease) => {
 
   for (let i = 1; i <= yearsToCalculate - 1; i++) {
     let year = i;
-    let age = loadedUser.age + i;
+    let age = dataSet.age + i;
 
     if (age >= ageToRetire) {
       monthlyAdd = 0;

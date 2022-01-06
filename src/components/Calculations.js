@@ -89,10 +89,10 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
 
   const updateCalculations = () => {
     const vals = {
-      monthlyAdd: formState.inputs.monthlyIncrease.value,
-      retirementAge: formState.inputs.retirementAge.value,
-      retirementGoal: formState.inputs.targetNetWorth.value,
-      drawdown: formState.inputs.drawdown.value,
+      monthlyAdd: parseFloat(formState.inputs.monthlyIncrease.value),
+      retirementAge: parseFloat(formState.inputs.retirementAge.value),
+      retirementGoal: parseFloat(formState.inputs.targetNetWorth.value),
+      drawdown: parseFloat(formState.inputs.drawdown.value),
     };
 
     updateCalcs(vals);
@@ -112,7 +112,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             onInput={inputHandler}
             validators={[]}
             initialValid={formState.inputs.monthlyIncrease.valid}
-            initialValue={1000}
+            initialValue={monthlyIncrease}
             darkInputLighter
           />
           <Input
@@ -257,10 +257,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                 </td>
                 <td>
                   £
-                  {year.monthlyAdd.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {year.monthlyAdd !== 0
+                    ? year.monthlyAdd.toLocaleString("en-us", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })
+                    : `-${drawDownAmount}`}
                 </td>
               </tr>
             );

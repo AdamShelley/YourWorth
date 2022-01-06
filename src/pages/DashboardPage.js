@@ -61,8 +61,8 @@ const GraphContainer = styled.div`
   max-width: 100%;
 `;
 
-const PortfolioPage = ({ data, userId }) => {
-  const [dataSet, setDataSet] = useState(data);
+const PortfolioPage = ({ userId }) => {
+  const [dataSet, setDataSet] = useState();
   const [loadedUser, setLoadedUser] = useState();
   const [calculatedProjections, setCalculatedProjections] = useState([]);
   const [monthlyAdd, setMonthlyAdd] = useState(0);
@@ -70,8 +70,12 @@ const PortfolioPage = ({ data, userId }) => {
 
   useEffect(() => {
     if (loadedUser?.accounts)
-      setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
-  }, [loadedUser, monthlyAdd]);
+      if (dataSet !== undefined) {
+        setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
+      } else {
+        setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
+      }
+  }, [dataSet, loadedUser, monthlyAdd]);
 
   // Get user by Id
   useEffect(() => {
@@ -81,9 +85,16 @@ const PortfolioPage = ({ data, userId }) => {
           `${process.env.REACT_APP_BACKEND_ADDRESS}/users/${userId}`,
           "GET"
         );
-
-        // console.log(responseData.user);
+        setMonthlyAdd(responseData.user.monthlyIncrease);
         setLoadedUser(responseData.user);
+
+        setDataSet({
+          netWorth: responseData.user.netWorth,
+          ageToRetire: responseData.user.ageToRetire,
+          drawDownAmount: responseData.user.drawDownAmount,
+          targetWorth: responseData.user.targetWorth,
+          age: responseData.user.age,
+        });
       } catch (err) {}
     };
     fetchUser();

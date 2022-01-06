@@ -86,21 +86,20 @@ const StyledTable = styled.table`
   }
 
   .target-worth-hit {
-    border: 1px solid black;
+    border: 1px solid var(--background);
     background-color: var(--card-header) !important;
     border-radius: 2px;
     z-index: 1;
   }
-  .target-year-hit {
-    border: 2px solid var(--cultured) !important;
-    z-index: 999;
 
-    background-color: var(--background);
+  .target-year-hit {
+    border-top: 2px solid var(--cultured) !important;
+    border-bottom: 2px solid var(--cultured) !important;
+
+    /* background-color: var(--charleston-green); */
   }
 
   .target-year-hit-box {
-    border-top: 2px solid var(--cultured) !important;
-    border-bottom: 2px solid var(--cultured) !important;
   }
 
   .delete-account-btn {
