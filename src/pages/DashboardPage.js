@@ -72,6 +72,7 @@ const PortfolioPage = ({ userId }) => {
     if (loadedUser?.accounts)
       if (dataSet !== undefined) {
         setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
+        console.log(calculatedProjections);
       } else {
         setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
       }

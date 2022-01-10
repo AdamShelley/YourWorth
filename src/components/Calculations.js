@@ -262,14 +262,14 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })
-                    : `-${drawDownAmount}`}
+                    : `-${year.drawDownMonthly}`}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </StyledTable>
-      <div style={{ marginBottom: "20vh" }}></div>
+      {/* <div style={{ marginBottom: "20vh" }}></div> */}
     </>
   );
 };

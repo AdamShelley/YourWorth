@@ -1,8 +1,6 @@
 const calculateProjections = (dataSet, monthlyIncrease) => {
   const { netWorth, ageToRetire, drawDownAmount } = dataSet;
 
-  console.log(dataSet);
-
   const totalProjections = [];
 
   //   Yearly increase assumption (2%);
@@ -15,6 +13,9 @@ const calculateProjections = (dataSet, monthlyIncrease) => {
 
   // yearly drawDown
   let drawDownYearly = drawDownAmount * 12;
+
+  const drawDownMonthly = drawDownYearly / 12;
+
   const estimatedInflation = 1.025;
 
   let three = netWorth;
@@ -74,6 +75,7 @@ const calculateProjections = (dataSet, monthlyIncrease) => {
       ten,
       monthlyAdd,
       total,
+      drawDownMonthly,
     };
 
     totalProjections.push(temp);
