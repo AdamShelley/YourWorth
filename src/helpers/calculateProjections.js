@@ -3,38 +3,44 @@ const calculateProjections = (dataSet, monthlyIncrease) => {
 
   const totalProjections = [];
 
-  //   Yearly increase assumption (2%);
-
   let monthlyAdd = parseFloat(monthlyIncrease);
 
   // How many years to calculate in advance
   const yearsToCalculate = 100 - dataSet.age + 1;
-  // const targetYear = Number(targetWorthDateHit.split("-")[0].slice(2, 4));
 
   // yearly drawDown
-  let drawDownYearly = drawDownAmount * 12;
-
-  const drawDownMonthly = drawDownYearly / 12;
-
   const estimatedInflation = 1.025;
-
+  let drawDownYearly = drawDownAmount * 12;
+  let drawDownMonthly;
   let three = netWorth;
   let five = netWorth;
   let seven = netWorth;
   let ten = netWorth;
-
   let total = netWorth + monthlyAdd;
   let yearlyInput = monthlyAdd * 12;
 
+  // For each year from current age to 100
   for (let i = 1; i <= yearsToCalculate - 1; i++) {
     let year = i;
     let age = dataSet.age + i;
 
+    // When the age hits the selected retirement age
     if (age >= ageToRetire) {
-      monthlyAdd = 0;
-      yearlyInput = 0;
+      // For the first year of retirement
+      if (age === ageToRetire) {
+        drawDownMonthly = (drawDownYearly / 12).toFixed(2);
+        monthlyAdd = 0;
+        yearlyInput = 0;
+        // For all other years of retirement
+      } else {
+        monthlyAdd = 0;
+        yearlyInput = 0;
+        drawDownYearly *= estimatedInflation;
+        drawDownMonthly = (drawDownYearly / 12).toFixed(2);
+      }
     }
 
+    // While the age is not at retirement
     if (age < ageToRetire) {
       // Still need to round these numbers to 2 decimal places
       three *= 1.03;
@@ -62,29 +68,23 @@ const calculateProjections = (dataSet, monthlyIncrease) => {
       seven -= drawDownYearly;
       ten -= drawDownYearly;
 
-      drawDownYearly *= estimatedInflation;
       // total -= drawDownYearly;
     }
 
     const temp = {
       year,
       age,
-      three,
-      five,
-      seven,
-      ten,
-      monthlyAdd,
-      total,
+      three: parseFloat(three.toFixed(2)),
+      five: parseFloat(five.toFixed(2)),
+      seven: parseFloat(seven.toFixed(2)),
+      ten: parseFloat(ten.toFixed(2)),
+      monthlyAdd: parseFloat(monthlyAdd.toFixed(2)),
+      total: parseFloat(total.toFixed(2)),
       drawDownMonthly,
     };
 
     totalProjections.push(temp);
   }
-
-  //   console.log(totalProjections);
-
-  // 3%, 5%, 7%, 10% increases
-  // Take into account Monthly inflation
 
   return totalProjections;
 };

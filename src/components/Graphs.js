@@ -122,12 +122,12 @@ const Graphs = ({
             {/* Add formatted % data */}
             {keys.map((ob) => {
               if (ob[0] === "total") {
-                return;
+                return null;
               } else {
                 return (
                   <div key={ob[1]}>
                     <p>{ob[0]}:</p>
-                    <p>{ob[1].toLocaleString()}</p>
+                    <p>{ob[1]}</p>
                   </div>
                 );
               }
@@ -230,19 +230,6 @@ const Graphs = ({
               allowDataOverflow={true}
               stroke="var(--light-gray)"
             />
-
-            {/* <Tooltip
-              wrapperStyle={{ backgroundColor: "var(--cultured)" }}
-              labelStyle={{
-                color: "var(--charleston-green)",
-                fontSize: "0.9rem",
-              }}
-              formatter={(value, name) => [
-                value.toFixed(0),
-                name.toUpperCase() + " %",
-              ]}
-              itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
-            /> */}
 
             <Tooltip content={ToolTipContent} cursor={false} projected />
 

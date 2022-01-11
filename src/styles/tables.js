@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const StyledTable = styled.table`
-  width: ${(props) => (props.fullscreen ? "80vw" : "50vw")};
+  /* width: ${(props) => (props.fullscreen ? "80vw" : "50vw")}; */
   border-collapse: collapse;
   table-layout: ${(props) => (props.tlayout ? "fixed" : "auto")};
-  width: ${(props) => (props.tlayout ? "50%" : "80%")};
+  width: ${(props) => (props.tlayout ? "60%" : "80%")};
   margin: auto;
   margin-top: ${(props) => (props.tlayout ? "1rem" : "1rem")};
   padding: 2rem;
@@ -34,13 +34,13 @@ const StyledTable = styled.table`
   }
 
   th {
-    padding: 0.6rem 0;
+    padding: 0.8rem 0;
   }
 
   th {
     /* background-color: #d4d4d4; */
     background-color: var(--card-header);
-    border: 1px solid var(--card-header);
+    /* border: 1px solid var(--cards); */
     color: var(--cultured);
     font-weight: 800;
     padding-left: 1.5rem;
@@ -54,7 +54,7 @@ const StyledTable = styled.table`
   }
 
   tr {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
 
     &:hover .box {
       display: flex;
@@ -66,9 +66,9 @@ const StyledTable = styled.table`
 
   td {
     padding-left: 1.5rem;
-    padding-top: 1.2rem;
-    padding-bottom: 1.2rem;
-    font-size: 0.8rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 0.85rem;
 
     .box {
       color: var(--gainsboro);
@@ -134,7 +134,7 @@ const StyledModalTable = styled.table`
 
   thead > tr {
     margin-top: 0.2rem;
-    border-bottom: 1px solid var(--cultured-2);
+    border-bottom: 1px solid var(--card-header);
     line-height: 2;
   }
   tr {

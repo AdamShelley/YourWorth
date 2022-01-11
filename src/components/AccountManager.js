@@ -282,7 +282,7 @@ const AccountManager = ({
               </th>
             </tr>
           </thead>
-          ifi{" "}
+
           <tbody>
             {/* The before updating */}
 
@@ -292,11 +292,11 @@ const AccountManager = ({
                 <td style={{ textAlign: "right" }}>
                   £{acc.balance.toFixed(2)}
                 </td>
-                <td style={{ paddingLeft: "1rem" }}>
+                <td style={{ paddingLeft: "4rem" }}>
                   <Input
                     updateAllModal
                     id={acc.name}
-                    label={""}
+                    placeholder={acc.balance}
                     dataType="number"
                     onInput={inputHandler}
                     validators={[]}

@@ -65,14 +65,13 @@ const PortfolioPage = ({ userId }) => {
   const [dataSet, setDataSet] = useState();
   const [loadedUser, setLoadedUser] = useState();
   const [calculatedProjections, setCalculatedProjections] = useState([]);
-  const [monthlyAdd, setMonthlyAdd] = useState(0);
+  const [monthlyAdd, setMonthlyAdd] = useState();
   const { sendRequest } = useFetchHook();
 
   useEffect(() => {
     if (loadedUser?.accounts)
       if (dataSet !== undefined) {
         setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
-        console.log(calculatedProjections);
       } else {
         setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
       }

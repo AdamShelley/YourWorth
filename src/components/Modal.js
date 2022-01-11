@@ -7,7 +7,7 @@ import { ButtonStyled } from "../styles/inputStyles";
 const ModalStylesContainer = styled.div`
   .modalContainer {
     position: fixed;
-    top: -30%;
+    top: -10%;
     bottom: 0;
     left: 0;
     right: 0;
@@ -25,27 +25,20 @@ const ModalStylesContainer = styled.div`
       background-color: #fff;
       padding: 2rem;
       border-radius: 2px;
-      /* color: var(--gunmetal); */
-      /* background-color: rgba(255, 255, 255, 0.35); */
-      /* background-color: var(--cultured); */
-
       backdrop-filter: blur(5px);
-      box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.5);
-
-      // Testing dark
-      /* background-color: var(--cards); */
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
       background-color: var(--background);
       border: 1px solid var(--cards);
 
       &_header {
         position: relative;
-        border-bottom: 1px solid var(--slate-gray);
+        /* border-bottom: 1px solid var(--slate-gray); */
         padding: 0.5rem 1rem;
 
         &-title {
           font-size: 1.2rem;
           text-align: left;
-          margin-bottom: 1rem;
+          /* margin-bottom: 1rem; */
           font-weight: 100;
           line-height: 1.8;
         }
@@ -53,7 +46,7 @@ const ModalStylesContainer = styled.div`
 
       &_content {
         border-bottom: 1px solid var(--slate-gray);
-        padding: 1rem;
+        /* padding: 1rem; */
         padding-bottom: 3rem;
         font-family: "Open Sans", serif;
 
@@ -124,7 +117,7 @@ const ModalStylesContainer = styled.div`
 const handleSize = (size) => {
   switch (size) {
     case "large":
-      return "40vw";
+      return "50vw";
     case "medium":
       return "30vw";
     case "small":
