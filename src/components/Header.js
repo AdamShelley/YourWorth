@@ -46,27 +46,34 @@ const StyledHeader = styled.div`
 
     li {
       height: 100%;
-      margin: 0.6rem;
-      /* padding: 0.5rem; */
+      /* margin: 0.6rem; */
+      padding: 0.5rem;
       font-size: 0.9rem;
       cursor: pointer;
       letter-spacing: 0.5px;
-
-      /* &:hover {
-        color: #777;
-      } */
+      transition: all 0.1s ease-in;
+      border-radius: 3px;
 
       a {
         text-decoration: none;
         color: inherit;
+        padding: 0.6rem;
+        line-height: 1.8;
+        font-size: 0.9rem;
+
+        &:hover {
+          background-color: var(--davys-grey);
+        }
       }
     }
   }
 
   .selected {
-    color: var(--light-gray);
     font-weight: 500;
-    border-bottom: 1px solid var(--light-gray);
+    /* border-bottom: 1px solid var(--light-gray); */
+    padding: 0.6rem;
+    border-radius: 3px;
+    background-color: var(--davys-grey);
   }
 
   .logout-button {
@@ -77,6 +84,8 @@ const StyledHeader = styled.div`
     font-size: inherit;
     position: relative;
     cursor: pointer;
+    line-height: 1.8;
+    font-size: 0.9rem;
   }
 `;
 
@@ -151,7 +160,7 @@ const Header = () => {
         <ul>
           {auth.isLoggedIn && !auth.firstTimeUser && (
             <li>
-              <NavLink exact activeClassName="selected" to="/">
+              <NavLink exact activeClassName="selected" to="/dashboard">
                 Dashboard
               </NavLink>
             </li>
@@ -164,13 +173,6 @@ const Header = () => {
               </NavLink>
             </li>
           )}
-          {/* {auth.isLoggedIn && (
-            <li>
-              <NavLink activeClassName="selected" to="/yourdata">
-                Your data
-              </NavLink>
-            </li>
-          )} */}
           {!auth.isLoggedIn && (
             <li>
               <NavLink activeClassName="selected" to="/splash">

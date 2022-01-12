@@ -41,12 +41,12 @@ const PortfolioContainer = styled.div`
 
   .last-value {
     font-size: 0.8rem;
-    width: 50%;
+    width: 60%;
   }
 `;
 
 const PieChartContainer = styled.div`
-  margin-top: 2rem;
+  margin-top: 5rem;
   height: 25rem;
   width: 100vw;
   font-family: "Open Sans", serif;
@@ -177,11 +177,11 @@ const PortfolioPage = ({ userId }) => {
           ) : (
             <p>Start by adding accounts </p>
           )}
-          {loadedUser.lastUpdated && (
+          {/* {loadedUser.lastUpdated && (
             <p className="last-value">
               Value as of {loadedUser.lastUpdated.split("T")[0]}
             </p>
-          )}
+          )} */}
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}

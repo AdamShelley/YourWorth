@@ -9,6 +9,7 @@ import { AuthenticationContext } from "../context/authenticate-context";
 import Loader from "react-loader-spinner";
 
 import { currencies } from "../helpers/currencies";
+import Modal from "../components/Modal";
 
 const AccountPageStyles = styled.div`
   width: 100vw;
@@ -117,10 +118,24 @@ const AccountPageStyles = styled.div`
   }
 `;
 
+const ModalCheckStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.5rem 1rem;
+
+  p {
+    font-size: 1rem !important;
+    color: var(--cultured-2) !important;
+  }
+`;
+
 const AccountPage = ({ userId }) => {
   const auth = useContext(AuthenticationContext);
   const [loadedUser, setLoadedUser] = useState();
   const { sendRequest, loading } = useFetchHook();
+  const [checkModal, setCheckModal] = useState(false);
+  const [checkDeleteModal, setCheckDeleteModal] = useState(false);
 
   const [formState, inputHandler] = useForm(
     {
@@ -190,6 +205,9 @@ const AccountPage = ({ userId }) => {
       console.log(err);
     }
   };
+
+  const resetAccountData = () => {};
+  const deleteAccount = () => {};
 
   return (
     <AccountPageStyles>
@@ -300,7 +318,7 @@ const AccountPage = ({ userId }) => {
                 ))}
               </SelectStyled>
 
-              <ButtonStyled>
+              <ButtonStyled onClick={() => setCheckModal(true)}>
                 <h3>Reset data</h3>
                 <p>
                   Delete all data for this account, including accounts and
@@ -308,7 +326,7 @@ const AccountPage = ({ userId }) => {
                 </p>
               </ButtonStyled>
 
-              <ButtonStyled>
+              <ButtonStyled onClick={() => setCheckDeleteModal(true)}>
                 <h3>Delete Account</h3>
                 <p> Completely delete all traces of your account </p>
               </ButtonStyled>
@@ -316,6 +334,39 @@ const AccountPage = ({ userId }) => {
           </div>
         </div>
       )}
+
+      <Modal
+        show={checkModal}
+        title="Reset account"
+        close={() => {
+          setCheckModal(false);
+        }}
+        submitHandler={() => {}}
+        modalSize="large"
+      >
+        <ModalCheckStyles>
+          <p>Are you sure?</p>
+          <p>
+            Warning: This will delete all the data in your account. This cannot
+            be undone.
+          </p>
+        </ModalCheckStyles>
+      </Modal>
+
+      <Modal
+        show={checkDeleteModal}
+        title="Reset account"
+        close={() => {
+          setCheckDeleteModal(false);
+        }}
+        submitHandler={() => {}}
+        modalSize="large"
+      >
+        <ModalCheckStyles>
+          <p>Are you sure?</p>
+          <p>Warning: This will delete your account. This cannot be undone.</p>
+        </ModalCheckStyles>
+      </Modal>
     </AccountPageStyles>
   );
 };

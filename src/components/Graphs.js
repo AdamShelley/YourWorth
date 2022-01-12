@@ -174,7 +174,7 @@ const Graphs = ({
                 value: "Balance",
                 angle: -90,
                 position: "insideLeft",
-                fill: "var(--light-gray)",
+                fill: "var(--slate-gray)",
                 dx: -20,
                 dy: 30,
               }}
@@ -196,10 +196,10 @@ const Graphs = ({
                   key={`area-${index}`}
                   type="monotone"
                   dataKey={acc}
-                  stroke="var(--slate-gray)"
+                  stroke="var(--gainsboro)"
                   activeDot={{ r: 2 }}
                   fill="var(--card-header)"
-                  fillOpacity={0.45}
+                  fillOpacity={0.5}
                   stackId={index}
                 />
               );

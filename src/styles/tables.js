@@ -6,7 +6,7 @@ const StyledTable = styled.table`
   table-layout: ${(props) => (props.tlayout ? "fixed" : "auto")};
   width: ${(props) => (props.tlayout ? "60%" : "80%")};
   margin: auto;
-  margin-top: ${(props) => (props.tlayout ? "1rem" : "1rem")};
+  margin-top: ${(props) => (props.tlayout ? "8rem" : "1rem")};
   padding: 2rem;
   text-align: left;
   letter-spacing: 1px;
@@ -69,6 +69,8 @@ const StyledTable = styled.table`
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gainsboro);
 
     .box {
       color: var(--gainsboro);

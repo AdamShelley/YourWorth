@@ -326,21 +326,21 @@ const Accounts = ({
             </thead>
             <tbody>
               <tr>
-                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                <td style={{ borderRight: "1px solid var(--card-header)" }}>
                   Name
                 </td>
                 <td>{accountSelected.name}</td>
                 <td>{formState.inputs.name.value}</td>
               </tr>
               <tr>
-                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                <td style={{ borderRight: "1px solid var(--card-header)" }}>
                   Category
                 </td>
                 <td>{accountSelected.category}</td>
                 <td>{formState.inputs.category.value}</td>
               </tr>
               <tr>
-                <td style={{ borderRight: "1px solid var(--cultured-2)" }}>
+                <td style={{ borderRight: "1px solid var(--card-header)" }}>
                   Balance
                 </td>
                 <td>{accountSelected.balance}</td>

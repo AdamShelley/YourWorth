@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { StyledTable } from "../styles/tables";
 
@@ -15,9 +15,7 @@ const StyledInputContainer = styled.div`
   margin-top: 1rem;
   padding: 1rem 2rem;
   color: black;
-  /* background-color: var(--davys-grey); */
   background-color: var(--cards);
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
   margin-top: 10rem;
   font-family: "Open Sans", serif;
   border: 1px solid var(--card-header);
@@ -43,6 +41,7 @@ const StyledInputContainer = styled.div`
     width: 75%;
     height: 2.5rem;
     font-size: 0.9rem;
+    text-align: center;
   }
 
   button {
@@ -64,6 +63,13 @@ const StyledInputContainer = styled.div`
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth, monthlyIncrease } =
     accountInformation;
+
+  const [originalValues] = useState({
+    monthlyAdd: monthlyIncrease,
+    retirementAge: ageToRetire,
+    retirementGoal: targetWorth,
+    drawdown: drawDownAmount,
+  });
 
   const [formState, inputHandler] = useForm(
     {
@@ -98,12 +104,54 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
     updateCalcs(vals);
   };
 
+  const CustomTD = ({
+    number,
+    noFormat,
+    targetYearHit,
+    currency,
+    drawDown,
+  }) => {
+    let formattedNumber = number;
+    if (!noFormat && number > 0) {
+      formattedNumber = number.toLocaleString("en-us", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+    } else if (!noFormat) {
+      formattedNumber = 0;
+    }
+
+    if (drawDown) {
+      formattedNumber = -`${number}`;
+    }
+
+    let styles =
+      number >= parseFloat(formState.inputs.targetNetWorth.value) &&
+      !targetYearHit
+        ? "target-worth-hit"
+        : targetYearHit
+        ? "target-year-hit-box"
+        : "";
+
+    return (
+      <td className={styles}>
+        {currency}
+        {formattedNumber}
+      </td>
+    );
+  };
+
+  const resetCalculations = () => {
+    updateCalcs(originalValues);
+  };
+
   return (
     <>
       <StyledInputContainer>
         <h4>
           Modify your projections ( this will not update your data permanently )
         </h4>
+        {/* Inputs to change calculations */}
         <div>
           <Input
             id="monthlyIncrease"
@@ -150,7 +198,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
           <ButtonStyled type="submit" onClick={updateCalculations}>
             Update
           </ButtonStyled>
-          <ButtonStyled>Reset</ButtonStyled>
+          <ButtonStyled onClick={resetCalculations}>Reset</ButtonStyled>
         </div>
       </StyledInputContainer>
 
@@ -171,99 +219,66 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
         </thead>
         <tbody>
           {data.map((year, index) => {
-            const targetYearHit = year.age === ageToRetire;
+            const targetYearHit =
+              year.age === parseFloat(formState.inputs.retirementAge.value);
 
             return (
               <tr
                 key={`table-number: ${index}`}
                 className={targetYearHit ? "target-year-hit" : ""}
               >
-                <td>{year.year}</td>
-                <td>{year.age}</td>
-                <td>
-                  £
-                  {year.total.toLocaleString("en-us", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </td>
-                <td
-                  className={
-                    year.three >= targetWorth && !targetYearHit
-                      ? "target-worth-hit"
-                      : targetYearHit
-                      ? "target-year-hit-box"
-                      : ""
-                  }
-                >
-                  £
-                  {year.three > 0
-                    ? year.three.toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })
-                    : 0}
-                </td>
-                <td
-                  className={
-                    year.five >= targetWorth && !targetYearHit
-                      ? "target-worth-hit"
-                      : targetYearHit
-                      ? "target-year-hit-box"
-                      : ""
-                  }
-                >
-                  £
-                  {year.five > 0
-                    ? year.five.toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })
-                    : 0}
-                </td>
-                <td
-                  className={
-                    year.seven >= targetWorth && !targetYearHit
-                      ? "target-worth-hit"
-                      : targetYearHit
-                      ? "target-year-hit-box"
-                      : ""
-                  }
-                >
-                  £
-                  {year.seven > 0
-                    ? year.seven.toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })
-                    : 0}
-                </td>
-                <td
-                  className={
-                    year.ten >= targetWorth && !targetYearHit
-                      ? "target-worth-hit"
-                      : targetYearHit
-                      ? "target-year-hit-box"
-                      : ""
-                  }
-                >
-                  £
-                  {year.ten > 0
-                    ? year.ten.toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })
-                    : 0}
-                </td>
-                <td>
-                  £
-                  {year.monthlyAdd !== 0
-                    ? year.monthlyAdd.toLocaleString("en-us", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })
-                    : `-${year.drawDownMonthly}`}
-                </td>
+                <CustomTD
+                  number={year.year}
+                  noFormat
+                  targetYearHit={targetYearHit}
+                />
+                <CustomTD
+                  number={year.age}
+                  noFormat
+                  targetYearHit={targetYearHit}
+                />
+                <CustomTD
+                  number={year.total}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+                <CustomTD
+                  number={year.three}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+                <CustomTD
+                  number={year.five}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+                <CustomTD
+                  number={year.seven}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+                <CustomTD
+                  number={year.ten}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+
+                {year.monthlyAdd > 0 && (
+                  <CustomTD
+                    number={year.monthlyAdd}
+                    targetYearHit={targetYearHit}
+                    currency={"£"}
+                  />
+                )}
+
+                {year.drawDownMonthly && (
+                  <CustomTD
+                    number={year.drawDownMonthly}
+                    targetYearHit={targetYearHit}
+                    currency={"£"}
+                    drawDown
+                  />
+                )}
               </tr>
             );
           })}
