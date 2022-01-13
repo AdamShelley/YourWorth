@@ -150,8 +150,7 @@ const AccountManager = ({
 
   // Save snapshots of the current accounts
   const submitNewSnapshot = async () => {
-    console.log(formState.inputs);
-
+    // Get new account balance
     const newAccountBalance = loadedAccounts.map((acc) => {
       let newBalance;
       if (formState.inputs[acc.name].value === "") {
@@ -182,11 +181,11 @@ const AccountManager = ({
       );
 
       // Feed the correct values in for a component load via filter
-      console.log(response.user);
 
-      setLoadedAccounts([...response.user.accounts]);
+      updateAccountList([...response.user.accounts]);
       updateNetWorth(null, response.user.netWorth);
-
+      // updateLoadedUser(newAccountBalance, null, false);
+      setLoadedAccounts(newAccountBalance);
       setAdvanceModal(false);
       preventScroll();
     } catch (err) {

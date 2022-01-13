@@ -101,7 +101,13 @@ const StyledLogoutModal = styled.div`
   right: 2rem;
   margin-top: 1rem;
 
+  p {
+    font-weight: 500;
+    font-family: "Open Sans", serif;
+  }
+
   div {
+    margin-top: 1rem;
     display: flex;
     width: 100%;
     justify-content: space-evenly;

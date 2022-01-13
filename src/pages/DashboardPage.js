@@ -18,7 +18,7 @@ const PortfolioContainer = styled.div`
   min-width: 100vw;
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 100;
     color: var(--cultured-1);
     line-height: 1.6;
@@ -27,12 +27,12 @@ const PortfolioContainer = styled.div`
   p {
     margin-top: 1rem;
     font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 600;
     font-family: "Open Sans", serif;
+    color: var(--cadet-blue-crayola);
 
     span {
-      /* color: lightblue; */
-      color: var(--cultured);
-
       font-size: 1.1rem;
       letter-spacing: 1px;
       margin-left: 0.6rem;
@@ -73,9 +73,10 @@ const PortfolioPage = ({ userId }) => {
       if (dataSet !== undefined) {
         setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
       } else {
+        console.log("Recalculating from loadedUser");
         setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
       }
-  }, [dataSet, loadedUser, monthlyAdd]);
+  }, [dataSet, loadedUser, monthlyAdd, setLoadedUser]);
 
   // Get user by Id
   useEffect(() => {
@@ -112,8 +113,9 @@ const PortfolioPage = ({ userId }) => {
   };
 
   const updateLoadedUser = (accounts, accId, deletion) => {
+    console.log(accounts);
     let findAcc;
-    if (deletion) {
+    if (deletion === true) {
       findAcc = accounts.filter((acc) => acc._id === accId);
     }
 
@@ -184,6 +186,7 @@ const PortfolioPage = ({ userId }) => {
           )} */}
           {/* Account Section */}
           <AccountManager
+            key={loadedUser.accounts}
             accounts={loadedUser?.accounts}
             netWorth={loadedUser?.netWorth}
             updateLoadedUser={updateLoadedUser}

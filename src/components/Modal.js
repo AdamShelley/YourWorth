@@ -33,7 +33,7 @@ const ModalStylesContainer = styled.div`
       &_header {
         position: relative;
         /* border-bottom: 1px solid var(--slate-gray); */
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0;
 
         &-title {
           font-size: 1.2rem;
@@ -45,6 +45,7 @@ const ModalStylesContainer = styled.div`
       }
 
       &_content {
+        margin-top: 1rem;
         border-bottom: 1px solid var(--slate-gray);
         /* padding: 1rem; */
         padding-bottom: 3rem;
@@ -57,7 +58,7 @@ const ModalStylesContainer = styled.div`
         } */
 
         p {
-          margin-top: 1rem;
+          margin-top: 2rem;
           color: var(--cultured-2);
           font-family: "Open Sans", serif;
           font-size: 0.9rem;

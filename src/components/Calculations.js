@@ -22,10 +22,11 @@ const StyledInputContainer = styled.div`
   border-radius: 3px;
 
   h4 {
-    color: var(--cultured);
+    color: var(--gainsboro);
     font-family: "Open Sans", serif;
-    font-weight: 100;
+    font-weight: 500;
     align-self: flex-start;
+    letter-spacing: 0.5px;
   }
 
   div {
@@ -36,12 +37,19 @@ const StyledInputContainer = styled.div`
     width: 100%;
   }
 
+  div > div > label {
+    font-weight: 200;
+    font-size: 0.9rem;
+    padding: 0.2rem;
+  }
+
   div > div > input {
     background-color: var(--cultured-2);
     width: 75%;
     height: 2.5rem;
     font-size: 0.9rem;
     text-align: center;
+    font-weight: 500;
   }
 
   button {
@@ -185,7 +193,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
           />
           <Input
             id="drawdown"
-            label="Drawdown per month"
+            label="Drawdown (per month)"
             dataType="number"
             onInput={inputHandler}
             initialValid={formState.inputs.drawdown.valid}

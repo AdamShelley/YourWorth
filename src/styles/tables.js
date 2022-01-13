@@ -11,11 +11,8 @@ const StyledTable = styled.table`
   text-align: left;
   letter-spacing: 1px;
   color: var(--cultured);
-  /* background-color: var(--davys-grey); */
   background-color: var(--cards);
-  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
   font-family: "Open Sans", serif;
-  border-radius: 5px;
   border: 1px solid var(--card-header);
 
   caption {
@@ -38,7 +35,6 @@ const StyledTable = styled.table`
   }
 
   th {
-    /* background-color: #d4d4d4; */
     background-color: var(--card-header);
     /* border: 1px solid var(--cards); */
     color: var(--cultured);
@@ -70,7 +66,7 @@ const StyledTable = styled.table`
     padding-bottom: 1.5rem;
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--gainsboro);
+    color: var(--cultured);
 
     .box {
       color: var(--gainsboro);
