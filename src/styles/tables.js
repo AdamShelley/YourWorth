@@ -26,19 +26,17 @@ const StyledTable = styled.table`
   thead > tr:first-child {
     font-weight: 500;
     color: #333;
-    border-bottom: 1px solid #333;
-    border-top: 1px solid #333;
+    /* border: 1px solid var(--cultured-2); */
+    border-bottom: 1px solid var(--cadet-blue-crayola);
+    background-color: var(--card-header);
   }
 
   th {
     padding: 0.8rem 0;
-  }
-
-  th {
-    background-color: var(--card-header);
+    /* background-color: var(--card-header); */
     /* border: 1px solid var(--cards); */
-    color: var(--cultured);
-    font-weight: 800;
+    color: var(--cultured-2);
+    font-weight: 500;
     padding-left: 1.5rem;
   }
 
@@ -62,8 +60,8 @@ const StyledTable = styled.table`
 
   td {
     padding-left: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 1.3rem;
+    padding-bottom: 1.3rem;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--cultured);

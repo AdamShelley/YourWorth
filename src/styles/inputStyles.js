@@ -34,7 +34,7 @@ const ButtonStyled = styled.button`
 `;
 
 const SelectStyled = styled.select`
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   background-color: var(--cards);
   border: 1px solid var(--card-header);
   color: var(--cultured-2);

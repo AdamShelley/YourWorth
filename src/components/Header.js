@@ -60,6 +60,7 @@ const StyledHeader = styled.div`
         padding: 0.6rem;
         line-height: 1.8;
         font-size: 0.9rem;
+        color: var(--cultured);
 
         &:hover {
           background-color: var(--davys-grey);
@@ -104,6 +105,7 @@ const StyledLogoutModal = styled.div`
   p {
     font-weight: 500;
     font-family: "Open Sans", serif;
+    color: var(--cultured);
   }
 
   div {

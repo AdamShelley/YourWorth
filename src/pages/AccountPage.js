@@ -122,11 +122,11 @@ const ModalCheckStyles = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0.5rem 1rem;
 
   p {
     font-size: 1rem !important;
-    color: var(--cultured-2) !important;
+    font-weight: 500 !important;
+    color: var(--cadet-blue-crayola) !important;
   }
 `;
 
@@ -171,7 +171,6 @@ const AccountPage = ({ userId }) => {
           "GET"
         );
 
-        console.log(responseData.user);
         setLoadedUser(responseData.user);
       } catch (err) {}
     };
@@ -217,91 +216,84 @@ const AccountPage = ({ userId }) => {
           <form onSubmit={submitUpdate}>
             <div className="settings-section">
               <h4>Account</h4>
-              {!loading ? (
-                <div>
-                  <Input
-                    id="name"
-                    label="Name"
-                    validators={[]}
-                    onInput={inputHandler}
-                    initialValue={loadedUser.name}
-                    initialValid={true}
-                    placeholder={"Add a name here"}
-                    disabled={loading}
-                    darkInput
-                  />
 
-                  <Input
-                    id="age"
-                    label="Age"
-                    validators={[]}
-                    onInput={inputHandler}
-                    initialValue={loadedUser.age}
-                    initialValid={true}
-                    disabled={loading}
-                    darkInput
-                  />
-                </div>
-              ) : (
-                <Loader
-                  type="ThreeDots"
-                  color="var(--cultured-2)"
-                  height={"100%"}
-                  width={"30%"}
+              <div>
+                <Input
+                  id="name"
+                  label="Name"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.name}
+                  initialValid={true}
+                  placeholder={"Add a name here"}
+                  disabled={loading}
+                  darkInput
                 />
-              )}
+
+                <Input
+                  id="age"
+                  label="Age"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.age}
+                  initialValid={true}
+                  disabled={loading}
+                  darkInput
+                />
+              </div>
             </div>
 
             <div className="settings-section">
               <h4>Finance Goals</h4>
-              {!loading ? (
-                <div>
-                  <Input
-                    id="targetAge"
-                    label="Target Retirement Age"
-                    validators={[]}
-                    onInput={inputHandler}
-                    initialValue={loadedUser.ageToRetire}
-                    initialValid={true}
-                    disabled={loading}
-                    darkInput
-                  />
-                  <Input
-                    id="targetNetworth"
-                    label="Target Retirement Goal"
-                    validators={[]}
-                    onInput={inputHandler}
-                    initialValue={loadedUser.targetWorth}
-                    initialValid={true}
-                    disabled={loading}
-                    darkInput
-                  />
-                  <Input
-                    id="drawdown"
-                    label="Drawdown (per month)"
-                    validators={[]}
-                    onInput={inputHandler}
-                    initialValue={loadedUser.drawDownAmount}
-                    initialValid={true}
-                    disabled={loading}
-                    darkInput
-                  />
-                </div>
-              ) : (
-                <Loader
-                  type="ThreeDots"
-                  color="var(--cultured-2)"
-                  height={"100%"}
-                  width={"30%"}
+
+              <div>
+                <Input
+                  id="targetAge"
+                  label="Target Retirement Age"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.ageToRetire}
+                  initialValid={true}
+                  disabled={loading}
+                  darkInput
                 />
-              )}
+                <Input
+                  id="targetNetworth"
+                  label="Target Retirement Goal"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.targetWorth}
+                  initialValid={true}
+                  disabled={loading}
+                  darkInput
+                />
+                <Input
+                  id="drawdown"
+                  label="Drawdown (per month)"
+                  validators={[]}
+                  onInput={inputHandler}
+                  initialValue={loadedUser.drawDownAmount}
+                  initialValid={true}
+                  disabled={loading}
+                  darkInput
+                />
+              </div>
             </div>
             <button
               className="update-button"
               type="submit"
               onClick={submitUpdate}
             >
-              {loading ? "Updating" : "Update"}
+              {loading ? (
+                <Loader
+                  type="ThreeDots"
+                  color="var(--cultured-2)"
+                  height={"100%"}
+                  width={"30%"}
+                />
+              ) : (
+                "Update"
+              )}
             </button>
           </form>
           <div className="settings-section">
@@ -342,10 +334,9 @@ const AccountPage = ({ userId }) => {
           setCheckModal(false);
         }}
         submitHandler={() => {}}
-        modalSize="large"
+        modalSize="medium"
       >
         <ModalCheckStyles>
-          <p>Are you sure?</p>
           <p>
             Warning: This will delete all the data in your account. This cannot
             be undone.
@@ -355,15 +346,14 @@ const AccountPage = ({ userId }) => {
 
       <Modal
         show={checkDeleteModal}
-        title="Reset account"
+        title="Delete account"
         close={() => {
           setCheckDeleteModal(false);
         }}
         submitHandler={() => {}}
-        modalSize="large"
+        modalSize="medium"
       >
         <ModalCheckStyles>
-          <p>Are you sure?</p>
           <p>Warning: This will delete your account. This cannot be undone.</p>
         </ModalCheckStyles>
       </Modal>

@@ -19,9 +19,10 @@ const PortfolioContainer = styled.div`
 
   h2 {
     font-size: 3rem;
-    font-weight: 100;
+    font-weight: 500;
     color: var(--cultured-1);
     line-height: 1.6;
+    letter-spacing: 1px;
   }
 
   p {
@@ -186,7 +187,6 @@ const PortfolioPage = ({ userId }) => {
           )} */}
           {/* Account Section */}
           <AccountManager
-            key={loadedUser.accounts}
             accounts={loadedUser?.accounts}
             netWorth={loadedUser?.netWorth}
             updateLoadedUser={updateLoadedUser}
