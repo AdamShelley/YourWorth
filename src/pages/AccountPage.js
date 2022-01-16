@@ -205,7 +205,30 @@ const AccountPage = ({ userId }) => {
     }
   };
 
-  const resetAccountData = () => {};
+  // Submit choice of currency to the backend
+  const selectCurrency = async (currency) => {
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/currency`,
+        "PATCH",
+        {
+          userId: auth.userId,
+          currency: currency,
+        },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const resetAccountData = () => {
+    console.log("Reset account data");
+  };
+
   const deleteAccount = () => {};
 
   return (
@@ -303,6 +326,7 @@ const AccountPage = ({ userId }) => {
                 className="select-currency"
                 name="currency"
                 id="select-currency"
+                onChange={(e) => selectCurrency(e.target.value)}
               >
                 <option value="">Change currency</option>
                 {currencies.map((currency) => (
@@ -333,7 +357,7 @@ const AccountPage = ({ userId }) => {
         close={() => {
           setCheckModal(false);
         }}
-        submitHandler={() => {}}
+        submitHandler={resetAccountData}
         modalSize="medium"
       >
         <ModalCheckStyles>
