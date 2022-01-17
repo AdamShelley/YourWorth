@@ -211,10 +211,10 @@ const AccountPage = ({ userId }) => {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_ADDRESS}/users/currency`,
         "PATCH",
-        {
+        JSON.stringify({
           userId: auth.userId,
-          currency: currency,
-        },
+          currency: currency.split(":")[1],
+        }),
         {
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
@@ -229,7 +229,9 @@ const AccountPage = ({ userId }) => {
     console.log("Reset account data");
   };
 
-  const deleteAccount = () => {};
+  const deleteAccount = () => {
+    console.log("Delete account");
+  };
 
   return (
     <AccountPageStyles>
@@ -374,7 +376,7 @@ const AccountPage = ({ userId }) => {
         close={() => {
           setCheckDeleteModal(false);
         }}
-        submitHandler={() => {}}
+        submitHandler={deleteAccount}
         modalSize="medium"
       >
         <ModalCheckStyles>

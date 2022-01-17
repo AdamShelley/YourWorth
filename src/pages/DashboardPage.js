@@ -161,6 +161,8 @@ const PortfolioPage = ({ userId }) => {
     }
   };
 
+  console.log(loadedUser);
+
   return (
     <PortfolioContainer>
       {loadedUser && (
@@ -169,7 +171,10 @@ const PortfolioPage = ({ userId }) => {
 
           <p>
             Your net worth is
-            <span>£{commaValue(loadedUser?.netWorth) || 0}</span>
+            <span>
+              {loadedUser?.currency}
+              {commaValue(loadedUser?.netWorth) || 0}
+            </span>
           </p>
 
           {/* Pie Chart Section */}
