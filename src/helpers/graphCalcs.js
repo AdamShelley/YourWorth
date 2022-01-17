@@ -8,6 +8,7 @@ const standardizeData = (data, lastUpdated) => {
   // Loop through the data passed via props
   data.forEach((acc) => {
     // If the array is empty, add the first part of the data
+
     if (newDataArray.length === 0) {
       const temp = {
         date: lastUpdated,
@@ -33,10 +34,19 @@ const getPrevData = (data) => {
 
   data.forEach((item) => {
     Object.keys(item).forEach((account) => {
+      console.log(account);
+
       const key = item[account];
+
+      const month = new Date(account).toLocaleString("en-us", {
+        month: "short",
+      });
+
+      const display = `${account.split("-")[2]}-${month}`;
 
       let temp = {
         date: account,
+        displayDate: display,
       };
 
       key.forEach((acc) => {

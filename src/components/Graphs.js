@@ -157,14 +157,14 @@ const Graphs = ({
             }}
           >
             <XAxis
-              dataKey="date"
+              dataKey="displayDate"
               stroke="var(--light-gray)"
               allowDuplicatedCategory={false}
-              interval={0}
-              dy={30}
+              interval={1}
+              dy={10}
               padding={{ left: 5, right: 5 }}
-              tick={{ fontSize: "0.8rem" }}
-              angle={-45}
+              tick={{ fontSize: "0.8rem", fontWeight: "800" }}
+              // angle={-45}
               height={50}
             />
 
@@ -174,7 +174,7 @@ const Graphs = ({
                 value: "Balance",
                 angle: -90,
                 position: "insideLeft",
-                fill: "var(--slate-gray)",
+                fill: "var(--light-gray)",
                 dx: -20,
                 dy: 30,
               }}
