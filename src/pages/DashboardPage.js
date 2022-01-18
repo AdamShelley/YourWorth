@@ -220,6 +220,7 @@ const PortfolioPage = ({ userId }) => {
                 prevAccountDataSnapshots={loadedUser?.prevAccountDataSnapshots}
                 title={"Projected NetWorth"}
                 targetWorth={loadedUser.targetWorth}
+                currency={loadedUser.currency}
               />
             </GraphContainer>
           ) : (

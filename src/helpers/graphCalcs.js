@@ -34,8 +34,6 @@ const getPrevData = (data) => {
 
   data.forEach((item) => {
     Object.keys(item).forEach((account) => {
-      console.log(account);
-
       const key = item[account];
 
       const month = new Date(account).toLocaleString("en-us", {

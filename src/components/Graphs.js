@@ -24,8 +24,7 @@ const StyledGraphContainer = styled.div`
 
   h3 {
     font-weight: 100;
-    margin-bottom: 1rem;
-    text-align: center;
+    margin-bottom: 3rem;
   }
 `;
 
@@ -74,6 +73,7 @@ const Graphs = ({
   projected,
   targetWorth,
   accountList,
+  currency,
 }) => {
   // Functions to format data from Data array for Recharts
 
@@ -86,6 +86,8 @@ const Graphs = ({
   const finalData = newData.concat(prevData);
   finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
+  console.log(finalData);
+
   const ToolTipContent = ({ active, payload, label, netWorth }) => {
     if (active && payload) {
       if (netWorth) {
@@ -94,7 +96,7 @@ const Graphs = ({
           month: "short",
         });
 
-        const newDate = `${formatDate[2]} ${month} ${formatDate[0]}`;
+        const newDate = `${month} ${formatDate[0]}`;
 
         const keys = Object.entries(payload[0]?.payload);
 
@@ -160,33 +162,19 @@ const Graphs = ({
               dataKey="displayDate"
               stroke="var(--light-gray)"
               allowDuplicatedCategory={false}
-              interval={1}
+              interval={0}
               dy={10}
               padding={{ left: 5, right: 5 }}
               tick={{ fontSize: "0.8rem", fontWeight: "800" }}
-              // angle={-45}
               height={50}
             />
 
             <YAxis
               stroke="var(--light-gray)"
-              label={{
-                value: "Balance",
-                angle: -90,
-                position: "insideLeft",
-                fill: "var(--light-gray)",
-                dx: -20,
-                dy: 30,
+              tickFormatter={(tick) => {
+                return `${tick}`;
               }}
             />
-            {/* <Tooltip
-              wrapperStyle={{ backgroundColor: "var(--cultured)" }}
-              labelStyle={{
-                color: "var(--charleston-green)",
-                fontSize: "0.9rem",
-              }}
-              itemStyle={{ color: "var(--slate-gray)", fontSize: "0.8rem" }}
-            /> */}
 
             <Tooltip content={ToolTipContent} cursor={false} netWorth />
 
@@ -196,8 +184,8 @@ const Graphs = ({
                   key={`area-${index}`}
                   type="monotone"
                   dataKey={acc}
-                  stroke="var(--gainsboro)"
-                  activeDot={{ r: 2 }}
+                  stroke="transparent"
+                  activeDot={{ r: 1 }}
                   fill="var(--card-header)"
                   fillOpacity={0.5}
                   stackId={index}
@@ -223,6 +211,7 @@ const Graphs = ({
               dy={5}
               height={50}
               stroke="var(--light-gray)"
+              tick={{ fontSize: "0.8rem", fontWeight: "800" }}
             />
             <YAxis
               domain={[(dataMin) => -50000, (dataMax) => 1000000]}
