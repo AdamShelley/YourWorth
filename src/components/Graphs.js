@@ -79,14 +79,15 @@ const Graphs = ({
 
   const lastUpdate = lastUpdated.split("T")[0];
 
-  const newData = standardizeData(data, lastUpdate);
+  // const newData = standardizeData(data, lastUpdate);
   const prevData = getPrevData(prevAccountDataSnapshots);
 
   // Sort the data by date
-  const finalData = newData.concat(prevData);
-  finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
+  // const finalData = newData.concat(prevData);
+  // finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
+  prevData.sort((a, b) => (a.date > b.date ? 1 : -1));
 
-  console.log(finalData);
+  // console.log(newData);
 
   const ToolTipContent = ({ active, payload, label, netWorth }) => {
     if (active && payload) {
@@ -104,7 +105,7 @@ const Graphs = ({
           <StyledTooltip>
             <h5>{newDate}</h5>
             {keys.map((ob) => {
-              if (ob[0] !== "date") {
+              if (ob[0] !== "date" && ob[0] !== "displayDate") {
                 return (
                   <div key={ob[1]}>
                     <p>{ob[0]}:</p>
@@ -150,7 +151,7 @@ const Graphs = ({
           <AreaChart
             width={600}
             height={300}
-            data={finalData}
+            data={prevData}
             margin={{
               top: 5,
               right: 30,
@@ -158,11 +159,21 @@ const Graphs = ({
               bottom: 20,
             }}
           >
+            <defs>
+              <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="0%"
+                  stopColor="var(--gunmetal)"
+                  stopOpacity={0.5}
+                />
+                <stop offset="100%" stopColor="var(--cards)" stopOpacity={1} />
+              </linearGradient>
+            </defs>
             <XAxis
               dataKey="displayDate"
               stroke="var(--light-gray)"
               allowDuplicatedCategory={false}
-              interval={0}
+              interval={1}
               dy={10}
               padding={{ left: 5, right: 5 }}
               tick={{ fontSize: "0.8rem", fontWeight: "800" }}
@@ -176,7 +187,12 @@ const Graphs = ({
               }}
             />
 
-            <Tooltip content={ToolTipContent} cursor={false} netWorth />
+            <Tooltip
+              content={ToolTipContent}
+              cursor={false}
+              netWorth
+              offset={100}
+            />
 
             {accountList.map((acc, index) => {
               return (
@@ -184,11 +200,12 @@ const Graphs = ({
                   key={`area-${index}`}
                   type="monotone"
                   dataKey={acc}
-                  stroke="transparent"
-                  activeDot={{ r: 1 }}
-                  fill="var(--card-header)"
-                  fillOpacity={0.5}
-                  stackId={index}
+                  stroke="var(--light-gray)"
+                  strokeWidth={3}
+                  activeDot={{ r: 3 }}
+                  fill="url(#value)"
+                  fillOpacity={1}
+                  stackId={1}
                 />
               );
             })}
@@ -220,34 +237,48 @@ const Graphs = ({
               stroke="var(--light-gray)"
             />
 
-            <Tooltip content={ToolTipContent} cursor={false} projected />
+            <Tooltip
+              content={ToolTipContent}
+              cursor={false}
+              projected
+              offset={100}
+            />
 
-            <Legend verticalAlign={"bottom"} margin={{ top: "1rem" }} />
-            <ReferenceLine y={0} stroke="red" />
-            <ReferenceLine y={targetWorth} stroke="green" />
+            <Legend
+              verticalAlign={"bottom"}
+              iconSize={10}
+              iconType="triangle"
+              margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+            />
+            <ReferenceLine y={0} stroke="red" strokeWidth={2} />
+            <ReferenceLine y={targetWorth} stroke="green" strokeWidth={2} />
             <Line
               type="monotone"
               dataKey="three"
               stroke="var(--cultured)"
+              strokeWidth={2}
               activeDot={{ r: 2 }}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="five"
-              stroke="var(--cultured-2)"
+              stroke="var(--cultured)"
+              strokeWidth={2}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="seven"
-              stroke="var(--light-gray)"
+              stroke="var(--cultured)"
+              strokeWidth={2}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="ten"
-              stroke="var(--cultured-2)"
+              stroke="var(--cultured)"
+              strokeWidth={2}
               dot={false}
             />
           </LineChart>

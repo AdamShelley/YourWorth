@@ -1,10 +1,6 @@
 const standardizeData = (data, lastUpdated) => {
   const newDataArray = [];
 
-  // Formatted date
-  // const options = { year: "numeric", month: "long", day: "numeric" };
-  // const formattedDate = new Date(lastUpdated).toLocaleString("en-US");
-
   // Loop through the data passed via props
   data.forEach((acc) => {
     // If the array is empty, add the first part of the data
@@ -28,6 +24,7 @@ const standardizeData = (data, lastUpdated) => {
   return newDataArray;
 };
 
+// Sort through all previous data snapshots and arrange for the graph
 const getPrevData = (data) => {
   // console.log(data);
   const prevDataArray = [];
