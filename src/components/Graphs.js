@@ -9,6 +9,7 @@ import {
   Legend,
   Line,
   ReferenceLine,
+  Label,
 } from "recharts";
 import styled from "styled-components";
 import { standardizeData, getPrevData } from "../helpers/graphCalcs";
@@ -143,6 +144,8 @@ const Graphs = ({
     return null;
   };
 
+  console.log(currency);
+
   return (
     <>
       <StyledGraphContainer>
@@ -231,7 +234,7 @@ const Graphs = ({
               tick={{ fontSize: "0.8rem", fontWeight: "800" }}
             />
             <YAxis
-              domain={[(dataMin) => -50000, (dataMax) => 1000000]}
+              domain={[-100000, 2000000]}
               type="number"
               allowDataOverflow={true}
               stroke="var(--light-gray)"
@@ -241,7 +244,8 @@ const Graphs = ({
               content={ToolTipContent}
               cursor={false}
               projected
-              offset={100}
+              offset={50}
+              allowEscapeViewBox={{ y: true }}
             />
 
             <Legend
@@ -250,8 +254,16 @@ const Graphs = ({
               iconType="triangle"
               margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
             />
-            <ReferenceLine y={0} stroke="red" strokeWidth={2} />
-            <ReferenceLine y={targetWorth} stroke="green" strokeWidth={2} />
+            <ReferenceLine y={0} stroke="red" strokeWidth={2}>
+              <Label fill="var(--cultured-2)" position="insideBottomRight">
+                {currency + " 0"}
+              </Label>
+            </ReferenceLine>
+            <ReferenceLine y={targetWorth} stroke="green" strokeWidth={2}>
+              <Label fill="var(--cultured-2)" position="insideBottomRight">
+                {currency + " " + targetWorth}
+              </Label>
+            </ReferenceLine>
             <Line
               type="monotone"
               dataKey="three"
@@ -260,6 +272,7 @@ const Graphs = ({
               activeDot={{ r: 2 }}
               dot={false}
             />
+
             <Line
               type="monotone"
               dataKey="five"

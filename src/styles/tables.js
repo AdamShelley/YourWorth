@@ -27,7 +27,7 @@ const StyledTable = styled.table`
     font-weight: 500;
     color: #333;
     /* border: 1px solid var(--cultured-2); */
-    border-bottom: 1px solid var(--cadet-blue-crayola);
+
     background-color: var(--card-header);
   }
 
