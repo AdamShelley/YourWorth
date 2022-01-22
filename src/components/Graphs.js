@@ -58,7 +58,8 @@ const StyledTooltip = styled.div`
   p {
     font-size: 0.8rem;
     margin: 0.2rem !important;
-    font-weight: 200;
+    font-weight: 800;
+    color: var(--cultured-2);
   }
 
   p:first-child {
@@ -267,7 +268,8 @@ const Graphs = ({
             <Line
               type="monotone"
               dataKey="three"
-              stroke="var(--cultured)"
+              // stroke="var(--cultured)"
+              stroke="yellow"
               strokeWidth={2}
               activeDot={{ r: 2 }}
               dot={false}
@@ -283,14 +285,16 @@ const Graphs = ({
             <Line
               type="monotone"
               dataKey="seven"
-              stroke="var(--cultured)"
+              // stroke="var(--cultured)"
+              stroke="lightblue"
               strokeWidth={2}
               dot={false}
             />
             <Line
               type="monotone"
               dataKey="ten"
-              stroke="var(--cultured)"
+              // stroke="var(--cultured)"
+              stroke="lightgreen"
               strokeWidth={2}
               dot={false}
             />
