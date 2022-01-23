@@ -129,6 +129,16 @@ const Graphs = ({
               if (ob[0] === "total") {
                 return null;
               } else {
+                // Formatting data
+                if (ob[0] === "year") ob[0] = "Year";
+                if (ob[0] === "age") ob[0] = "Age";
+                if (ob[0] === "three") ob[0] = "3%";
+                if (ob[0] === "five") ob[0] = "5%";
+                if (ob[0] === "seven") ob[0] = "7%";
+                if (ob[0] === "ten") ob[0] = "10%";
+                if (ob[0] === "monthlyAdd") ob[0] = "Monthly Increase";
+                if (ob[0] === "drawDownMonthly") ob[0] = "Monthly Drawdown";
+
                 return (
                   <div key={ob[1]}>
                     <p>{ob[0]}:</p>
@@ -255,6 +265,7 @@ const Graphs = ({
               iconType="triangle"
               margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
             />
+
             <ReferenceLine y={0} stroke="red" strokeWidth={2}>
               <Label fill="var(--cultured-2)" position="insideBottomRight">
                 {currency + " 0"}
