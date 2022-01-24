@@ -157,6 +157,17 @@ const Graphs = ({
 
   console.log(currency);
 
+  const formattedLegend = (value) => {
+    let val;
+
+    if (value === "three") val = "3%";
+    if (value === "five") val = "5%";
+    if (value === "seven") val = "7%";
+    if (value === "ten") val = "10%";
+
+    return <span>{val}</span>;
+  };
+
   return (
     <>
       <StyledGraphContainer>
@@ -264,6 +275,7 @@ const Graphs = ({
               iconSize={10}
               iconType="triangle"
               margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+              formatter={formattedLegend}
             />
 
             <ReferenceLine y={0} stroke="red" strokeWidth={2}>
