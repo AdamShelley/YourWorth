@@ -106,10 +106,10 @@ const Graphs = ({
         return (
           <StyledTooltip>
             <h5>{newDate}</h5>
-            {keys.map((ob) => {
+            {keys.map((ob, index) => {
               if (ob[0] !== "date" && ob[0] !== "displayDate") {
                 return (
-                  <div key={ob[1]}>
+                  <div key={ob[`${index}`]}>
                     <p>{ob[0]}:</p>
                     <p>{ob[1].toLocaleString()}</p>
                   </div>
@@ -126,7 +126,7 @@ const Graphs = ({
             <h5>Projection</h5>
             {/* Add formatted % data */}
             {keys.map((ob) => {
-              if (ob[0] === "total") {
+              if (ob[0] === "total" || ob[1] === undefined) {
                 return null;
               } else {
                 // Formatting data
@@ -142,7 +142,7 @@ const Graphs = ({
                 return (
                   <div key={ob[1]}>
                     <p>{ob[0]}:</p>
-                    <p>{ob[1]}</p>
+                    <p>{ob[1].toLocaleString()}</p>
                   </div>
                 );
               }
