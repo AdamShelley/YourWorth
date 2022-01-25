@@ -25,7 +25,7 @@ const StyledFooter = styled.div`
 
   div:first-child > a {
     margin-top: 1rem;
-    color: var(--light-gray);
+    color: var(--cultured-2);
     text-decoration: none;
 
     &:hover {
@@ -44,7 +44,7 @@ const StyledFooter = styled.div`
   p {
     margin-top: 0.2rem;
     letter-spacing: 0.5px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--cultured-2);
     line-height: 1.6;
 

@@ -292,7 +292,7 @@ const Graphs = ({
               type="monotone"
               dataKey="three"
               // stroke="var(--cultured)"
-              stroke="yellow"
+              stroke="gold"
               strokeWidth={2}
               activeDot={{ r: 2 }}
               dot={false}
@@ -309,7 +309,7 @@ const Graphs = ({
               type="monotone"
               dataKey="seven"
               // stroke="var(--cultured)"
-              stroke="lightblue"
+              stroke="lightskyblue"
               strokeWidth={2}
               dot={false}
             />
@@ -317,7 +317,7 @@ const Graphs = ({
               type="monotone"
               dataKey="ten"
               // stroke="var(--cultured)"
-              stroke="lightgreen"
+              stroke="lawngreen"
               strokeWidth={2}
               dot={false}
             />
