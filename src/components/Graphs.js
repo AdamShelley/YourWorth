@@ -109,7 +109,7 @@ const Graphs = ({
             {keys.map((ob, index) => {
               if (ob[0] !== "date" && ob[0] !== "displayDate") {
                 return (
-                  <div key={ob[`${index}`]}>
+                  <div key={`netWorth-${index}`}>
                     <p>{ob[0]}:</p>
                     <p>{ob[1].toLocaleString()}</p>
                   </div>
@@ -125,7 +125,7 @@ const Graphs = ({
           <StyledTooltip>
             <h5>Projection</h5>
             {/* Add formatted % data */}
-            {keys.map((ob) => {
+            {keys.map((ob, index) => {
               if (ob[0] === "total" || ob[1] === undefined) {
                 return null;
               } else {
@@ -140,7 +140,7 @@ const Graphs = ({
                 if (ob[0] === "drawDownMonthly") ob[0] = "Monthly Drawdown";
 
                 return (
-                  <div key={ob[1]}>
+                  <div key={`projection-${index}`}>
                     <p>{ob[0]}:</p>
                     <p>{ob[1].toLocaleString()}</p>
                   </div>
