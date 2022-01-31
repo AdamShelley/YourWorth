@@ -20,7 +20,6 @@ const PieChartDisplay = ({ accounts }) => {
       fill,
       payload,
       percent,
-      value,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);

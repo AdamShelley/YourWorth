@@ -12,7 +12,7 @@ import {
   Label,
 } from "recharts";
 import styled from "styled-components";
-import { standardizeData, getPrevData } from "../helpers/graphCalcs";
+import { getPrevData } from "../helpers/graphCalcs";
 
 const StyledGraphContainer = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ const Graphs = ({
 }) => {
   // Functions to format data from Data array for Recharts
 
-  const lastUpdate = lastUpdated.split("T")[0];
+  // const lastUpdate = lastUpdated.split("T")[0];
 
   // const newData = standardizeData(data, lastUpdate);
   const prevData = getPrevData(prevAccountDataSnapshots);
@@ -114,7 +114,7 @@ const Graphs = ({
                     <p>{ob[1].toLocaleString()}</p>
                   </div>
                 );
-              }
+              } else return null;
             })}
           </StyledTooltip>
         );
@@ -154,8 +154,6 @@ const Graphs = ({
 
     return null;
   };
-
-  console.log(currency);
 
   const formattedLegend = (value) => {
     let val;

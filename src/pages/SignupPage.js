@@ -284,14 +284,14 @@ const SignupPage = () => {
                   validators={[requiredValidator(), minLengthValidator(6)]}
                   onInput={inputHandler}
                 />
-                <div className="helper-buttons">
+                {/* <div className="helper-buttons">
                   <div>
                     <input type="radio" name="remember" id="remember" />
                     <label htmlFor="remember">Remember me?</label>
                   </div>
 
                   <button>Forgot your password?</button>
-                </div>
+                </div> */}
 
                 <button
                   className="button login-button"

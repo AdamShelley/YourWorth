@@ -57,23 +57,23 @@ const SplashContainer = styled.div`
   }
 `;
 
-const HeroButton = styled.button`
-  background-color: var(--cards);
-  border: 1px solid var(--card-header);
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  cursor: pointer;
-  margin: 5rem;
+// const HeroButton = styled.button`
+//   background-color: var(--cards);
+//   border: 1px solid var(--card-header);
+//   padding: 1rem 2rem;
+//   font-size: 1rem;
+//   cursor: pointer;
+//   margin: 5rem;
 
-  &:hover {
-    border: 1px solid var(--cultured-2);
-  }
+//   &:hover {
+//     border: 1px solid var(--cultured-2);
+//   }
 
-  a {
-    text-decoration: none;
-    color: var(--cultured-2);
-  }
-`;
+//   a {
+//     text-decoration: none;
+//     color: var(--cultured-2);
+//   }
+// `;
 
 const SplashPage = () => {
   return (

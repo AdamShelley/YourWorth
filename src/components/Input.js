@@ -162,6 +162,11 @@ const inputReducer = (state, action) => {
         ...state,
         isBlurred: true,
       };
+    case "RESET":
+      console.log("Resetting");
+      return {
+        ...state,
+      };
     default:
       return state;
   }
@@ -178,6 +183,7 @@ const Input = ({
   initialValid,
   placeholder,
   accountSelected,
+  reset,
   dropDown,
   minimalInput,
   darkInput,
@@ -189,13 +195,15 @@ const Input = ({
   });
 
   const { value, valid } = inputState;
+  const resetValue = value;
 
   useEffect(() => {
     onInput(id, value, valid);
   }, [id, onInput, value, valid]);
 
-  //  Defaulting my code to 'Investments'
-  // // ? event.target.value : categories[0],
+  useEffect(() => {
+    onInput(id, resetValue, true);
+  }, [reset, id, onInput, resetValue]);
 
   const changeHandler = (event) => {
     dispatch({

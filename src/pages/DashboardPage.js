@@ -161,7 +161,7 @@ const PortfolioPage = ({ userId }) => {
     }
   };
 
-  console.log(loadedUser);
+  // console.log(loadedUser);
 
   return (
     <PortfolioContainer>
