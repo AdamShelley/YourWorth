@@ -7,7 +7,7 @@ import { useFetchHook } from "../hooks/fetch-hook";
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 import Loader from "react-loader-spinner";
-
+import { useHistory } from "react-router-dom";
 import { currencies } from "../helpers/currencies";
 import Modal from "../components/Modal";
 
@@ -163,6 +163,8 @@ const AccountPage = ({ userId }) => {
     false
   );
 
+  const history = useHistory();
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -225,12 +227,52 @@ const AccountPage = ({ userId }) => {
     }
   };
 
-  const resetAccountData = () => {
+  const resetAccountData = async () => {
     console.log("Reset account data");
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/d`,
+        "PATCH",
+        JSON.stringify({
+          userId: auth.userId,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    setCheckModal(false);
   };
 
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     console.log("Delete account");
+
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/destroy`,
+        "DELETE",
+        JSON.stringify({
+          userId: auth.userId,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+
+      // Delete local storage data
+      localStorage.removeItem("userData");
+
+      history.push("/signup");
+    } catch (err) {
+      console.log(err);
+    }
+
+    setCheckDeleteModal(false);
   };
 
   return (

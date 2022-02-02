@@ -79,8 +79,6 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
     drawdown: drawDownAmount,
   });
 
-  const [resetToOriginal, setResetToOriginal] = useState(false);
-
   const [formState, inputHandler] = useForm(
     {
       monthlyIncrease: {
@@ -153,7 +151,6 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
 
   const resetCalculations = () => {
     updateCalcs(originalValues);
-    setResetToOriginal(true);
   };
 
   return (
@@ -172,7 +169,6 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             validators={[]}
             initialValid={formState.inputs.monthlyIncrease.valid}
             initialValue={monthlyIncrease}
-            reset={resetToOriginal}
             darkInputLighter
           />
           <Input
