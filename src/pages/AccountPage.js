@@ -267,7 +267,7 @@ const AccountPage = ({ userId }) => {
       // Delete local storage data
       localStorage.removeItem("userData");
 
-      history.push("/signup");
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
@@ -374,7 +374,9 @@ const AccountPage = ({ userId }) => {
               >
                 <option value="">Change currency</option>
                 {currencies.map((currency) => (
-                  <option value={currency}>{currency}</option>
+                  <option key={currency} value={currency}>
+                    {currency}
+                  </option>
                 ))}
               </SelectStyled>
 

@@ -256,13 +256,16 @@ const FirstTimeSetUp = () => {
           targetAge: formState.inputs.targetAge.value,
           drawDownAmount: formState.inputs.drawDownAmount.value,
           monthlyIncrease: formState.inputs.monthlyIncrease.value,
+          firstTimeUser: false,
         }),
         {
           "Content-Type": "application/json",
         }
       );
-      history.push("/");
+      console.log("Pushing");
+      history.push("/account");
     } catch (err) {
+      console.log("Setup submit clicked but theres an error");
       console.log(err);
     }
   };
