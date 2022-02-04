@@ -183,7 +183,8 @@ const Input = ({
   initialValid,
   placeholder,
   accountSelected,
-
+  reset,
+  resetFalse,
   dropDown,
   minimalInput,
   darkInput,
@@ -197,8 +198,8 @@ const Input = ({
   const { value, valid } = inputState;
 
   useEffect(() => {
-    onInput(id, value, valid);
-  }, [id, onInput, value, valid]);
+    onInput(id, value, valid, resetFalse);
+  }, [id, onInput, value, valid, resetFalse]);
 
   const changeHandler = (event) => {
     dispatch({
@@ -254,7 +255,7 @@ const Input = ({
         <input
           name={label}
           type={dataType}
-          value={inputState.value}
+          value={reset === true ? initialValue : inputState.value}
           onChange={changeHandler}
           onBlur={blurHandler}
           placeholder={placeholder}

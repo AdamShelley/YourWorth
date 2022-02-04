@@ -267,7 +267,7 @@ const AccountPage = ({ userId }) => {
       // Delete local storage data
       localStorage.removeItem("userData");
 
-      history.push("/");
+      history.go("/signup");
     } catch (err) {
       console.log(err);
     }

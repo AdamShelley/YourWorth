@@ -262,8 +262,13 @@ const FirstTimeSetUp = () => {
           "Content-Type": "application/json",
         }
       );
-      console.log("Pushing");
-      history.push("/account");
+
+      // First time user set to false to allow redirect to homepage
+      let storage = JSON.parse(localStorage.getItem("userData"));
+      storage["firstTimeUser"] = false;
+      localStorage.setItem("userData", JSON.stringify(storage));
+
+      history.go("/dashboard");
     } catch (err) {
       console.log("Setup submit clicked but theres an error");
       console.log(err);
@@ -449,6 +454,7 @@ const FirstTimeSetUp = () => {
         <div className="circle-container">
           {[...Array(pages)].map((p, index) => (
             <div
+              key={"page" + index}
               className={`page-circle ${
                 index + 1 === section ? "current-page" : ""
               } ${index + 1 < section ? "completed-page" : ""}`}

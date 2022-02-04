@@ -72,6 +72,8 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth, monthlyIncrease } =
     accountInformation;
 
+  const [resetTriggered, setResetTriggered] = useState(false);
+
   const [originalValues] = useState({
     monthlyAdd: monthlyIncrease,
     retirementAge: ageToRetire,
@@ -151,6 +153,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
 
   const resetCalculations = () => {
     updateCalcs(originalValues);
+    setResetTriggered(true);
   };
 
   return (
@@ -166,10 +169,12 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             label="Monthly Added"
             dataType="number"
             onInput={inputHandler}
+            resetFalse={setResetTriggered}
             validators={[]}
             initialValid={formState.inputs.monthlyIncrease.valid}
             initialValue={monthlyIncrease}
             darkInputLighter
+            reset={resetTriggered}
           />
           <Input
             id="retirementAge"
@@ -180,6 +185,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             initialValue={ageToRetire}
             validators={[]}
             darkInputLighter
+            reset={resetTriggered}
           />
           <Input
             id="targetNetWorth"
@@ -190,6 +196,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             initialValue={targetWorth}
             validators={[]}
             darkInputLighter
+            reset={resetTriggered}
           />
           <Input
             id="drawdown"
@@ -200,6 +207,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             initialValue={drawDownAmount}
             validators={[]}
             darkInputLighter
+            reset={resetTriggered}
           />
         </div>
         <div>
