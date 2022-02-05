@@ -5,6 +5,7 @@ import { StyledTable } from "../styles/tables";
 import Input from "../components/Input.js";
 import { ButtonStyled } from "../styles/inputStyles";
 import { useForm } from "../hooks/form-hook";
+import { useCallback } from "react";
 
 const StyledInputContainer = styled.div`
   display: flex;
@@ -169,7 +170,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             label="Monthly Added"
             dataType="number"
             onInput={inputHandler}
-            resetFalse={setResetTriggered}
+            resetFalse={() => setResetTriggered(false)}
             validators={[]}
             initialValid={formState.inputs.monthlyIncrease.valid}
             initialValue={monthlyIncrease}
@@ -186,6 +187,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             validators={[]}
             darkInputLighter
             reset={resetTriggered}
+            resetFalse={() => setResetTriggered(false)}
           />
           <Input
             id="targetNetWorth"
@@ -197,6 +199,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             validators={[]}
             darkInputLighter
             reset={resetTriggered}
+            resetFalse={() => setResetTriggered(false)}
           />
           <Input
             id="drawdown"
@@ -208,6 +211,7 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             validators={[]}
             darkInputLighter
             reset={resetTriggered}
+            resetFalse={() => setResetTriggered(false)}
           />
         </div>
         <div>

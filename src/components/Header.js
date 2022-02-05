@@ -88,6 +88,21 @@ const StyledHeader = styled.div`
     line-height: 1.8;
     font-size: 0.9rem;
   }
+
+  @media screen and (max-width: 1023px) {
+  }
+
+  @media screen and (max-width: 768px) {
+  }
+
+  @media screen and (max-width: 425px) {
+  }
+
+  @media screen and (max-width: 375px) {
+    ul {
+      display: none;
+    }
+  }
 `;
 
 const StyledLogoutModal = styled.div`

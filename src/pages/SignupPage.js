@@ -135,6 +135,31 @@ const SignupContainer = styled.div`
     line-height: 1.8;
     letter-spacing: 0.3px;
   }
+
+  @media screen and (max-width: 1023px) {
+    width: 25rem;
+
+    .signup-container-content {
+      margin-top: 2rem;
+      padding: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 22rem;
+
+    .signup-container-content {
+      padding: 2.5rem;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    width: 20rem;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 18rem;
+  } ;
 `;
 
 const SignupPage = () => {

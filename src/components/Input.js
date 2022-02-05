@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { validate } from "../helpers/validators";
 import { categories } from "../helpers/accountTypes";
+import { useCallback } from "react";
 
 const InputContainer = styled.div`
   color: var(--cultured);
@@ -197,11 +198,16 @@ const Input = ({
 
   const { value, valid } = inputState;
 
+  const resetCheck = useCallback(() => {
+    if (reset === true) resetFalse();
+  }, [reset]);
+
   useEffect(() => {
-    onInput(id, value, valid, resetFalse);
-  }, [id, onInput, value, valid, resetFalse]);
+    onInput(id, value, valid);
+  }, [id, onInput, value, valid]);
 
   const changeHandler = (event) => {
+    resetCheck();
     dispatch({
       type: "CHANGE",
       value: event.target.value,
