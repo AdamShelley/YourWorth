@@ -96,12 +96,12 @@ const StyledHeader = styled.div`
   }
 
   @media screen and (max-width: 425px) {
+    nav {
+      flex-direction: column;
+    }
   }
 
   @media screen and (max-width: 375px) {
-    ul {
-      display: none;
-    }
   }
 `;
 

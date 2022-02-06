@@ -116,6 +116,79 @@ const AccountPageStyles = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 1440px) {
+    .settings-control {
+      select,
+      button {
+        width: 80% !important;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .account-page-container {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .settings-section {
+      margin-top: 4rem !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center !important;
+      width: 100%;
+
+      h4 {
+        text-align: center;
+        margin: 0.5rem;
+        font-size: 1.2rem !important;
+        color: var(--cultured-2);
+      }
+
+      > div {
+        margin-top: 2rem;
+        width: 70% !important;
+        align-items: center !important;
+      }
+    }
+
+    div > form > button {
+      align-self: center !important;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    margin-top: 0;
+    padding: 0rem !important;
+
+    .settings-section {
+      > div {
+        width: 100% !important;
+      }
+    }
+
+    .settings-control {
+      select {
+        width: 80%;
+      }
+      button {
+        width: 80%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    .settings-control {
+      select {
+        width: 90%;
+      }
+      button {
+        width: 90%;
+      }
+    }
+  }
 `;
 
 const ModalCheckStyles = styled.div`
@@ -278,7 +351,7 @@ const AccountPage = ({ userId }) => {
   return (
     <AccountPageStyles>
       {loadedUser && (
-        <div>
+        <div className="account-page-container">
           <h1>Settings</h1>
           <form onSubmit={submitUpdate}>
             <div className="settings-section">

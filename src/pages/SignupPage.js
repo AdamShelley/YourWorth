@@ -17,13 +17,16 @@ import {
 
 const SignupPageStyles = styled.div`
   height: 85vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 28rem;
-  height: 40rem;
+  /* height: 40rem; */
   background-color: var(--cultured);
 
   font-family: "Open Sans", serif;
@@ -146,20 +149,28 @@ const SignupContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    width: 22rem;
+    width: 25rem;
 
     .signup-container-content {
-      padding: 2.5rem;
+      padding: 1.5rem;
+    }
+
+    .switch-button-container {
+      height: 3rem;
+      align-self: flex-end;
     }
   }
 
   @media screen and (max-width: 425px) {
-    width: 20rem;
+    width: 90%;
+
+    .signup-container-content {
+      padding: 0.5rem;
+    }
   }
 
   @media screen and (max-width: 375px) {
-    width: 18rem;
-  } ;
+  }
 `;
 
 const SignupPage = () => {
