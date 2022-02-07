@@ -67,6 +67,31 @@ const StyledInputContainer = styled.div`
       border: 1px solid var(--cadet-blue-crayola);
     }
   }
+
+  @media screen and (max-width: 2560px) {
+    width: 40%;
+  }
+
+  @media screen and (max-width: 2000px) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 1439px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 768px) {
+  }
+
+  @media screen and (max-width: 425px) {
+  }
+
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const Calculations = ({ data, updateCalcs, accountInformation }) => {

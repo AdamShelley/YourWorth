@@ -10,6 +10,7 @@ import {
   Line,
   ReferenceLine,
   Label,
+  ResponsiveContainer,
 } from "recharts";
 import styled from "styled-components";
 import { getPrevData } from "../helpers/graphCalcs";
@@ -20,7 +21,8 @@ const StyledGraphContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 10rem;
-  width: 100%;
+  width: 40rem;
+  height: 20rem;
   font-family: "Open Sans", serif;
 
   h3 {
@@ -171,155 +173,163 @@ const Graphs = ({
       <StyledGraphContainer>
         <h3>{title}</h3>
         {!projected ? (
-          <AreaChart
-            width={600}
-            height={300}
-            data={prevData}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 50,
-              bottom: 20,
-            }}
-          >
-            <defs>
-              <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="0%"
-                  stopColor="var(--gunmetal)"
-                  stopOpacity={0.5}
-                />
-                <stop offset="100%" stopColor="var(--cards)" stopOpacity={1} />
-              </linearGradient>
-            </defs>
-            <XAxis
-              dataKey="displayDate"
-              stroke="var(--light-gray)"
-              allowDuplicatedCategory={false}
-              interval={1}
-              dy={10}
-              padding={{ left: 5, right: 5 }}
-              tick={{ fontSize: "0.8rem", fontWeight: "800" }}
-              height={50}
-            />
-
-            <YAxis
-              stroke="var(--light-gray)"
-              tickFormatter={(tick) => {
-                return `${tick}`;
+          <ResponsiveContainer width="95%" height="95%">
+            <AreaChart
+              width={600}
+              height={300}
+              data={prevData}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 50,
+                bottom: 20,
               }}
-            />
+            >
+              <defs>
+                <linearGradient id="value" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="0%"
+                    stopColor="var(--gunmetal)"
+                    stopOpacity={0.5}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor="var(--cards)"
+                    stopOpacity={1}
+                  />
+                </linearGradient>
+              </defs>
+              <XAxis
+                dataKey="displayDate"
+                stroke="var(--light-gray)"
+                allowDuplicatedCategory={false}
+                interval={1}
+                dy={10}
+                padding={{ left: 5, right: 5 }}
+                tick={{ fontSize: "0.8rem", fontWeight: "800" }}
+                height={50}
+              />
 
-            <Tooltip
-              content={ToolTipContent}
-              cursor={false}
-              netWorth
-              offset={100}
-            />
+              <YAxis
+                stroke="var(--light-gray)"
+                tickFormatter={(tick) => {
+                  return `${tick}`;
+                }}
+              />
 
-            {accountList.map((acc, index) => {
-              return (
-                <Area
-                  key={`area-${index}`}
-                  type="monotone"
-                  dataKey={acc}
-                  stroke="var(--light-gray)"
-                  strokeWidth={3}
-                  activeDot={{ r: 3 }}
-                  fill="url(#value)"
-                  fillOpacity={1}
-                  stackId={1}
-                />
-              );
-            })}
-          </AreaChart>
+              <Tooltip
+                content={ToolTipContent}
+                cursor={false}
+                netWorth
+                offset={100}
+              />
+
+              {accountList.map((acc, index) => {
+                return (
+                  <Area
+                    key={`area-${index}`}
+                    type="monotone"
+                    dataKey={acc}
+                    stroke="var(--light-gray)"
+                    strokeWidth={3}
+                    activeDot={{ r: 3 }}
+                    fill="url(#value)"
+                    fillOpacity={1}
+                    stackId={1}
+                  />
+                );
+              })}
+            </AreaChart>
+          </ResponsiveContainer>
         ) : (
-          <LineChart
-            width={600}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 50,
-              bottom: 20,
-            }}
-          >
-            <XAxis
-              dataKey="age"
-              interval={10}
-              dy={5}
-              height={50}
-              stroke="var(--light-gray)"
-              tick={{ fontSize: "0.8rem", fontWeight: "800" }}
-            />
-            <YAxis
-              domain={[-100000, 2000000]}
-              type="number"
-              allowDataOverflow={true}
-              stroke="var(--light-gray)"
-            />
+          <ResponsiveContainer width="95%" height="95%">
+            <LineChart
+              width={600}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 50,
+                bottom: 20,
+              }}
+            >
+              <XAxis
+                dataKey="age"
+                interval={10}
+                dy={5}
+                height={50}
+                stroke="var(--light-gray)"
+                tick={{ fontSize: "0.8rem", fontWeight: "800" }}
+              />
+              <YAxis
+                domain={[-100000, 2000000]}
+                type="number"
+                allowDataOverflow={true}
+                stroke="var(--light-gray)"
+              />
 
-            <Tooltip
-              content={ToolTipContent}
-              cursor={false}
-              projected
-              offset={50}
-              allowEscapeViewBox={{ y: true }}
-            />
+              <Tooltip
+                content={ToolTipContent}
+                cursor={false}
+                projected
+                offset={50}
+                allowEscapeViewBox={{ y: true }}
+              />
 
-            <Legend
-              verticalAlign={"bottom"}
-              iconSize={10}
-              iconType="triangle"
-              margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
-              formatter={formattedLegend}
-            />
+              <Legend
+                verticalAlign={"bottom"}
+                iconSize={10}
+                iconType="triangle"
+                margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+                formatter={formattedLegend}
+              />
 
-            <ReferenceLine y={0} stroke="red" strokeWidth={2}>
-              <Label fill="var(--cultured-2)" position="insideBottomRight">
-                {currency + " 0"}
-              </Label>
-            </ReferenceLine>
-            <ReferenceLine y={targetWorth} stroke="green" strokeWidth={2}>
-              <Label fill="var(--cultured-2)" position="insideBottomRight">
-                {currency + " " + targetWorth}
-              </Label>
-            </ReferenceLine>
-            <Line
-              type="monotone"
-              dataKey="three"
-              // stroke="var(--cultured)"
-              stroke="#d37c7c"
-              strokeWidth={2}
-              activeDot={{ r: 2 }}
-              dot={false}
-            />
+              <ReferenceLine y={0} stroke="red" strokeWidth={2}>
+                <Label fill="var(--cultured-2)" position="insideBottomRight">
+                  {currency + " 0"}
+                </Label>
+              </ReferenceLine>
+              <ReferenceLine y={targetWorth} stroke="green" strokeWidth={2}>
+                <Label fill="var(--cultured-2)" position="insideBottomRight">
+                  {currency + " " + targetWorth}
+                </Label>
+              </ReferenceLine>
+              <Line
+                type="monotone"
+                dataKey="three"
+                // stroke="var(--cultured)"
+                stroke="#d37c7c"
+                strokeWidth={2}
+                activeDot={{ r: 2 }}
+                dot={false}
+              />
 
-            <Line
-              type="monotone"
-              dataKey="five"
-              stroke="var(--cultured)"
-              strokeWidth={2}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="seven"
-              // stroke="var(--cultured)"
-              stroke="lightskyblue"
-              strokeWidth={2}
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="ten"
-              // stroke="var(--cultured)"
-              stroke="lawngreen"
-              strokeWidth={2}
-              dot={false}
-            />
-          </LineChart>
+              <Line
+                type="monotone"
+                dataKey="five"
+                stroke="var(--cultured)"
+                strokeWidth={2}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="seven"
+                // stroke="var(--cultured)"
+                stroke="lightskyblue"
+                strokeWidth={2}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="ten"
+                // stroke="var(--cultured)"
+                stroke="lawngreen"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         )}
       </StyledGraphContainer>
     </>

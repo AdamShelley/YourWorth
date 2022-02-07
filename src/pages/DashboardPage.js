@@ -16,6 +16,7 @@ const PortfolioContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   min-width: 100vw;
+  overflow-x: scroll;
 
   h2 {
     font-size: 3rem;
@@ -44,6 +45,21 @@ const PortfolioContainer = styled.div`
     font-size: 0.8rem;
     width: 60%;
   }
+
+  @media screen and (max-width: 1023px) {
+  }
+
+  @media screen and (max-width: 768px) {
+  }
+
+  @media screen and (max-width: 425px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const PieChartContainer = styled.div`
@@ -59,7 +75,30 @@ const GraphContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  max-width: 100%;
+  width: 90%;
+
+  @media screen and (max-width: 1440px) {
+  }
+
+  @media screen and (max-width: 1023px) {
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+
+    > div {
+      margin-top: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    > div {
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const PortfolioPage = ({ userId }) => {

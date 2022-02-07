@@ -110,6 +110,50 @@ const StyledTable = styled.table`
     background-color: transparent;
     /* text-decoration: underline; */
   }
+
+  @media screen and (max-width: 1440px) {
+    /* width: 90%; */
+    th {
+      font-size: 0.8rem;
+    }
+
+    td {
+      font-size: 0.8rem;
+      padding: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+
+    th {
+      font-size: 0.7rem;
+    }
+
+    td {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    th {
+      font-size: 0.5rem;
+    }
+
+    td {
+      font-size: 0.5rem;
+      padding: 0.5rem 0.2rem;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    max-width: 90%;
+    overflow: scroll;
+    padding: 0.5rem;
+  }
+
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const StyledModalTable = styled.table`

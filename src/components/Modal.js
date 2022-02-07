@@ -113,6 +113,30 @@ const ModalStylesContainer = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 1440px) {
+    .modalContainer .modal {
+      width: 50vw;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .modalContainer .modal {
+      width: 70vw;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .modalContainer .modal {
+      width: 95vw;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+  }
+
+  @media screen and (max-width: 375px) {
+  }
 `;
 
 const handleSize = (size) => {
