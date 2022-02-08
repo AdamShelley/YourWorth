@@ -46,6 +46,9 @@ const PortfolioContainer = styled.div`
     width: 60%;
   }
 
+  @media screen and (min-width: 2000px) {
+  }
+
   @media screen and (max-width: 1023px) {
   }
 
@@ -68,6 +71,12 @@ const PieChartContainer = styled.div`
   width: 100vw;
   font-family: "Open Sans", serif;
   font-size: 1rem;
+
+  @media screen and (max-width: 1023px) {
+  }
+
+  @media screen and (max-width: 768px) {
+  }
 `;
 
 const GraphContainer = styled.div`
@@ -87,7 +96,11 @@ const GraphContainer = styled.div`
     flex-direction: column;
 
     > div {
-      margin-top: 2rem;
+      margin-top: 5rem;
+
+      h3 {
+        font-size: 1rem;
+      }
     }
   }
 

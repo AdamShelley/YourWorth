@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-
+import useWindowDimensions from "../hooks/window-hook";
 import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
 
 const PieChartDisplay = ({ accounts }) => {
   let animationDuration = 300;
   const [activeIndex, setActiveIndex] = useState(0);
+  const { height, width } = useWindowDimensions();
 
   // Outline effect courtesy of Recharts Example.
   const renderActiveShape = (props) => {
@@ -69,7 +70,7 @@ const PieChartDisplay = ({ accounts }) => {
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
-          dy={10}
+          dy={5}
           textAnchor={textAnchor}
           fill="var(--cultured-2)"
         >
@@ -85,21 +86,26 @@ const PieChartDisplay = ({ accounts }) => {
     setActiveIndex(index);
   };
 
+  const renderLabel = (entry) => {
+    return `${entry.name}: ${entry.balance}`;
+  };
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <PieChart width={400} height={400} align="center">
+      <PieChart align="center">
         <Pie
+          label={width <= 1000 ? renderLabel : null}
           dataKey="balance"
           data={accounts}
           labelLine={false}
           cx="50%"
           cy="50%"
-          innerRadius={100}
+          innerRadius={80}
           stroke="var(--gunmetal)"
           fill="var(--cultured-2)"
           animationDuration={animationDuration}
           activeIndex={activeIndex}
-          activeShape={renderActiveShape}
+          activeShape={width > 1000 ? renderActiveShape : null}
           onMouseEnter={onPieEnter}
         />
       </PieChart>

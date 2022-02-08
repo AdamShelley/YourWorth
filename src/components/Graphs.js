@@ -93,6 +93,21 @@ const Graphs = ({
 
   // console.log(newData);
 
+  const setColor = (num) => {
+    switch (num) {
+      case "3%":
+        return "#d37";
+      case "5%":
+        return "var(--cultured)";
+      case "7%":
+        return "lightskyblue";
+      case "10%":
+        return "lawngreen";
+      default:
+        return "var(--cultured-2)";
+    }
+  };
+
   const ToolTipContent = ({ active, payload, label, netWorth }) => {
     if (active && payload) {
       if (netWorth) {
@@ -143,7 +158,7 @@ const Graphs = ({
 
                 return (
                   <div key={`projection-${index}`}>
-                    <p>{ob[0]}:</p>
+                    <p style={{ color: setColor(ob[0]) }}>{ob[0]}:</p>
                     <p>{ob[1].toLocaleString()}</p>
                   </div>
                 );
@@ -155,17 +170,6 @@ const Graphs = ({
     }
 
     return null;
-  };
-
-  const formattedLegend = (value) => {
-    let val;
-
-    if (value === "three") val = "3%";
-    if (value === "five") val = "5%";
-    if (value === "seven") val = "7%";
-    if (value === "ten") val = "10%";
-
-    return <span>{val}</span>;
   };
 
   return (
@@ -208,10 +212,12 @@ const Graphs = ({
                 padding={{ left: 5, right: 5 }}
                 tick={{ fontSize: "0.8rem", fontWeight: "800" }}
                 height={50}
+                strokeWidth={4}
               />
 
               <YAxis
                 stroke="var(--light-gray)"
+                strokeWidth={3}
                 tickFormatter={(tick) => {
                   return `${tick}`;
                 }}
@@ -261,12 +267,14 @@ const Graphs = ({
                 height={50}
                 stroke="var(--light-gray)"
                 tick={{ fontSize: "0.8rem", fontWeight: "800" }}
+                strokeWidth={2}
               />
               <YAxis
                 domain={[-100000, 2000000]}
                 type="number"
                 allowDataOverflow={true}
                 stroke="var(--light-gray)"
+                strokeWidth={2}
               />
 
               <Tooltip
@@ -277,13 +285,13 @@ const Graphs = ({
                 allowEscapeViewBox={{ y: true }}
               />
 
-              <Legend
+              {/* <Legend
                 verticalAlign={"bottom"}
                 iconSize={10}
                 iconType="triangle"
                 margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
                 formatter={formattedLegend}
-              />
+              /> */}
 
               <ReferenceLine y={0} stroke="red" strokeWidth={2}>
                 <Label fill="var(--cultured-2)" position="insideBottomRight">
@@ -299,7 +307,7 @@ const Graphs = ({
                 type="monotone"
                 dataKey="three"
                 // stroke="var(--cultured)"
-                stroke="#d37c7c"
+                stroke="#d37"
                 strokeWidth={2}
                 activeDot={{ r: 2 }}
                 dot={false}

@@ -82,6 +82,10 @@ const StyledInputContainer = styled.div`
 
   @media screen and (max-width: 1023px) {
     width: 90%;
+
+    div > div > label {
+      font-size: 0.7rem;
+    }
   }
 
   @media screen and (max-width: 768px) {
