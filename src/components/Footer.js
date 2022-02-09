@@ -67,6 +67,20 @@ const StyledFooter = styled.div`
       color: var(--gainsboro);
     }
   }
+
+  @media screen and (max-width: 425px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3rem;
+
+    div {
+      align-items: flex-start;
+    }
+
+    i {
+      padding: 1rem 0;
+    }
+  }
 `;
 
 const Footer = () => {
@@ -80,7 +94,7 @@ const Footer = () => {
         >
           <i className="fab fa-github"></i>
         </a>
-        <Link to="/yourdata">Find out how your data is handled</Link>
+        {/* <Link to="/yourdata">Find out how your data is handled</Link> */}
       </div>
 
       <div>

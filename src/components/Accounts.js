@@ -6,6 +6,7 @@ import { useFetchHook } from "../hooks/fetch-hook";
 import { StyledTable, StyledModalTable } from "../styles/tables";
 import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
+import useWindowDimensions from "../hooks/window-hook";
 import Input from "./Input";
 
 const ModalContent = styled.div`
@@ -56,6 +57,7 @@ const Accounts = ({
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState();
   const { sendRequest, loading } = useFetchHook();
+  const { height, width } = useWindowDimensions();
 
   const [formState, inputHandler] = useForm(
     {
@@ -263,7 +265,15 @@ const Accounts = ({
           close={Toggle}
           title={"Update account details"}
           submitHandler={confirmSub}
-          modalSize="medium"
+          modalSize={
+            width >= 2000
+              ? "small"
+              : width >= 1440
+              ? "medium"
+              : width >= 750
+              ? "large"
+              : "all"
+          }
         >
           <ModalContent>
             <Input

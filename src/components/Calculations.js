@@ -69,15 +69,15 @@ const StyledInputContainer = styled.div`
   }
 
   @media screen and (max-width: 2560px) {
-    width: 40%;
+    width: 30%;
   }
 
   @media screen and (max-width: 2000px) {
-    width: 60%;
+    width: 50%;
   }
 
-  @media screen and (max-width: 1439px) {
-    width: 80%;
+  @media screen and (max-width: 1440px) {
+    width: 60%;
   }
 
   @media screen and (max-width: 1023px) {

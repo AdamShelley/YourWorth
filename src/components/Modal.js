@@ -114,21 +114,26 @@ const ModalStylesContainer = styled.div`
     }
   }
 
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: 2560px) {
+    .modal-container .modal {
+    }
+  }
+
+  @media screen and (max-width: 1441px) {
     .modalContainer .modal {
-      width: 50vw;
+      /* width: 50vw; */
     }
   }
 
   @media screen and (max-width: 1023px) {
     .modalContainer .modal {
-      width: 70vw;
+      /* width: 70vw; */
     }
   }
 
   @media screen and (max-width: 768px) {
     .modalContainer .modal {
-      width: 95vw;
+      /* width: 95vw; */
     }
   }
 
@@ -141,12 +146,15 @@ const ModalStylesContainer = styled.div`
 
 const handleSize = (size) => {
   switch (size) {
+    case "all":
+      return "95vw";
     case "large":
       return "50vw";
     case "medium":
       return "30vw";
     case "small":
-      return "30vw";
+      return "20vw";
+    case "smallest":
     default:
       return "30vw";
   }

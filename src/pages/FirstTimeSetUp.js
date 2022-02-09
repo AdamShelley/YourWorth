@@ -17,7 +17,7 @@ const SetupCard = styled.div`
   justify-content: center;
   padding: 1rem;
   border-radius: 2px;
-  min-width: 35rem;
+  /* min-width: 35rem; */
   min-height: 100vh;
   /* margin: 1rem; */
   /* background-color: var(--cards); */
@@ -55,6 +55,50 @@ const SetupCard = styled.div`
       border: 1px solid var(--cultured);
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: flex-start;
+
+    svg {
+      max-height: 30vh;
+      max-width: 75%;
+    }
+
+    div {
+      /* width: 100%; */
+    }
+
+    section {
+      justify-content: flex-start !important;
+      /* min-height: 40rem !important; */
+      width: 70vw !important;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    div {
+      min-height: 0;
+
+      section {
+        justify-content: flex-start !important;
+        /* min-height: 40rem !important; */
+        width: 80vw !important;
+
+        p {
+          width: 100%;
+        }
+
+        > div {
+          flex-direction: column;
+        }
+
+        ul {
+          width: 100%;
+        }
+      }
+    }
+  }
 `;
 
 const SectionContainer = styled.div`
@@ -70,7 +114,7 @@ const SectionContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 50vw;
-    min-height: 60vh;
+    /* min-height: 60vh; */
 
     h2 {
       font-size: 2rem;
@@ -101,6 +145,8 @@ const SectionContainer = styled.div`
 
       > div {
         margin-right: 1rem;
+        display: flex;
+        justify-content: space-between;
 
         label {
           margin-top: 0.5rem;
@@ -130,6 +176,37 @@ const SectionContainer = styled.div`
 
     > div:last-child {
       width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    section div div {
+      /* min-height: 5rem; */
+    }
+
+    se ction {
+      div {
+        label {
+          font-size: 0.8rem !important;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    section h2,
+    p {
+      /* align-self: flex-start; */
+    }
+
+    section div div {
+      min-height: 5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    section div label {
+      font-size: 1rem !important;
     }
   }
 `;
@@ -169,6 +246,14 @@ const ButtonContainer = styled.div`
     &:hover {
       border: 1px solid var(--cultured-2);
     }
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100% !important;
+    flex-direction: row !important;
+    align-items: space-evenly;
+    justify-content: space-evenly;
+    padding: 0.5rem;
   }
 `;
 

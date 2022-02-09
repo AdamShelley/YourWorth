@@ -46,7 +46,7 @@ const PortfolioContainer = styled.div`
     width: 60%;
   }
 
-  @media screen and (min-width: 2000px) {
+  @media screen and (max-width: 2560px) {
   }
 
   @media screen and (max-width: 1023px) {
@@ -86,7 +86,12 @@ const GraphContainer = styled.div`
   justify-content: space-between;
   width: 90%;
 
+  @media screen and (max-width: 2560px) {
+    width: 50%;
+  }
+
   @media screen and (max-width: 1440px) {
+    width: 90%;
   }
 
   @media screen and (max-width: 1023px) {

@@ -111,8 +111,12 @@ const StyledTable = styled.table`
     /* text-decoration: underline; */
   }
 
+  @media screen and (max-width: 2560px) {
+    width: 50%;
+  }
+
   @media screen and (max-width: 1440px) {
-    /* width: 90%; */
+    width: 80%;
     th {
       font-size: 0.8rem;
     }

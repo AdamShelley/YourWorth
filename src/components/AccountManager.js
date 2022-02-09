@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import Input from "./Input";
 import Loader from "react-loader-spinner";
-
+import useWindowDimensions from "../hooks/window-hook";
 import { useForm } from "../hooks/form-hook";
 import { useFetchHook } from "../hooks/fetch-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
@@ -58,6 +58,7 @@ const AccountManager = ({
   const [loadedAccounts, setLoadedAccounts] = useState(accounts);
   const { sendRequest, loading } = useFetchHook();
   const auth = useContext(AuthenticationContext);
+  const { height, width } = useWindowDimensions();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -222,7 +223,15 @@ const AccountManager = ({
         title="Add a new account to the Portfolio"
         close={closeModal}
         submitHandler={submitAccount}
-        modalSize="medium"
+        modalSize={
+          width >= 2000
+            ? "small"
+            : width >= 1440
+            ? "medium"
+            : width >= 750
+            ? "large"
+            : "all"
+        }
       >
         <div>
           <Input
@@ -269,7 +278,15 @@ const AccountManager = ({
           preventScroll();
         }}
         submitHandler={submitNewSnapshot}
-        modalSize="large"
+        modalSize={
+          width >= 2000
+            ? "medium"
+            : width >= 1440
+            ? "large"
+            : width >= 750
+            ? "all"
+            : "all"
+        }
       >
         <StyledModalTable>
           <thead>
