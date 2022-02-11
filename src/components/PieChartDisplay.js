@@ -91,7 +91,7 @@ const PieChartDisplay = ({ accounts }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="75%">
       <PieChart align="center">
         <Pie
           label={width <= 1000 ? renderLabel : null}
