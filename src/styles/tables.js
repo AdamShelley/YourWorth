@@ -151,9 +151,17 @@ const StyledTable = styled.table`
   }
 
   @media screen and (max-width: 425px) {
-    max-width: 90%;
+    width: 98%;
     overflow: scroll;
     padding: 0.5rem;
+
+    th {
+      padding: 0.2rem 0.1rem;
+    }
+
+    td {
+      padding: 0.5rem 0.1rem;
+    }
   }
 
   @media screen and (max-width: 375px) {

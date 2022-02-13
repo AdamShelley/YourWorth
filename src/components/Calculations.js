@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { StyledTable } from "../styles/tables";
-
+import useWindowDimensions from "../hooks/window-hook";
 import Input from "../components/Input.js";
 import { ButtonStyled } from "../styles/inputStyles";
 import { useForm } from "../hooks/form-hook";
@@ -101,6 +101,7 @@ const StyledInputContainer = styled.div`
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth, monthlyIncrease } =
     accountInformation;
+  const { height, width } = useWindowDimensions();
 
   const [resetTriggered, setResetTriggered] = useState(false);
 
@@ -256,13 +257,13 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
 
         <thead>
           <tr>
-            <th>Year</th>
+            {width >= 768 && <th>Year</th>}
             <th>Age</th>
             <th>Total</th>
-            <th>3%</th>
+            {width >= 768 && <th>3%</th>}
             <th>5%</th>
-            <th>7%</th>
-            <th>10%</th>
+            {width >= 768 && <th>7%</th>}
+            {width >= 768 && <th>10%</th>}
             <th>Monthly</th>
           </tr>
         </thead>
@@ -276,11 +277,13 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                 key={`table-number: ${index}`}
                 className={targetYearHit ? "target-year-hit" : ""}
               >
-                <CustomTD
-                  number={year.year}
-                  noFormat
-                  targetYearHit={targetYearHit}
-                />
+                {width >= 768 && (
+                  <CustomTD
+                    number={year.year}
+                    noFormat
+                    targetYearHit={targetYearHit}
+                  />
+                )}
                 <CustomTD
                   number={year.age}
                   noFormat
@@ -291,26 +294,32 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   targetYearHit={targetYearHit}
                   currency={"£"}
                 />
-                <CustomTD
-                  number={year.three}
-                  targetYearHit={targetYearHit}
-                  currency={"£"}
-                />
+                {width >= 768 && (
+                  <CustomTD
+                    number={year.three}
+                    targetYearHit={targetYearHit}
+                    currency={"£"}
+                  />
+                )}
                 <CustomTD
                   number={year.five}
                   targetYearHit={targetYearHit}
                   currency={"£"}
                 />
-                <CustomTD
-                  number={year.seven}
-                  targetYearHit={targetYearHit}
-                  currency={"£"}
-                />
-                <CustomTD
-                  number={year.ten}
-                  targetYearHit={targetYearHit}
-                  currency={"£"}
-                />
+                {width >= 768 && (
+                  <CustomTD
+                    number={year.seven}
+                    targetYearHit={targetYearHit}
+                    currency={"£"}
+                  />
+                )}
+                {width >= 768 && (
+                  <CustomTD
+                    number={year.ten}
+                    targetYearHit={targetYearHit}
+                    currency={"£"}
+                  />
+                )}
 
                 {year.monthlyAdd > 0 && (
                   <CustomTD
