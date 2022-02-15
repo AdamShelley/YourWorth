@@ -16,7 +16,7 @@ const PortfolioContainer = styled.div`
   justify-content: flex-start;
   min-height: 100vh;
   min-width: 100vw;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
 
   h2 {
     font-size: 3rem;
@@ -57,7 +57,10 @@ const PortfolioContainer = styled.div`
 
   @media screen and (max-width: 425px) {
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--light-gray);
+      margin-top: 2rem;
     }
   }
 

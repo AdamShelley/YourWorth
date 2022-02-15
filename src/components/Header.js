@@ -98,6 +98,18 @@ const StyledHeader = styled.div`
   @media screen and (max-width: 425px) {
     nav {
       flex-direction: column;
+
+      ul {
+        margin-top: 1rem;
+
+        li {
+          padding: 0.3rem;
+        }
+        li a,
+        .logout-button {
+          font-size: 0.7rem;
+        }
+      }
     }
   }
 

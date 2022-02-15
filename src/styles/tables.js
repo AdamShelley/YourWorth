@@ -141,11 +141,11 @@ const StyledTable = styled.table`
 
   @media screen and (max-width: 768px) {
     th {
-      font-size: 0.5rem;
+      font-size: 0.7rem;
     }
 
     td {
-      font-size: 0.5rem;
+      font-size: 0.6rem;
       padding: 0.5rem 0.2rem;
     }
   }
@@ -154,13 +154,26 @@ const StyledTable = styled.table`
     width: 98%;
     overflow: scroll;
     padding: 0.5rem;
+    font-size: 0.8rem;
 
     th {
       padding: 0.2rem 0.1rem;
     }
 
     td {
-      padding: 0.5rem 0.1rem;
+      font-size: 0.6rem;
+      /* padding: 1rem 0.5rem; */
+
+      .box {
+        margin: 0 0.1rem;
+        display: flex;
+      }
+    }
+
+    .box-buttons {
+      height: 100%;
+      align-items: center;
+      justify-content: center;
     }
   }
 

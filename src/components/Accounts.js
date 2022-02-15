@@ -184,7 +184,7 @@ const Accounts = ({
   };
 
   return (
-    <StyledTable tlayout>
+    <StyledTable tlayout className="account-manager">
       {/* <caption>Accounts</caption> */}
       <thead>
         <tr>

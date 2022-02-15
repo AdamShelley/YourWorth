@@ -92,6 +92,31 @@ const StyledInputContainer = styled.div`
   }
 
   @media screen and (max-width: 425px) {
+    width: 95%;
+    padding: 1rem 0.5rem;
+    margin-top: 5rem;
+
+    > div {
+      align-items: flex-end;
+
+      > div {
+        justify-content: space-between;
+
+        label {
+          width: 95%;
+          font-size: 0.8rem;
+          /* align-self: flex-start; */
+        }
+        input {
+          width: 95%;
+          margin-top: 0.2rem;
+        }
+      }
+
+      > button {
+        width: 30%;
+      }
+    }
   }
 
   @media screen and (max-width: 375px) {
@@ -260,9 +285,9 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
             {width >= 768 && <th>Year</th>}
             <th>Age</th>
             <th>Total</th>
-            {width >= 768 && <th>3%</th>}
+            <th>3%</th>
             <th>5%</th>
-            {width >= 768 && <th>7%</th>}
+            <th>7%</th>
             {width >= 768 && <th>10%</th>}
             <th>Monthly</th>
           </tr>
@@ -294,25 +319,25 @@ const Calculations = ({ data, updateCalcs, accountInformation }) => {
                   targetYearHit={targetYearHit}
                   currency={"£"}
                 />
-                {width >= 768 && (
-                  <CustomTD
-                    number={year.three}
-                    targetYearHit={targetYearHit}
-                    currency={"£"}
-                  />
-                )}
+
+                <CustomTD
+                  number={year.three}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+
                 <CustomTD
                   number={year.five}
                   targetYearHit={targetYearHit}
                   currency={"£"}
                 />
-                {width >= 768 && (
-                  <CustomTD
-                    number={year.seven}
-                    targetYearHit={targetYearHit}
-                    currency={"£"}
-                  />
-                )}
+
+                <CustomTD
+                  number={year.seven}
+                  targetYearHit={targetYearHit}
+                  currency={"£"}
+                />
+
                 {width >= 768 && (
                   <CustomTD
                     number={year.ten}
