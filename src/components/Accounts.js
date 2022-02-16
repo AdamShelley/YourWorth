@@ -143,6 +143,7 @@ const Accounts = ({
 
   // Toggle the modal and store selected account
   const editAccount = (acc) => {
+    console.log("clicked edit");
     Toggle();
     setAccountSelected(acc);
   };
@@ -184,14 +185,14 @@ const Accounts = ({
   };
 
   return (
-    <StyledTable tlayout className="account-manager">
+    <StyledTable tlayout accountManager>
       {/* <caption>Accounts</caption> */}
       <thead>
         <tr>
           <th>Account</th>
           <th>Type</th>
           <th>% of Portfolio</th>
-          <th style={{ textAlign: "right" }}>Amount</th>
+          <th style={{ textAlign: "right" }}>Balance</th>
           {portfolioPage && <th></th>}
         </tr>
       </thead>
@@ -206,7 +207,10 @@ const Accounts = ({
           );
 
           return (
-            <tr key={`row-${index}`}>
+            <tr
+              key={`row-${index}`}
+              onClick={width <= 425 ? () => editAccount(account) : undefined}
+            >
               <td>{account.name}</td>
               <td>{account.category}</td>
               <td style={{ textAlign: "center" }}>
@@ -215,22 +219,38 @@ const Accounts = ({
               <td style={{ textAlign: "right" }}>£{number}</td>
               {portfolioPage && (
                 <>
-                  <td className="box-buttons">
+                  <td
+                    className="box-buttons"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {index !== deleteIndex && (
                       <>
-                        <div
-                          className="box edit-box"
-                          onClick={() => editAccount(account)}
-                        >
-                          Edit
-                        </div>
-                        <span className="box box-sep">|</span>
-                        <div
-                          className="box delete-box"
-                          onClick={() => startDeletion(index)}
-                        >
-                          Delete
-                        </div>
+                        {width > 425 && (
+                          <>
+                            <div
+                              className="box edit-box"
+                              onClick={() => editAccount(account)}
+                            >
+                              Edit
+                            </div>
+                            <span className="box box-sep">|</span>{" "}
+                          </>
+                        )}
+                        {width <= 425 ? (
+                          <i
+                            className="fa-solid fa-trash-can"
+                            onClick={() => startDeletion(index)}
+                          >
+                            BIN
+                          </i>
+                        ) : (
+                          <div
+                            className="box delete-box"
+                            onClick={() => startDeletion(index)}
+                          >
+                            Delete
+                          </div>
+                        )}
                       </>
                     )}
                     {confirmDeletion && index === deleteIndex && (

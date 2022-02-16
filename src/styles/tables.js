@@ -98,6 +98,13 @@ const StyledTable = styled.table`
   .target-year-hit-box {
   }
 
+  i {
+    color: var(--cultured-2);
+    height: 1.5rem;
+    width: 1.5rem;
+    z-index: 42;
+  }
+
   .delete-account-btn {
     border: none;
     cursor: pointer;
@@ -161,8 +168,8 @@ const StyledTable = styled.table`
     }
 
     td {
-      font-size: 0.6rem;
-      /* padding: 1rem 0.5rem; */
+      font-size: ${(props) => (props.accountManager ? "0.7rem" : "0.6rem")};
+      padding: ${(props) => (props.accountManager ? "1rem .5rem" : null)};
 
       .box {
         margin: 0 0.1rem;
@@ -172,6 +179,7 @@ const StyledTable = styled.table`
 
     .box-buttons {
       height: 100%;
+
       align-items: center;
       justify-content: center;
     }

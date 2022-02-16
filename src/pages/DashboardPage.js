@@ -113,6 +113,11 @@ const GraphContainer = styled.div`
   }
 
   @media screen and (max-width: 425px) {
+    width: 100%;
+
+    font-size: 0.8rem;
+    transform: translateX(-1rem);
+
     > div {
       max-width: 100%;
     }
