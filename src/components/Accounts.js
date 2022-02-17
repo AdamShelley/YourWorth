@@ -241,7 +241,7 @@ const Accounts = ({
                             className="fa-solid fa-trash-can"
                             onClick={() => startDeletion(index)}
                           >
-                            BIN
+                            X
                           </i>
                         ) : (
                           <div

@@ -162,10 +162,40 @@ const SignupContainer = styled.div`
   }
 
   @media screen and (max-width: 425px) {
-    width: 90%;
+    width: 70%;
+    background-color: transparent;
+    border-top: none;
 
     .signup-container-content {
       padding: 0.5rem;
+
+      h2 {
+        color: var(--light-gray);
+      }
+
+      > form > div {
+        margin-top: 0;
+      }
+
+      > form > button {
+        margin-top: 2rem;
+        /* border: 1px solid var(--cultured-2); */
+        background-color: var(--card-header);
+        width: 70%;
+        align-self: center;
+      }
+    }
+
+    .login-button:disabled {
+      /* background-color: var(--cultured); */
+      background-color: var(--card-header);
+      cursor: not-allowed;
+      color: var(--cards);
+    }
+
+    .switch-button-container {
+      background-color: transparent;
+      box-shadow: none;
     }
   }
 
