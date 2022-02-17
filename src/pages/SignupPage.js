@@ -170,11 +170,23 @@ const SignupContainer = styled.div`
       padding: 0.5rem;
 
       h2 {
-        color: var(--light-gray);
+        color: var(--cultured);
+        font-size: 1.2rem;
+        align-self: flex-start;
+        font-weight: 300;
       }
 
       > form > div {
-        margin-top: 0;
+        margin-top: 2rem;
+
+        input {
+          font-size: 1rem;
+          font-weight: 800;
+        }
+
+        label {
+          color: var(--cultured-2);
+        }
       }
 
       > form > button {
@@ -319,7 +331,9 @@ const SignupPage = () => {
         {!loading && (
           <>
             <div className="signup-container-content">
-              <h2>{loginMode ? "Welcome back!" : "Signup"}</h2>
+              <h2>
+                {loginMode ? "Sign in to your account" : "Create your account"}
+              </h2>
               <form onSubmit={submitHandler}>
                 {!loginMode && (
                   <Input
