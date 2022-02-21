@@ -59,6 +59,8 @@ const Accounts = ({
   const { sendRequest, loading } = useFetchHook();
   const { height, width } = useWindowDimensions();
 
+  console.log(width);
+
   const [formState, inputHandler] = useForm(
     {
       name: {
@@ -236,6 +238,7 @@ const Accounts = ({
                             <span className="box box-sep">|</span>{" "}
                           </>
                         )}
+
                         {width <= 425 ? (
                           <i
                             className="fa-solid fa-trash-can"
@@ -259,7 +262,7 @@ const Accounts = ({
                         className="box delete-account-btn"
                         onClick={() => confirmDeleteAccount(account)}
                       >
-                        Click to confirm
+                        {width >= 425 ? "Click to confirm" : "Confirm"}
                       </button>
                     )}
                   </td>

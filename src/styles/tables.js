@@ -162,14 +162,19 @@ const StyledTable = styled.table`
     overflow: scroll;
     padding: 0.5rem;
     font-size: 0.8rem;
+    margin-top: 3rem;
 
     th {
-      padding: 0.2rem 0.1rem;
+      padding: ${(props) => (props.accountManager ? ".5rem" : null)};
     }
 
     td {
       font-size: ${(props) => (props.accountManager ? "0.7rem" : "0.6rem")};
       padding: ${(props) => (props.accountManager ? "1rem .5rem" : null)};
+
+      button {
+        font-size: 0.6rem;
+      }
 
       .box {
         margin: 0 0.1rem;
@@ -178,10 +183,10 @@ const StyledTable = styled.table`
     }
 
     .box-buttons {
-      height: 100%;
-
-      align-items: center;
-      justify-content: center;
+      i {
+        font-size: 1rem;
+        color: var(--cultured-2);
+      }
     }
   }
 

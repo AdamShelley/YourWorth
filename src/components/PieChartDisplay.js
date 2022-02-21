@@ -87,14 +87,15 @@ const PieChartDisplay = ({ accounts }) => {
   };
 
   const renderLabel = (entry) => {
+    console.log("rendering label");
     return `${entry.name}: ${entry.balance}`;
   };
 
   return (
-    <ResponsiveContainer width="100%" height="75%">
+    <ResponsiveContainer width="95%" height={300}>
       <PieChart align="center">
         <Pie
-          label={width <= 1000 ? renderLabel : null}
+          label={width <= 768 ? renderLabel : null}
           dataKey="balance"
           data={accounts}
           labelLine={false}
@@ -105,8 +106,9 @@ const PieChartDisplay = ({ accounts }) => {
           fill="var(--cultured-2)"
           animationDuration={animationDuration}
           activeIndex={activeIndex}
-          activeShape={width > 1000 ? renderActiveShape : null}
+          activeShape={width >= 768 ? renderActiveShape : null}
           onMouseEnter={onPieEnter}
+          isAnimationActive={false}
         />
       </PieChart>
     </ResponsiveContainer>
