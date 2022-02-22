@@ -86,22 +86,45 @@ const PieChartDisplay = ({ accounts }) => {
     setActiveIndex(index);
   };
 
-  const renderLabel = (entry) => {
-    console.log("rendering label");
-    return `${entry.name}: ${entry.balance}`;
+  const renderLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    payload,
+    percent,
+    index,
+  }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="var(--cards)"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
   };
 
   return (
-    <ResponsiveContainer width="95%" height={300}>
+    <ResponsiveContainer width="100%" height="100%">
       <PieChart align="center">
         <Pie
           label={width <= 768 ? renderLabel : null}
+          labelLine={false}
           dataKey="balance"
           data={accounts}
-          labelLine={false}
           cx="50%"
           cy="50%"
-          innerRadius={80}
+          innerRadius={width <= 768 ? 0 : 100}
           stroke="var(--gunmetal)"
           fill="var(--cultured-2)"
           animationDuration={animationDuration}
