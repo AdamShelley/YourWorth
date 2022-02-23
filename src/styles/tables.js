@@ -163,6 +163,7 @@ const StyledTable = styled.table`
     padding: 0.5rem;
     font-size: 0.8rem;
     margin-top: 3rem;
+    table-layout: auto;
 
     th {
       padding: ${(props) => (props.accountManager ? ".5rem" : null)};
@@ -182,10 +183,21 @@ const StyledTable = styled.table`
       }
     }
 
+    td:first-child {
+      width: 100%;
+    }
+
     .box-buttons {
-      i {
-        font-size: 1rem;
-        color: var(--cultured-2);
+      min-height: 100%;
+
+      svg {
+        width: 0.8rem;
+        height: 0.8rem;
+        fill: var(--light-gray);
+
+        &:hover {
+          fill: var(--cultured-2);
+        }
       }
     }
   }

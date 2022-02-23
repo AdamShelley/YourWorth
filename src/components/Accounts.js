@@ -8,6 +8,7 @@ import { useForm } from "../hooks/form-hook";
 import { AuthenticationContext } from "../context/authenticate-context";
 import useWindowDimensions from "../hooks/window-hook";
 import Input from "./Input";
+import { ReactComponent as Trash } from "../images/trash.svg";
 
 const ModalContent = styled.div`
   display: flex;
@@ -240,12 +241,7 @@ const Accounts = ({
                         )}
 
                         {width <= 425 ? (
-                          <i
-                            className="fa-solid fa-trash-can"
-                            onClick={() => startDeletion(index)}
-                          >
-                            X
-                          </i>
+                          <Trash onClick={() => startDeletion(index)} />
                         ) : (
                           <div
                             className="box delete-box"

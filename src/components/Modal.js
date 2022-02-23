@@ -138,6 +138,14 @@ const ModalStylesContainer = styled.div`
   }
 
   @media screen and (max-width: 425px) {
+    .modalContainer .modal {
+      width: 95%;
+      padding: 0.5rem;
+
+      td {
+        padding-left: 1rem !important;
+      }
+    }
   }
 
   @media screen and (max-width: 375px) {
