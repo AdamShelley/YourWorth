@@ -134,7 +134,7 @@ const AccountPageStyles = styled.div`
 
   @media screen and (max-width: 768px) {
     .settings-section {
-      margin-top: 4rem !important;
+      margin-top: 4rem;
       display: flex;
       flex-direction: column;
       align-items: center !important;
@@ -161,11 +161,24 @@ const AccountPageStyles = styled.div`
 
   @media screen and (max-width: 425px) {
     margin-top: 0;
-    padding: 0rem !important;
+    padding: 1rem 0;
+
+    form {
+      margin-bottom: 3rem;
+    }
 
     .settings-section {
+      margin: 5rem 0;
+
       > div {
         width: 100% !important;
+        display: flex;
+      }
+
+      h4 {
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 100;
       }
     }
 
@@ -356,7 +369,6 @@ const AccountPage = ({ userId }) => {
           <form onSubmit={submitUpdate}>
             <div className="settings-section">
               <h4>Account</h4>
-
               <div>
                 <Input
                   id="name"
