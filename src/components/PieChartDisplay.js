@@ -105,7 +105,7 @@ const PieChartDisplay = ({ accounts }) => {
       <text
         x={x}
         y={y}
-        fill="var(--cards)"
+        fill="var(--gunmetal)"
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >

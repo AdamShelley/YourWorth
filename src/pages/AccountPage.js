@@ -163,6 +163,11 @@ const AccountPageStyles = styled.div`
     margin-top: 0;
     padding: 1rem 0;
 
+    h1 {
+      text-align: center;
+      color: var(--cultured-2);
+    }
+
     form {
       margin-bottom: 3rem;
     }
@@ -176,9 +181,13 @@ const AccountPageStyles = styled.div`
       }
 
       h4 {
-        text-align: center;
-        font-size: 0.9rem;
-        font-weight: 100;
+        line-height: 2;
+        width: 100% !important;
+        text-align: left;
+        font-size: 1.1rem !important;
+        font-weight: 100 !important;
+        padding: 0 2rem;
+        color: var(--light-gray);
       }
     }
 
