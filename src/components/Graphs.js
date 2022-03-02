@@ -67,6 +67,19 @@ const StyledTooltip = styled.div`
   p:first-child {
     padding-right: 2rem;
   }
+
+  @media screen and (max-width: 425px) {
+    padding: 0.7rem;
+
+    h5 {
+      font-size: 0.9rem;
+      color: var(--cultured);
+    }
+
+    p {
+      font-size: 0.7rem;
+    }
+  }
 `;
 
 const Graphs = ({
@@ -177,7 +190,7 @@ const Graphs = ({
       <StyledGraphContainer>
         <h3>{title}</h3>
         {!projected ? (
-          <ResponsiveContainer width="95%" height="95%">
+          <ResponsiveContainer width="100%" height="95%">
             <AreaChart
               width={600}
               height={300}
@@ -207,7 +220,7 @@ const Graphs = ({
                 dataKey="displayDate"
                 stroke="var(--light-gray)"
                 allowDuplicatedCategory={false}
-                interval={1}
+                interval={2}
                 dy={10}
                 padding={{ left: 5, right: 5 }}
                 tick={{ fontSize: "0.8rem", fontWeight: "800" }}
@@ -248,7 +261,7 @@ const Graphs = ({
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <ResponsiveContainer width="95%" height="95%">
+          <ResponsiveContainer width="100%" height="95%">
             <LineChart
               width={600}
               height={300}

@@ -69,7 +69,7 @@ const PortfolioContainer = styled.div`
 `;
 
 const PieChartContainer = styled.div`
-  margin-top: 5rem;
+  margin-top: 3rem;
   height: 25rem;
   width: 100vw;
   font-family: "Open Sans", serif;

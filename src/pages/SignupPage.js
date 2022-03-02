@@ -189,6 +189,12 @@ const SignupContainer = styled.div`
         }
       }
 
+      p {
+        color: var(--cultured-2);
+        text-align: center;
+        margin-top: 1rem;
+      }
+
       > form > button {
         margin-top: 2rem;
         /* border: 1px solid var(--cultured-2); */
