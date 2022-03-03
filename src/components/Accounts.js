@@ -60,8 +60,6 @@ const Accounts = ({
   const { sendRequest, loading } = useFetchHook();
   const { height, width } = useWindowDimensions();
 
-  console.log(width);
-
   const [formState, inputHandler] = useForm(
     {
       name: {

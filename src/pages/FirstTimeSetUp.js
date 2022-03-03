@@ -306,10 +306,10 @@ const FirstTimeSetUp = () => {
   const { sendRequest } = useFetchHook();
   const [formState, inputHandler] = useForm(
     {
-      netWorth: {
-        value: "",
-        valid: false,
-      },
+      // netWorth: {
+      //   value: "",
+      //   valid: false,
+      // },
       targetWorth: { value: "", valid: false },
       targetAge: { value: "", valid: false },
       currentAge: {
@@ -335,7 +335,7 @@ const FirstTimeSetUp = () => {
         "PATCH",
         JSON.stringify({
           userId: auth.userId,
-          netWorth: formState.inputs.netWorth.value,
+          // netWorth: formState.inputs.netWorth.value,
           targetWorth: formState.inputs.targetWorth.value,
           currentAge: formState.inputs.currentAge.value,
           targetAge: formState.inputs.targetAge.value,
@@ -382,7 +382,7 @@ const FirstTimeSetUp = () => {
           <section>
             <h4>Please provide the following information.</h4>
             <div>
-              <Input
+              {/* <Input
                 id="netWorth"
                 label="What is your current Net Worth?"
                 dataType="number"
@@ -392,7 +392,7 @@ const FirstTimeSetUp = () => {
                 initialValue={formState.inputs.netWorth.value}
                 initialValid={formState.inputs.netWorth.valid}
                 darkInput
-              />
+              /> */}
               <Input
                 id="targetWorth"
                 label="What is your target Net Worth?"
@@ -462,7 +462,7 @@ const FirstTimeSetUp = () => {
             <h2>Confirm your details</h2>
 
             <ul>
-              <li>
+              {/* <li>
                 <p>Current Net Worth</p>
                 <p>
                   {formState.inputs.netWorth.value ? (
@@ -471,7 +471,7 @@ const FirstTimeSetUp = () => {
                     <span>Missing</span>
                   )}
                 </p>
-              </li>
+              </li> */}
               <li>
                 <p>Target Net Worth</p>
                 <p>

@@ -135,13 +135,26 @@ const PortfolioPage = ({ userId }) => {
   const { sendRequest } = useFetchHook();
 
   useEffect(() => {
-    if (loadedUser?.accounts)
+    const data = JSON.parse(localStorage.getItem("calculations"));
+    console.log("Loading from localStorage");
+    if (data?.length > 1) setCalculatedProjections(data);
+  }, []);
+
+  useEffect(() => {
+    if (loadedUser?.accounts && calculatedProjections.length < 1) {
       if (dataSet !== undefined) {
+        console.log("Calculating fresh");
         setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
       } else {
+        console.log("Calculating fresh 2");
         setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
       }
-  }, [dataSet, loadedUser, monthlyAdd, setLoadedUser]);
+    }
+  }, [dataSet, loadedUser, monthlyAdd, setLoadedUser, calculatedProjections]);
+
+  useEffect(() => {
+    localStorage.setItem("calculations", JSON.stringify(calculatedProjections));
+  }, [calculatedProjections]);
 
   // Get user by Id
   useEffect(() => {
@@ -224,8 +237,6 @@ const PortfolioPage = ({ userId }) => {
       }));
     }
   };
-
-  // console.log(loadedUser);
 
   return (
     <PortfolioContainer>
