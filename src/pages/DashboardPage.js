@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import AccountManager from "../components/AccountManager";
-import Calculations from "../components/Calculations";
+// import Calculations from "../components/Calculations";
 import PieChartDisplay from "../components/PieChartDisplay";
 import Graphs from "../components/Graphs";
 // import Loader from "react-loader-spinner";
 import { commaValue } from "../helpers/commaValue";
 import { calculateProjections } from "../helpers/calculateProjections";
 import { useFetchHook } from "../hooks/fetch-hook";
+
+const Calculations = React.lazy(() => import("../components/Calculations"));
 
 const PortfolioContainer = styled.div`
   display: flex;

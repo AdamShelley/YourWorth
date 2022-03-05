@@ -399,12 +399,15 @@ const SignupPage = () => {
           </>
         )}
         {loading && (
-          <Loader
-            type="Rings"
-            color="var(--background)"
-            height={"100%"}
-            width={"100%"}
-          />
+          <>
+            <Loader
+              type="Rings"
+              color="var(--background)"
+              height={"100%"}
+              width={"100%"}
+            />
+            <p>Please wait - Spinning up database</p>
+          </>
         )}
       </SignupContainer>
     </SignupPageStyles>
