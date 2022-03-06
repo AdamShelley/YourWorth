@@ -406,7 +406,9 @@ const SignupPage = () => {
               height={"100%"}
               width={"100%"}
             />
-            <p>Please wait - Spinning up database</p>
+            <p style={{ textAlign: "center", padding: "1rem" }}>
+              Please wait - Spinning up database
+            </p>
           </>
         )}
       </SignupContainer>
