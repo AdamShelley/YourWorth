@@ -98,14 +98,15 @@ const PieChartDisplay = ({ accounts }) => {
   }) => {
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1.4;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.5;
 
     return (
       <text
         x={x}
         y={y}
         fill="var(--gunmetal)"
+        fontSize={"1.2rem"}
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
