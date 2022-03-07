@@ -26,7 +26,6 @@ const standardizeData = (data, lastUpdated) => {
 
 // Sort through all previous data snapshots and arrange for the graph
 const getPrevData = (data) => {
-  // console.log(data);
   const prevDataArray = [];
 
   data.forEach((item) => {

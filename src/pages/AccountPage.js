@@ -323,7 +323,6 @@ const AccountPage = ({ userId }) => {
   };
 
   const resetAccountData = async () => {
-    console.log("Reset account data");
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_ADDRESS}/users/d`,
@@ -344,8 +343,6 @@ const AccountPage = ({ userId }) => {
   };
 
   const deleteAccount = async () => {
-    console.log("Delete account");
-
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_ADDRESS}/users/destroy`,

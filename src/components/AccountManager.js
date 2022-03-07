@@ -58,7 +58,7 @@ const AccountManager = ({
   const [loadedAccounts, setLoadedAccounts] = useState(accounts);
   const { sendRequest, loading } = useFetchHook();
   const auth = useContext(AuthenticationContext);
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -117,14 +117,10 @@ const AccountManager = ({
         }
       );
 
-      console.log(response);
-
       closeModal();
       setLoadedAccounts([...loadedAccounts, response.user]);
       updateNetWorth([...loadedAccounts, response.user]);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const onDeleteHandler = (deletedAccId) => {
@@ -189,9 +185,7 @@ const AccountManager = ({
       setLoadedAccounts(newAccountBalance);
       setAdvanceModal(false);
       preventScroll();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const updateAccountList = (accounts) => {

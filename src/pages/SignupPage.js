@@ -286,7 +286,7 @@ const SignupPage = () => {
             "Content-Type": "application/json",
           }
         );
-        console.log(responseData);
+
         auth.login(
           responseData.userId,
           responseData.token,
@@ -318,8 +318,6 @@ const SignupPage = () => {
             "Content-Type": "application/json",
           }
         );
-
-        console.log(responseData);
 
         // redirect to homepage or settings
         auth.login(responseData.userId, responseData.token, true);

@@ -5,7 +5,7 @@ import { PieChart, Pie, ResponsiveContainer, Sector } from "recharts";
 const PieChartDisplay = ({ accounts }) => {
   let animationDuration = 300;
   const [activeIndex, setActiveIndex] = useState(0);
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   // Outline effect courtesy of Recharts Example.
   const renderActiveShape = (props) => {
@@ -106,17 +106,17 @@ const PieChartDisplay = ({ accounts }) => {
         x={x}
         y={y}
         fill="var(--gunmetal)"
-        fontSize={"1.2rem"}
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
+        style={{ fontSize: "1.2rem", fontWeight: "300" }}
       >
-        {`${(percent * 100).toFixed(0)}%`}
+        {`${payload.name} :  ${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height={400}>
       <PieChart align="center">
         <Pie
           label={width <= 768 ? renderLabel : null}

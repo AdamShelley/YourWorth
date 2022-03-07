@@ -8,6 +8,7 @@ import Graphs from "../components/Graphs";
 import { commaValue } from "../helpers/commaValue";
 import { calculateProjections } from "../helpers/calculateProjections";
 import { useFetchHook } from "../hooks/fetch-hook";
+import useWindowDimensions from "../hooks/window-hook";
 
 const Calculations = React.lazy(() => import("../components/Calculations"));
 
@@ -135,20 +136,19 @@ const PortfolioPage = ({ userId }) => {
   const [calculatedProjections, setCalculatedProjections] = useState([]);
   const [monthlyAdd, setMonthlyAdd] = useState();
   const { sendRequest } = useFetchHook();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("calculations"));
-    console.log("Loading from localStorage");
+
     if (data?.length > 1) setCalculatedProjections(data);
   }, []);
 
   useEffect(() => {
     if (loadedUser?.accounts && calculatedProjections.length < 1) {
       if (dataSet !== undefined) {
-        console.log("Calculating fresh");
         setCalculatedProjections(calculateProjections(dataSet, monthlyAdd));
       } else {
-        console.log("Calculating fresh 2");
         setCalculatedProjections(calculateProjections(loadedUser, monthlyAdd));
       }
     }
@@ -193,7 +193,6 @@ const PortfolioPage = ({ userId }) => {
   };
 
   const updateLoadedUser = (accounts, accId, deletion) => {
-    console.log(accounts);
     let findAcc;
     if (deletion === true) {
       findAcc = accounts.filter((acc) => acc._id === accId);
@@ -211,8 +210,6 @@ const PortfolioPage = ({ userId }) => {
   };
 
   const updateNetWorth = (accounts, netWorth) => {
-    console.log("Updating net worth");
-
     // Update networth straight from backend
     if (accounts === null) {
       setLoadedUser((prevState) => ({
@@ -255,18 +252,14 @@ const PortfolioPage = ({ userId }) => {
           </p>
 
           {/* Pie Chart Section */}
-          {loadedUser.accounts.length > 0 ? (
+          {loadedUser.accounts.length > 0 && width > 425 && (
             <PieChartContainer>
               <PieChartDisplay accounts={loadedUser?.accounts} />
             </PieChartContainer>
-          ) : (
-            <p>Start by adding accounts </p>
           )}
-          {/* {loadedUser.lastUpdated && (
-            <p className="last-value">
-              Value as of {loadedUser.lastUpdated.split("T")[0]}
-            </p>
-          )} */}
+
+          {loadedUser.accounts.length < 0 && <p>Start by adding accounts </p>}
+
           {/* Account Section */}
           <AccountManager
             accounts={loadedUser?.accounts}

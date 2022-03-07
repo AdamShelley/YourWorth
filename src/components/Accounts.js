@@ -58,7 +58,7 @@ const Accounts = ({
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState();
   const { sendRequest, loading } = useFetchHook();
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [formState, inputHandler] = useForm(
     {
@@ -144,7 +144,6 @@ const Accounts = ({
 
   // Toggle the modal and store selected account
   const editAccount = (acc) => {
-    console.log("clicked edit");
     Toggle();
     setAccountSelected(acc);
   };

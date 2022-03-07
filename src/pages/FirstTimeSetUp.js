@@ -355,7 +355,6 @@ const FirstTimeSetUp = () => {
 
       history.go("/dashboard");
     } catch (err) {
-      console.log("Setup submit clicked but theres an error");
       console.log(err);
     }
   };

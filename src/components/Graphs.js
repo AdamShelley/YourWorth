@@ -6,7 +6,6 @@ import {
   Area,
   LineChart,
   YAxis,
-  Legend,
   Line,
   ReferenceLine,
   Label,
@@ -94,17 +93,9 @@ const Graphs = ({
 }) => {
   // Functions to format data from Data array for Recharts
 
-  // const lastUpdate = lastUpdated.split("T")[0];
-
-  // const newData = standardizeData(data, lastUpdate);
   const prevData = getPrevData(prevAccountDataSnapshots);
 
-  // Sort the data by date
-  // const finalData = newData.concat(prevData);
-  // finalData.sort((a, b) => (a.date > b.date ? 1 : -1));
   prevData.sort((a, b) => (a.date > b.date ? 1 : -1));
-
-  // console.log(newData);
 
   const setColor = (num) => {
     switch (num) {
@@ -190,7 +181,7 @@ const Graphs = ({
       <StyledGraphContainer>
         <h3>{title}</h3>
         {!projected ? (
-          <ResponsiveContainer width="100%" height="95%">
+          <ResponsiveContainer width="100%" height={300}>
             <AreaChart
               width={600}
               height={300}
@@ -261,7 +252,7 @@ const Graphs = ({
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <ResponsiveContainer width="100%" height="95%">
+          <ResponsiveContainer width="100%" height={300}>
             <LineChart
               width={600}
               height={300}

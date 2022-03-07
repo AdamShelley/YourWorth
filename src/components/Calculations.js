@@ -5,7 +5,6 @@ import useWindowDimensions from "../hooks/window-hook";
 import Input from "../components/Input.js";
 import { ButtonStyled } from "../styles/inputStyles";
 import { useForm } from "../hooks/form-hook";
-import { useCallback } from "react";
 
 const StyledInputContainer = styled.div`
   display: flex;
@@ -126,7 +125,7 @@ const StyledInputContainer = styled.div`
 const Calculations = ({ data, updateCalcs, accountInformation }) => {
   const { ageToRetire, drawDownAmount, targetWorth, monthlyIncrease } =
     accountInformation;
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const [resetTriggered, setResetTriggered] = useState(false);
 

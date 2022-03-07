@@ -164,7 +164,6 @@ const inputReducer = (state, action) => {
         isBlurred: true,
       };
     case "RESET":
-      console.log("Resetting");
       return {
         ...state,
       };
@@ -200,7 +199,7 @@ const Input = ({
 
   const resetCheck = useCallback(() => {
     if (reset === true) resetFalse();
-  }, [reset]);
+  }, [reset, resetFalse]);
 
   useEffect(() => {
     onInput(id, value, valid);
@@ -221,8 +220,6 @@ const Input = ({
       type: "BLUR",
     });
   };
-
-  // console.log(inputState.value);
 
   let input;
   if (dropDown) {
