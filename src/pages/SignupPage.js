@@ -27,12 +27,12 @@ const SignupContainer = styled.div`
   flex-direction: column;
   width: 28rem;
   /* height: 40rem; */
-  background-color: var(--cultured);
+  background-color: transparent;
 
   font-family: "Open Sans", serif;
-  color: var(--gunmetal);
+  color: var(--cultured-2);
   border-radius: 3px;
-  border-top: 8px solid var(--card-header);
+  /* border-top: 8px solid var(--card-header); */
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 
@@ -48,7 +48,7 @@ const SignupContainer = styled.div`
     font-size: 1.4rem;
     font-weight: 400;
     letter-spacing: 0.5px;
-    color: var(--card-header);
+    color: var(--cultured);
   }
 
   form {
@@ -57,7 +57,7 @@ const SignupContainer = styled.div`
     width: 100%;
 
     label {
-      color: var(--gunmetal);
+      color: var(--cultured-2);
     }
   }
 
@@ -100,7 +100,7 @@ const SignupContainer = styled.div`
 
   .login-button {
     margin-top: 4rem;
-    background-color: var(--cards);
+    background-color: var(--card-header);
     color: var(--cultured);
 
     &:hover {
@@ -114,7 +114,7 @@ const SignupContainer = styled.div`
   }
 
   .switch-button-container {
-    background-color: var(--card-header);
+    background-color: transparent;
     width: 100%;
     min-height: 5rem;
     height: 100%;
@@ -124,7 +124,6 @@ const SignupContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 2px 1px rgba(255, 255, 255, 0.3);
   }
 
   .switch-button {
@@ -163,7 +162,6 @@ const SignupContainer = styled.div`
 
   @media screen and (max-width: 425px) {
     width: 70%;
-    background-color: transparent;
     border-top: none;
 
     .signup-container-content {
@@ -329,6 +327,33 @@ const SignupPage = () => {
     }
   };
 
+  const loginTestAccount = async () => {
+    try {
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_ADDRESS}/users/login`,
+        "POST",
+        JSON.stringify({ email: "testing@test.com", password: "test123456" }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+
+      auth.login(
+        responseData.userId,
+        responseData.token,
+        responseData.firstTimeUser
+      );
+
+      if (responseData.firstTimeUser) {
+        history.push("/setup");
+      } else {
+        history.push("/");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <SignupPageStyles>
       <SignupContainer>
@@ -368,14 +393,6 @@ const SignupPage = () => {
                   validators={[requiredValidator(), minLengthValidator(6)]}
                   onInput={inputHandler}
                 />
-                {/* <div className="helper-buttons">
-                  <div>
-                    <input type="radio" name="remember" id="remember" />
-                    <label htmlFor="remember">Remember me?</label>
-                  </div>
-
-                  <button>Forgot your password?</button>
-                </div> */}
 
                 <button
                   className="button login-button"
@@ -394,6 +411,12 @@ const SignupPage = () => {
                   : `Don't have an account? Sign up `}
               </button>
             </div>
+            <button
+              className="switch-button test-account"
+              onClick={loginTestAccount}
+            >
+              Test account for visitors
+            </button>
           </>
         )}
         {loading && (
@@ -404,7 +427,13 @@ const SignupPage = () => {
               height={"100%"}
               width={"100%"}
             />
-            <p style={{ textAlign: "center", padding: "1rem" }}>
+            <p
+              style={{
+                textAlign: "center",
+                padding: "1rem",
+                color: "var(--cultured-2)",
+              }}
+            >
               Please wait - Spinning up database
             </p>
           </>
