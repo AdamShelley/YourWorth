@@ -423,7 +423,7 @@ const SignupPage = () => {
           <>
             <Loader
               type="Rings"
-              color="var(--background)"
+              color="var(--cultured-2)"
               height={"100%"}
               width={"100%"}
             />
